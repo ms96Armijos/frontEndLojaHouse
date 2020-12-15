@@ -1,0 +1,129 @@
+
+.bbb_deals_featured {
+  width: 100%;
+  margin-top: 3%;
+}
+
+.bbb_deals_title {
+  position: absolute;
+  top: 27px;
+  left: 40px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #000000
+}
+
+.bbb_deals {
+  width: 50%;
+  margin-right: 7%;
+  padding-top: 35px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 35px;
+  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.3);
+  border-radius: 5px
+}
+
+.bbb_deals_title {
+  position: absolute;
+  top: 27px;
+  left: 40px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #000000
+}
+.bbb_deals_item_category a {
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.5)
+}
+
+.bbb_deals_item_price_a {
+  font-size: 14px;
+  font-weight: 400;
+  background-color: rgb(255, 255, 255);
+  color: rgba(0, 0, 0, 0.755)
+}
+
+.bbb_deals_item_name {
+  font-size: 24px;
+  font-weight: 400;
+  color: #000000
+}
+
+.bbb_deals_item_price {
+  font-size: 24px;
+  font-weight: 500;
+  color: #df3b3b
+}
+
+.available {
+  margin-top: 19px
+}
+
+.available_title {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: 400
+}
+
+.available_title span {
+  font-weight: 700
+}
+
+.sold_title {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 400
+}
+
+.sold_title span {
+  font-weight: 700
+}
+
+@media only screen and (max-width: 1199px) {
+  .bbb_deals_timer_box {
+      width: 150px
+  }
+
+  .bbb_deals_timer_unit {
+      font-size: 20px
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .bbb_deals {
+      width: 100%;
+      margin-right: 0px
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .bbb_deals {
+      padding-left: 15px;
+      padding-right: 15px
+  }
+
+  .bbb_deals_title {
+      left: 15px;
+      font-size: 16px
+  }
+
+  .bbb_deals_slider_nav_container {
+      right: 5px
+  }
+
+  .bbb_deals_item_name,
+  .bbb_deals_item_price {
+      font-size: 20px
+  }
+
+  .bbb_deals_item_category a,
+  .bbb_deals_item_price_a {
+      font-size: 12px
+  }
+
+  .bbb_deals_timer_unit {
+      font-size: 16px
+  }
+}

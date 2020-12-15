@@ -1,0 +1,94 @@
+  <div class="row animate fadeIn">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <input #input (keyup)="buscarInmuebles(input.value)" type="text" class="form-control"
+            placeholder="Buscar inmuebles...">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="text-right">
+
+            <a routerLink="/crearinmueble" class="btn btn-md btn-rounded btn-success" [routerLink]="['/crearinmueble','nuevo']"><b>
+                Crear Inmueble</b></a>
+          </div>
+          <h3 class="card-title">Inmuebles registrados(<small>{{_inmuebleService.totalInmuebles}}</small>)</h3>
+
+
+          <div class="container mt-5 mb-5">
+
+            <div class="row">
+              <div class="col-md-4" *ngFor="let inmueble of inmuebles">
+                  <div class="card">
+
+                    <div class="p-carousel" >
+                      <div class="carousel slide" data-ride="carousel" id="{{inmueble._id}}">
+                          <div class="carousel-inner" role="listbox">
+                            <div *ngFor="let avatar of inmueble.imagen; let i = index" class="carousel-item" [ngClass]="{'active': i===0}">
+                              <img style="width:310px; height:310px" [src]='avatar' class="img-responsive image">
+                            </div>
+                          </div>
+
+                          <div>
+                            <a class="carousel-control-prev" href="#{{inmueble._id}}" role="button"
+                            data-slide="prev"><span class="carousel-control-prev-icon"></span>
+                            <span class="sr-only">Previous</span></a><a class="carousel-control-next"
+                            href="#{{inmueble._id}}" role="button" data-slide="next"><span
+                            class="carousel-control-next-icon"></span><span class="sr-only">Next</span></a>
+                          </div>
+
+                      </div>
+                  </div>
+
+                  <div class="bbb_deals_item_price_a ml-auto"
+                  [ngStyle]="{'background-color':inmueble.estado == 'DISPONIBLE' ? '#007bff':'#fc4b6c'}">
+                  <b>{{inmueble.estado}}</b></div>
+
+                      <div class="card-body">
+                         <a [routerLink]="['/arrendador-ver-inmueble', inmueble._id]"><h5 class="card-title">{{inmueble.nombre}}</h5></a>
+                          <p class="card-text"><i class="fa fa-map-marker marker"></i> {{inmueble.direccion| limitTo : "28"}}</p>
+                          <p class="card-text" style="text-align: risght;">${{inmueble.precioalquiler}}</p>
+                      </div>
+
+                      <button (click)="publicarInmueble( inmueble )"
+                              [ngStyle]="{'background-color':inmueble.publicado == 'PUBLICO'? 'green':'red'}"
+                              class="btn btn-block btn-outline-light btn-rounded mb-2" [disabled]="inmueble.estado=='OCUPADO'">
+                              {{inmueble.publicado == 'PUBLICO' ? 'Publicado' : 'Publicar'}}</button>
+
+                      <div class="row">
+                          <div class="col-6">
+                          <button [routerLink]="['/crearinmueble', inmueble._id]"
+                                  class="btn btn-block btn-success"
+                                  [disabled]="inmueble.estado=='OCUPADO'"><abbr title="Editar inmueble"><i
+                                  class="fa fa-save"></i></abbr></button></div>
+                            <div class="col-6">
+                            <button (click)="borrarInmueble(inmueble)" class="btn btn-block btn-danger"
+                            [disabled]="inmueble.estado=='OCUPADO'"><abbr
+                                    title="Eliminar inmueble"><i class="fa fa-trash"></i></abbr></button></div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button (click)="cambiarPaginacion(-5)" class="btn btn-circle btn-lg btn-success mr-2"><</button>
+  <button (click)="cambiarPaginacion(5)" class="btn btn-circle btn-lg btn-success">></button>
+
+
+<!---<div *ngFor="let user of inmuebles" >
+  <div *ngFor="let avatar of user.imagen" >
+    <img src="{{avatar}}" alt="">
+  </div>
+</div>-->
+
+
+

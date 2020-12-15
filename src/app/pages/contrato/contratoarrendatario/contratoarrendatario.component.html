@@ -1,0 +1,55 @@
+<div class="container m-b-5">
+  <div class="row animate fadeIn">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <input #input (keyup)="buscarContratos(input.value)" type="text" class="form-control"
+            placeholder="Buscar contratos...">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">Contratos registrados (<small>{{_contratoService.totalContratos}}</small>)</h3>
+          <table class="table table-hover" style="width:100%">
+            <thead>
+              <tr>
+                <th style="text-align: center;"><b>Nombre del contrato</b></th>
+                <th style="text-align: center;"><b>Inicio del contrato</b></th>
+                <th style="text-align: center;"><b>Fin del contrato</b></th>
+                <th style="text-align: center;"><b>Estado</b></th>
+                <th style="text-align: center;"><b>Acciones</b></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let contrato of contratos">
+                <td>{{contrato.nombrecontrato}}</td>
+                <td style="text-align: center;">{{contrato.fechainicio|date:'dd-MM-yyyy'}}</td>
+                <td style="text-align: center;">{{contrato.fechafin|date:'dd-MM-yyyy'}}</td>
+                <td style="text-align: center;">{{contrato.acuerdo}}</td>
+                <td style="text-align: center;">
+                  <button [routerLink]="['/plantillacontrato', contrato._id]" class="btn btn-outline-primary mr-2">
+                    <abbr title="Ver contrato"><i
+                      class="fa fa-eye"></i></abbr></button>
+
+                  <button [routerLink]="['/acuerdo', contrato._id]"
+                  class="btn btn-outline-secondary mr-2">
+                  <abbr title="Ir a aceptar el acuerdo"><i
+                    class="fa fa-book"></i></abbr>
+                </button>
+
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+  <button (click)="cambiarPaginacion(-6)" class="btn btn-secondary m-r-5">Anteriores</button>
+  <button (click)="cambiarPaginacion(6)" class="btn btn-secondary">Siguientes</button>
+
+</div>
+

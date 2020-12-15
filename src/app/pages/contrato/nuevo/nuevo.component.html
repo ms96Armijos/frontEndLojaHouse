@@ -1,0 +1,54 @@
+<div class="container">
+  <form #formaContrato="ngForm" (ngSubmit)="crearContrato(formaContrato)" class="form p-t-20">
+
+    <div class="form-group row">
+
+      <div class="col-6">
+        <h6>Usuario arrendatario</h6>
+        <input [ngModel]="visitas.usuarioarrendatario.nombre+' '+visitas.usuarioarrendatario.apellido" name="usuarioarrendatario" type="text" class="form-control"  disabled placeholder="Arrendatario seleccionado">
+      </div>
+
+      <div class="col-6">
+        <h6>Inmueble</h6>
+        <input [ngModel]="visitas.inmueble.tipo" name="nombreinmueble" type="text" class="form-control"  disabled placeholder="Inmueble seleccionado">
+      </div>
+  </div>
+
+
+    <div class="form-group row">
+      <div class="col-6">
+        <h6 for="example-date-input">Fecha de inicio</h6>
+        <input ngModel name="fechainicio" name="fechainicio" class="form-control" type="date">
+      </div>
+
+      <div class="col-6">
+        <h6 for="example-date-input">Fecha de finalización</h6>
+        <input ngModel name="fechafin" name="fechafin" class="form-control" type="date">
+      </div>
+    </div>
+
+
+    <div class="form-group row">
+
+      <div class="col-6">
+        <h6 for="exampleInputEmail1">Monto mensual de alquiler</h6>
+        <input [ngModel]="visitas.inmueble.precioalquiler" name="monto" type="number" class="form-control" placeholder="Monto mensual de alquiler">
+
+      </div>
+      <div class="col-6">
+        <h6 for="exampleInputEmail1">Garantía</h6>
+        <input [ngModel]="visitas.inmueble.garantia" name="garantia" type="number" class="form-control" placeholder="Garantía">
+
+      </div>
+    </div>
+
+
+
+
+
+    <div class="col-12 m-t-5">
+      <button type="submit" class="btn btn-primary btn-block">Generar contrato</button>
+    </div>
+  </form>
+
+</div>

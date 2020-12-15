@@ -1,0 +1,50 @@
+<div class="container m-b-5">
+
+  <!-- .row -->
+  <div class="row">
+    <!-- .col -->
+    <div class="col-md-12 col-lg-12 col-xlg-12  mx-auto">
+      <div class="card card-body ribbon-wrapper card mt-3">
+
+        <div *ngIf="contrato.acuerdo === 'ACEPTADO'" class="ribbon ribbon-success">El contrato está: <b>ACEPTADO</b>
+        </div>
+        <div *ngIf="contrato.acuerdo === 'PENDIENTE'" class="ribbon ribbon-warning">El contrato está: <b>PENDIENTE</b>
+        </div>
+        <div *ngIf="contrato.acuerdo === 'RECHAZADA'" class="ribbon ribbon-danger">El contrato está: <b>RECHAZADA</b>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-12 col-lg-12">
+            <p>Contrato: <b>{{contrato.nombrecontrato }}</b></p>
+            <hr>
+            <div class="row">
+              <div class="col">
+                <p>Inicio del contrato: <b><h5>{{contrato.fechainicio |date:'dd-MM-yyyy'}}</h5></b></p>
+              </div>
+              <div class="col">
+                <p>Fin del contrato: <b><h5>{{contrato.fechafin |date:'dd-MM-yyyy'}}</h5></b></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col">
+                <p>Meses de alquiler: <b><h5 style="text-align: center;">{{contrato.tiempocontrato}}</h5></b></p>
+              </div>
+              <div class="col">
+                <p>Pago mensual: <b><h5>${{contrato.monto}}</h5></b></p>
+              </div>
+            </div>
+            <hr>
+            <div style="text-align: right;">
+              <button (click)="aceptarAcuerdo( contrato )" [disabled]="contrato.acuerdo === 'ACEPTADO'"
+                class="btn btn-block btn-outline-primary m-l-5">Aceptar contrato<abbr title="Aceptar contrato"><i class="fa fa-check ml-2"
+                    aria-hidden="true"></i></abbr>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.col -->
+  </div>
+  <!-- /.row -->
+</div>

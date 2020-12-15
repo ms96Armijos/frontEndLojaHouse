@@ -1,0 +1,62 @@
+<div class="container m-b-5">
+  <div class="row animate fadeIn">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <input #input (keyup)="buscarVisitas(input.value)" type="text" class="form-control"
+            placeholder="Buscar visitas...">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- .row -->
+  <h3 class="card-title">Han solicitado (<small>{{_serviceVisita.totalVisitas}}</small>) visitas</h3>
+  <div class="row">
+    <!-- .col -->
+    <div class="col-md-6 col-lg-6 col-xlg-4" *ngFor="let visita of visitas">
+      <div class="card card-body ribbon-wrapper card mt-3">
+
+
+        <div *ngIf="visita.estado === 'ACEPTADA'"  class="ribbon ribbon-success">La visita está: <b>ACEPTADA</b></div>
+        <div *ngIf="visita.estado === 'PENDIENTE'"  class="ribbon ribbon-warning">La visita está: <b>PENDIENTE</b></div>
+        <div *ngIf="visita.estado === 'RECHAZADA'"  class="ribbon ribbon-danger">La visita está: <b>RECHAZADA</b></div>
+
+        <div class="row">
+          <div class="col-md-4 col-lg-3 text-center">
+            <a [routerLink]="['/vervisita', visita._id]"><img [src]="visita.usuarioarrendatario.imagen | imagen"
+                class="img-circle img-responsive"></a>
+          </div>
+          <div class="col-md-8 col-lg-9">
+           <a [routerLink]="['/vervisita', visita._id]"> <h5 class="box-title m-b-0"><b>{{visita.usuarioarrendatario.nombre+' '+ visita.usuarioarrendatario.apellido}}</b></h5> </a>
+            <hr>
+
+            <h5><b>Descripción:</b></h5><p>{{visita.descripcion  | limitTo : "25" }}</p>
+
+            <small>Inmueble de interés: <b>{{visita.inmueble.tipo | limitTo : "4" }}</b></small>
+            <hr>
+            <div style="text-align: end;">
+              <h6>Fecha solicitada para la visita: <b>{{visita.fecha |date:'dd-MM-yyyy'}}</b></h6>
+            </div>
+            <hr>
+            <div style="text-align: right;">
+              <button (click)="aceptarVisita( visita )" [disabled]= "visita.estado === 'ACEPTADA'" class="btn btn-outline-primary m-l-5" ><abbr title="Aceptar visita"><i class="fa fa-check" aria-hidden="true"></i></abbr>
+              </button>
+              <button (click)="rechazarVisita( visita )" [disabled]= "visita.estado === 'RECHAZADA'" class="btn btn-outline-danger m-l-5"><abbr title="Rechazar visita"><i class="fa fa-remove" aria-hidden="true"></i></abbr></button>
+              <button [routerLink]="['/crearcontrato', visita._id]" [disabled]= "(visita.estado === 'RECHAZADA' || visita.estado === 'PENDIENTE')" class="btn btn-outline-secondary m-l-5"><abbr title="Generar contrato de alquiler"><i class="fa fa-book" aria-hidden="true"></i></abbr></button>
+              <button (click)="borrarVisita( visita )" class="btn btn-danger m-l-5"><abbr title="Elimiar solicitud"><i class="fa fa-trash" aria-hidden="true"></i></abbr></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.col -->
+  </div>
+  <!-- /.row -->
+  <div class="row" align="center">
+    <div class="col">
+      <button (click)="cambiarPaginacion(-6)" class="btn btn-circle btn-lg btn-success mr-2"><</button>
+      <button (click)="cambiarPaginacion(6)" class="btn btn-circle btn-lg btn-success">></button>
+    </div>
+</div>
+
+

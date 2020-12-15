@@ -1,0 +1,76 @@
+
+  <div class="login-box card mt-3">
+    <div class="card-body">
+      <form #forma="ngForm" (ngSubmit)="registrarUsuario(forma)" class="form-material mt-3" id="loginform"
+        action="index.html">
+        <h2 class="box-title text-center db"><b>Regístrate en LojaHouse</b></h2>
+        <a href="javascript:void(0)" class="text-center db"><img src="assets/images/logo-icon.png"
+            alt="Home" /><br /><img src="assets/images/logo-text.png" alt="Home" /></a>
+
+
+            <div class="form-group mt-2">
+              <label for="nombre">Nombres</label>
+              <input ngModel name="nombre" name="nombre" class="form-control input-sm" type="text" required>
+              <span class="bar"></span>
+              <span *ngIf="forma.submitted && forma.controls['nombre'].errors" class="text-danger animated fadeIn">Los nombres son obligatorios</span>
+        </div>
+
+
+        <div class="form-group">
+          <label for="apellido">Apellidos</label>
+          <input ngModel name="apellido" name="apellido" class="form-control input-sm" type="text" required><span
+          class="bar"></span>
+          <span *ngIf="forma.submitted && forma.controls['apellido'].errors" class="text-danger animated fadeIn">Los apellidos son obligatorios</span>
+        </div>
+
+
+        <div class="form-group">
+          <label for="movil">Celular</label>
+          <input ngModel name="movil" name="movil" class="form-control input-sm" type="text" required><span class="bar"></span>
+          <span *ngIf="forma.submitted && forma.controls['movil'].errors" class="text-danger animated fadeIn">El celular es obligatorio</span>
+        </div>
+
+
+        <div class="form-group">
+          <label for="correo">Correo Electrónico</label>
+          <input ngModel name="correo" name="correo" class="form-control input-sm" type="email" required email pattern="[^ @]*@[^ @]*">
+          <span class="bar"></span>
+          <span *ngIf="forma.submitted && forma.controls['correo'].errors" class="text-danger animated fadeIn">El correo es obligatorio</span>
+        </div>
+
+        <div class="row ">
+          <div class="col-6">
+            <div class="col-xs-6 "><label><b>Soy un...</b></label></div>
+          </div>
+          <div class="col-6">
+            <select (change)="seleccionar($event)" class="form-control" required>
+              <option selected value="SELECCIONAR">SELECCIONAR</option>
+              <option value="ARRENDADOR">ARRENDADOR</option>
+              <option value="ARRENDATARIO">ARRENDATARIO</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group text-center">
+          <div class="col-xs-12">
+            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">
+              Crear cuenta
+            </button>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12 text-center">
+            <p>
+              ¿Ya tienes una cuenta?
+            </p>
+            <a routerLink="/login" class="text-info m-l-5"><b>Inicia Sesión</b></a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+
+
+

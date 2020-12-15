@@ -1,0 +1,53 @@
+  <div class="row animate fadeIn">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <input #input (keyup)="buscarInmuebles(input.value)" type="text" class="form-control"
+            placeholder="Buscar inmuebles...">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4" *ngFor="let inmueble of inmuebles">
+        <div class="card">
+
+          <div class="p-carousel" >
+            <div class="carousel slide" data-ride="carousel" id="{{inmueble._id}}">
+                <div class="carousel-inner" role="listbox">
+                  <div *ngFor="let avatar of inmueble.imagen; let i = index" class="carousel-item" [ngClass]="{'active': i===0}">
+                    <img style="width:310px; height:310px" [src]='avatar' class="img-responsive image">
+                  </div>
+                </div>
+
+                <div>
+                  <a class="carousel-control-prev" href="#{{inmueble._id}}" role="button"
+                  data-slide="prev"><span class="carousel-control-prev-icon"></span>
+                  <span class="sr-only">Previous</span></a><a class="carousel-control-next"
+                  href="#{{inmueble._id}}" role="button" data-slide="next"><span
+                  class="carousel-control-next-icon"></span><span class="sr-only">Next</span></a>
+                </div>
+
+            </div>
+        </div>
+
+            <div class="card-body">
+                <h5 class="card-title">{{inmueble.nombre}}</h5>
+                <p class="card-text"><i class="fa fa-map-marker marker"></i> {{inmueble.direccion}}</p>
+                <p class="card-text" style="text-align: right;">${{inmueble.precioalquiler}}</p>
+            </div>
+            <button [routerLink]="['/alquilar', inmueble._id]" class="btn btn-block btn-primary"><abbr title="Alquilar inmueble"></abbr>Alquilar</button>
+        </div>
+
+    </div>
+  </div>
+  <div class="row" align="center">
+    <div class="col">
+      <button (click)="cambiarPaginacion(-6)" class="btn btn-circle btn-lg btn-success mr-2"><</button>
+      <button (click)="cambiarPaginacion(6)" class="btn btn-circle btn-lg btn-success">></button>
+    </div>
+  </div>
+
+
+
+

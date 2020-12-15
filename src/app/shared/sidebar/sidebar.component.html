@@ -1,0 +1,37 @@
+<aside class="left-sidebar">
+  <!-- Sidebar scroll-->
+  <div class="scroll-sidebar">
+      <!-- User profile -->
+      <div class="user-profile" style="background: rgb(72, 126, 157)">
+          <!-- User profile image -->
+          <div class="profile-img">
+            <img [src]="usuario.imagen | imagen" alt="user" />
+          </div>
+          <!-- User profile text-->
+          <div class="profile-text">
+            <h5 class="nav-small-cap" style="text-align: center; color: rgb(250, 248, 248);">{{usuario.correo}}</h5>
+        </div>
+      </div>
+      <!-- End User profile text-->
+      <!-- Sidebar navigation-->
+      <nav class="sidebar-nav">
+          <ul id="sidebarnav">
+
+
+              <li *ngFor="let menu of _sidebar.menu">
+                <a class="has-arrow waves-effect waves-dark" aria-expanded="true"><i [class]="menu.icono"></i>
+                  <span class="hide-menu">{{menu.titulo}}
+                    <span class="label label-rouded label-themecolor pull-right">{{menu.submenu.length}}</span>
+                  </span>
+                </a>
+                <ul aria-expanded="false" class="collapse">
+                  <li *ngFor="let submenu of menu.submenu">
+                    <a routerLinkActive="active" [routerLink]="[submenu.url]">{{submenu.titulo}}</a></li>
+                </ul>
+              </li>
+
+          </ul>
+      </nav>
+      <!-- End Sidebar navigation -->
+  </div>
+</aside>

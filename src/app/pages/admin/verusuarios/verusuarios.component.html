@@ -1,0 +1,68 @@
+<div class="row animate fadeIn">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <input #input (keyup)="buscarUsuario(input.value)" type="text" class="form-control"
+          placeholder="Buscar usuario...">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="row animate fadeIn" *ngIf="cargando">
+  <div class="col-sm-12">
+    <div class="alert alert-warning text-center">
+      <strong>Cargando...</strong>
+      <br>
+      <i class="fa fa-refresh fa-spin fa-2x"></i>
+      <br>
+      <span>Espere por favor</span>
+    </div>
+  </div>
+</div>
+
+
+<div class="row animate fadeIn" *ngIf="!cargando">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title">Usuarios registrados(<small>{{totalDeRegistros}}</small>)</h3>
+        <div class="table-responsive m-t-40">
+          <table class="table table-hover" style="width:100%">
+            <thead>
+              <tr>
+                <th>Nombre de usuario</th>
+                <th>Celular</th>
+                <th>Rol</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let usuario of usuarios">
+                <td>{{usuario.correo}}</td>
+                <td>{{usuario.movil}}</td>
+                <td>{{usuario.rol}}</td>
+                <td>{{usuario.estado == 1 ? 'ACTIVADO' : 'DESACTIVADO'}}</td>
+
+                <td>
+                  <button (click)="desactivarUsuario( usuario )"  [ngStyle]="{'background-color':usuario.estado == 1 ? '#26c6da':'#fc4b6c'}" [disabled]= "usuario.rol === 'ADMINISTRADOR'" class="btn btn-outline-light btn-rounded">
+                    {{usuario.estado == 0 ? 'ACTIVAR' : 'DESACTIVAR'}}</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        <hr>
+        </div>
+      </div>
+    </div>
+    <button (click)="cambiarPaginacion(-6)" class="btn btn-circle btn-lg btn-success mr-2"><</button>
+    <button (click)="cambiarPaginacion(6)" class="btn btn-circle btn-lg btn-success">></button>
+
+  </div>
+</div>

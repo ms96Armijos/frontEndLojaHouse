@@ -1,0 +1,109 @@
+
+
+			<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <a href="/#/dashboard" class="navbar-brand">LojaHouse</a>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+
+              <ul class="navbar-nav ml-auto">
+
+
+
+
+                      <li class="nav-item dropdown"  *ngIf="estaLogueado" >
+                      <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="#" id="navbarDropdown" role="button"
+                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Inicio
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <a class="dropdown-item" href="/#/dashboard">Inicio</a>
+                          <div class="dropdown-divider"></div>
+                          <a (click)="_usuarioService.logout()" class="dropdown-item pointer" >Salir</a>
+                      </div>
+                  </li>
+
+                   <li class="nav-item active" *ngIf="!estaLogueado" >
+                      <a class="nav-link" href="/#/login">Iniciar Sesión <span class="sr-only">(current)</span></a>
+                  </li>
+
+                  <li class="nav-item" *ngIf="!estaLogueado">
+                      <a class="nav-link" href="/#/registro">Registrarse</a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+      </nav>
+
+
+<body>
+
+  <div class="container-fluid mt-5 mb-5 mx-auto">
+    <div class="row g-2">
+        <div class="col-md-3">
+            <div class="t-products p-2">
+                <h6 class="text-uppercase">Tipos de inmuebles</h6>
+                <div class="p-lists" *ngFor="let inmueble of inmuebles">
+                    <div class="d-flex justify-content-between mt-2"> <span>{{inmueble.tipo}}</span> <span>{{_inmuebleService.totalInmuebles}}</span> </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-md-9">
+            <div class="row g-2">
+
+                <div class="col-md-4" *ngFor="let inmueble of inmuebles">
+                    <div class="product py-4">
+
+                      <div class="p-carousel" >
+                        <div class="carousel slide" data-ride="carousel" id="{{inmueble._id}}">
+                            <div class="carousel-inner" role="listbox">
+                              <div *ngFor="let avatar of inmueble.imagen; let i = index" class="carousel-item" [ngClass]="{'active': i===0}">
+                                <img style="width:310px; height:310px" [src]='avatar' class="img-responsive image">
+                              </div>
+                            </div>
+
+                            <div>
+                              <a class="carousel-control-prev" href="#{{inmueble._id}}" role="button"
+                              data-slide="prev"><span class="carousel-control-prev-icon"></span>
+                              <span class="sr-only">Previous</span></a><a class="carousel-control-next"
+                              href="#{{inmueble._id}}" role="button" data-slide="next"><span
+                              class="carousel-control-next-icon"></span><span class="sr-only">Next</span></a>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                      <h5 class="card-title">{{inmueble.nombre | limitTo : "15"}}</h5>
+                      <p class="card-text"><i class="fa fa-map-marker marker"></i> {{inmueble.direccion | limitTo : "28"}}</p>
+                      <p class="card-text" style="text-align: right;">${{inmueble.precioalquiler}}</p>
+                  </div>
+                  <button [routerLink]="['/ver-inmueble-publico', inmueble._id]"
+                  class="btn btn-block btn-primary"><abbr title="Ver inmueble"></abbr>Ver inmueble</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+  </div>
+      <div class="row" align="center">
+        <div class="col">
+          <button (click)="cambiarPaginacion(-6)" class="btn btn-circle btn-lg btn-success mr-2"><</button>
+          <button (click)="cambiarPaginacion(6)" class="btn btn-circle btn-lg btn-success">></button>
+        </div>
+      </div>
+
+      <footer>Hola</footer>
+</body>
+
+
+
+

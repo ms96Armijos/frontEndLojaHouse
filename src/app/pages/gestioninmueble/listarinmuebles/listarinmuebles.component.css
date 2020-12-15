@@ -1,0 +1,108 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:400,700);
+.p-card {
+  border: 1px solid #eee
+}
+
+.p-details {
+  padding: 10px;
+  border-radius: 0px;
+  color: #000;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px
+}
+.bbb_deals_item_price_a {
+  font-size: 14px;
+  font-weight: 400;
+  background-color: rgb(255, 255, 255);
+  color: rgba(0, 0, 0, 0.755)
+}
+
+body {
+  background: #eee
+}
+
+.spec span {
+  font-size: 13px
+}
+
+.spec h6 {
+  font-size: 16px;
+  font-weight: 500
+}
+
+.carousel-indicators li {
+  box-sizing: content-box;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
+  width: 12px;
+  height: 12px;
+  margin-right: 3px;
+  margin-left: 3px;
+  text-indent: -999px;
+  cursor: pointer;
+  background-color: #fff;
+  background-clip: padding-box;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  opacity: .5;
+  transition: opacity .6s ease
+}
+
+.line {
+  background-color: #fff;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  height: 0.2px
+}
+
+
+
+.container {
+    margin-top: 100px
+}
+
+.rating {
+    position: relative;
+    display: flex;
+    width: 2.875rem;
+    height: 2.875rem;
+    margin-top: -1.75rem;
+    margin-left: 0.75rem;
+    justify-content: center;
+    align-items: center;
+    border: .25rem solid #fff;
+    border-radius: 50%;
+    color: #fff;
+    background-color: rebeccapurple
+}
+
+.image {
+    max-width: 100%
+}
+
+.card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: none;
+    border-radius: .25rem
+}
+
+
+.card-text {
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 100;
+    font-size: 13px
+}
+
+.marker {
+    color: red
+}
+

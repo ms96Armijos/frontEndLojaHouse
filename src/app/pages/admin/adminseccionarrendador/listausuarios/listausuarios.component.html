@@ -1,0 +1,97 @@
+<div class="row animate fadeIn">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+
+        <input #input (keyup)="buscarUsuario(input.value)" type="text" class="form-control"
+          placeholder="Buscar usuario...">
+
+          <div class="row mt-3">
+            <!-- Default checked -->
+          <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="activados" name="defaultExampleRadios" checked mdbInput (click)="buscarUsuario('1')">
+            <label class="custom-control-label" for="activados">Activados</label>
+          </div>
+
+          <!-- Default unchecked -->
+          <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="desactivado" name="defaultExampleRadios" mdbInput (click)="buscarUsuario('0')">
+            <label class="custom-control-label" for="desactivado">Desactivados</label>
+          </div>
+
+          <!-- Default unchecked -->
+          <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="todos" name="defaultExampleRadios" mdbInput (click)="buscarUsuario('')">
+            <label class="custom-control-label" for="todos">Todos</label>
+          </div>
+          </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row animate fadeIn" *ngIf="cargando">
+  <div class="col-sm-12">
+    <div class="alert alert-warning text-center">
+      <strong>Cargando...</strong>
+      <br>
+      <i class="fa fa-refresh fa-spin fa-2x"></i>
+      <br>
+      <span>Espere por favor</span>
+    </div>
+  </div>
+</div>
+
+<h3 class="card-title">Usuarios registrados(<small>{{totalDeRegistros}}</small>)</h3>
+
+
+<div class="container mb-5">
+  <div class="row" *ngIf="!cargando">
+      <div class="col-md-4" *ngFor="let usuario of usuarios">
+          <div class="ribbon-wrapper card mt-3">
+
+            <div class="row" style="align-self: flex-end;" >
+              <button (click)="desactivarUsuario( usuario )"
+            [ngStyle]="{'background-color':usuario.estado == 1 ? '#fc4b6c':'#26c6da'}"
+            [disabled]= "usuario.rol === 'ADMINISTRADOR'" class="btn btn-outline-light">
+              {{usuario.estado == 0 ? 'Activar' : 'Desactivar'}}</button>
+            </div>
+
+            <div *ngIf="usuario.estado === '0'"  class="ribbon ribbon-danger">Usuario: <b>DESACTIVADO</b></div>
+            <div *ngIf="usuario.estado === '1'"  class="ribbon ribbon-success">Usuario: <b>ACTIVADO</b></div>
+
+
+              <div class="product-1 align-items-center p-2 text-center">
+                  <div class="image-container"><img class="xyz rounded" [src]="usuario.imagen | imagen" width="200" height="200"><img class="xyz-replacement rounded" [src]="usuario.imagen | imagen" width="200" height="200"></div><br>
+                  <h6>{{usuario.nombre}} {{usuario.apellido}}</h6>
+                  <div class="mt-3 info"> <span class="text1 d-block">Celular: {{usuario.movil}}</span>
+                    <span class="text1">Telf.: {{usuario.convencional}}</span> </div>
+                  <div class="cost mt-3 text-dark"> <span>{{usuario.correo}}</span>
+                    <div class=" star mt-3 align-items-center"> </div>
+                  </div>
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  <button [routerLink]="['/arrendador-inmuebles', usuario._id]" [disabled]= "usuario.estado === '0'" class="btn btn-block btn-outline-success"><small>Inmuebles</small></button>
+                </div>
+                <div class="col-4">
+                  <button [routerLink]="['/arrendador-visitas', usuario._id]" [disabled]= "usuario.estado === '0'" class="btn btn-block btn-outline-success"><small>Visitas</small></button>
+                </div>
+                <div class="col-4">
+                  <button [routerLink]="['/arrendador-contratos', usuario._id]" [disabled]= "usuario.estado === '0'" class="btn btn-block btn-outline-success"><small>Contratos</small></button>
+                </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="row" align="center">
+    <div class="col">
+      <button (click)="cambiarPaginacion(-6)" class="btn btn-circle btn-lg btn-success mr-2"><</button>
+      <button (click)="cambiarPaginacion(6)" class="btn btn-circle btn-lg btn-success">></button>
+    </div>
+  </div>
+</div>
+

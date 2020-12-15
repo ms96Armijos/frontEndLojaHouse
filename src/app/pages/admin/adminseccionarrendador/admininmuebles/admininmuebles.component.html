@@ -1,0 +1,85 @@
+<div class="container m-b-5">
+  <div class="row animate fadeIn">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <input #input (keyup)="buscarInmuebles(input.value)" type="text" class="form-control"
+            placeholder="Buscar inmuebles...">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+
+          <h3 class="card-title">Inmuebles registrados(<small>{{_inmuebleService.totalInmuebles}}</small>)</h3>
+
+          <div class="container mb-5">
+            <div class="row g-1">
+                <div class="col-md-4" *ngFor="let inmueble of inmuebles">
+                  <br>
+                    <div class="p-card">
+
+
+
+                        <div class="p-carousel" >
+                            <div class="carousel slide" data-ride="carousel" id="{{inmueble._id}}">
+                                <div class="carousel-inner" role="listbox">
+                                  <div *ngFor="let avatar of inmueble.imagen; let i = index" class="carousel-item" [ngClass]="{'active': i===0}">
+                                    <img  style="width:310px; height:310px" [src]='avatar'>
+                                  </div>
+                                </div>
+
+                                <div>
+                                  <a class="carousel-control-prev" href="#{{inmueble._id}}" role="button"
+                                  data-slide="prev"><span class="carousel-control-prev-icon"></span><span
+                                  class="sr-only">Previous</span></a><a class="carousel-control-next"
+                                  href="#{{inmueble._id}}" role="button" data-slide="next"><span
+                                  class="carousel-control-next-icon"></span><span class="sr-only">Next</span></a>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="p-details">
+                             <a  [routerLink]="['/arrendador-ver-inmueble', inmueble._id]"> <div style="text-align: center;"><h5>{{inmueble.nombre}}</h5></div></a>
+                            <div style="text-align: end;">$ {{inmueble.precioalquiler}}</div>
+                            <hr>
+                              <h6 class="mb-0">{{inmueble.descripcion | limitTo : "23" }}</h6>
+                              <p class="card-text"><i class="fa fa-map-marker marker"></i> {{inmueble.direccion | limitTo : "28" }}</p>
+                          </div>
+                          <button (click)="publicarInmueble( inmueble )"
+                          [ngStyle]="{'background-color':inmueble.publicado == 'PUBLICO'? 'green':'red'}"
+                          class="btn btn-block btn-outline-light btn-rounded mb-2" [disabled]="inmueble.estado=='OCUPADO'">
+                          {{inmueble.publicado == 'PUBLICO' ? 'Publicado' : 'Publicar'}}</button>
+
+                  <div class="row">
+                      <div class="col-6">
+                      <button [routerLink]="['/crearinmueble', inmueble._id]"
+                              class="btn btn-block btn-success"><abbr title="Editar inmueble"><i
+                              class="fa fa-save"></i></abbr></button></div>
+                        <div class="col-6">
+                        <button (click)="borrarInmueble(inmueble)" class="btn btn-block btn-danger"><abbr
+                                title="Eliminar inmueble"><i class="fa fa-trash"></i></abbr></button></div>
+                  </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" align="center">
+    <div class="col">
+      <button (click)="cambiarPaginacion(-6)" class="btn btn-circle btn-lg btn-success mr-2"><</button>
+      <button (click)="cambiarPaginacion(6)" class="btn btn-circle btn-lg btn-success">></button>
+    </div>
+  </div>
+</div>
+
+
+
+

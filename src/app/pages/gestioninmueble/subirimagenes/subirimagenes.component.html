@@ -1,0 +1,44 @@
+<div class="container fileUploadWrapper">
+  <form [formGroup]="form">
+      <div class="row">
+          <!-- Progress Bar -->
+          <div class="col-md-12" *ngIf="progress">
+              <div class="progress form-group">
+                  <div class="progress-bar progress-bar-striped bg-success" role="progressbar"
+                      [style.width.%]="progress">
+                  </div>
+              </div>
+          </div>
+
+          <div class="col-md-12">
+              <div class="fileupload" appSubirimagenes (click)="fileField.click()"
+                  (fileDropped)="upload($event)">
+                  <span class="ddinfo">Choose a file or drag here</span>
+                  <input type="file" name="imagen" #fileField (change)="upload($event.target.files)" hidden multiple>
+              </div>
+          </div>
+
+          <div class="col-md-12">
+              <div class="image-list" *ngFor="let file of fileArr; let i = index">
+                  <div class="profile">
+                      <img [src]="sanitize(file['url'])" alt="">
+                    </div>
+                    <a class="eliminar" href="javascript:void(0)" (click)="eliminarFoto(file)"><i class="fa fa-trash"></i></a>
+                </div>
+                <p class="message">{{msg}}</p>
+              </div>
+            </div>
+            <div class="row">
+                <button (click)="actualizar()" class="btn btn-block btn-lg btn-info btn-rounded">Guardar</button>
+            </div>
+  </form>
+</div>
+
+<hr>
+
+<!-- <div *ngFor="let user of inmuebleObtenido" >
+  <div *ngFor="let avatar of user.imagen" >
+    <img src="{{avatar}}" alt="">
+  </div>
+</div>-->
+
