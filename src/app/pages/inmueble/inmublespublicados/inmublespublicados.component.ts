@@ -14,6 +14,9 @@ export class InmublespublicadosComponent implements OnInit {
   imagenTemporal: string;
   desde: number = 0;
 
+  timer = null;
+  time = 1000;
+
 
   constructor( public _inmuebleService: InmuebleService, public toastr: ToastrService ) { }
 
@@ -45,6 +48,9 @@ export class InmublespublicadosComponent implements OnInit {
 
   buscarInmuebles(termino: string) {
 
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      console.log(termino);
 
     if (termino.length <= 0) {
       this.cargarInmueblesPublicados();
@@ -52,7 +58,7 @@ export class InmublespublicadosComponent implements OnInit {
     }
     this._inmuebleService.buscarInmuebles(termino)
       .subscribe(inmuebles => this.inmuebles = inmuebles);
-
+   }, this.time);
   }
 
 

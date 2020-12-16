@@ -4,6 +4,8 @@ import { Visita } from './../../../../models/visita.model';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
+declare function inicializarPluginsSidebar();
+
 @Component({
   selector: 'app-visitasadmin',
   templateUrl: './visitasadmin.component.html',
@@ -14,6 +16,10 @@ export class VisitasadminComponent implements OnInit {
   visitas: Visita[] = [];
   desde = 0;
   idUsuarioArrendatario;
+
+  timer = null;
+  time = 1000;
+
 
   constructor( public _serviceVisita: VisitaService,
     public toastr: ToastrService, public router: Router, public activatedRoute: ActivatedRoute ) {
@@ -26,6 +32,7 @@ export class VisitasadminComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    inicializarPluginsSidebar();
     this.cargarVisitasAdminArrendatario();
   }
 
@@ -52,6 +59,9 @@ export class VisitasadminComponent implements OnInit {
 
   buscarVisitas(termino: string) {
 
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      console.log(termino);
 
     if (termino.length <= 0) {
       this.cargarVisitasAdminArrendatario();
@@ -62,7 +72,7 @@ export class VisitasadminComponent implements OnInit {
         console.log(termino);
         this.visitas = visitas;
       });
-
+    }, this.time);
   }
 
 

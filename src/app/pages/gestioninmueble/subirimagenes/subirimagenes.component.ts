@@ -82,7 +82,7 @@ export class SubirimagenesComponent implements OnInit {
 
     if (this.form.value.imagen !== null && this.form.value.imagen.length > 0) {
 
-      console.log('aca para despues')
+      //console.log('aca para despues')
       console.log(this.form.value.imagen)
       this.subirFotosInmuebleService.actualizarFotos(this.form.value.imagen, this.id)
         .subscribe((event: HttpEvent<any>) => {
@@ -98,16 +98,16 @@ export class SubirimagenesComponent implements OnInit {
                 break;
               case HttpEventType.UploadProgress:
                 this.progress = Math.round(event.loaded / event.total * 100);
-                console.log(`Uploaded! ${this.progress}%`);
+                console.log(`¡Éxito! ${this.progress}%`);
                 break;
               case HttpEventType.Response:
 
-                console.log('File uploaded successfully!', event.body);
+                console.log('Imágenes cargadas exitosamente', event.body);
                 setTimeout(() => {
                   this.progress = 0;
                   this.fileArr = [];
                   this.fileObj = [];
-                  this.msg = "File uploaded successfully!"
+                  this.msg = "Imágenes cargadas exitosamente"
                 }, 3000);
             }
           } else {
@@ -118,7 +118,7 @@ export class SubirimagenesComponent implements OnInit {
       console.log('no hay imag');
     }
 
-    this.router.navigate(['/crearinmueble', this.id]);
+    //this.router.navigate(['/crearinmueble', this.id]);
   }
 
   obtenerImagenesInmueble() {

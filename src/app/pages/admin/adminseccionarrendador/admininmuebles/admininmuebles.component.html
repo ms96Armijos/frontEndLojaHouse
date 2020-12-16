@@ -19,6 +19,11 @@
 
           <div class="container mb-5">
             <div class="row g-1">
+
+              <div class="alert alert-info" *ngIf="inmuebles.length === 0" >
+                No hay resultados de la búsqueda
+            </div>
+
                 <div class="col-md-4" *ngFor="let inmueble of inmuebles">
                   <br>
                     <div class="p-card">
@@ -43,10 +48,12 @@
 
                             </div>
                         </div>
+
                         <div class="p-details">
-                             <a  [routerLink]="['/arrendador-ver-inmueble', inmueble._id]"> <div style="text-align: center;"><h5>{{inmueble.nombre}}</h5></div></a>
-                            <div style="text-align: end;">$ {{inmueble.precioalquiler}}</div>
-                            <hr>
+                          <div style="text-align: end; font-size: 18px; font-weight: bold;">$ {{inmueble.precioalquiler}}</div>
+                          <br>
+                             <a  [routerLink]="['/arrendador-ver-inmueble', inmueble._id]"> <div style="text-align: justify;"><h5>{{inmueble.nombre}}</h5></div></a>
+                             <hr>
                               <h6 class="mb-0">{{inmueble.descripcion | limitTo : "23" }}</h6>
                               <p class="card-text"><i class="fa fa-map-marker marker"></i> {{inmueble.direccion | limitTo : "28" }}</p>
                           </div>

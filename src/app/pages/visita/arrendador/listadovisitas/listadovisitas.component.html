@@ -3,14 +3,46 @@
     <div class="col-12">
       <div class="card">
         <div class="card-body">
-          <input #input (keyup)="buscarVisitas(input.value)" type="text" class="form-control"
-            placeholder="Buscar visitas...">
+          <label for="busqueda" title="Buscar visitas"><b>Buscar visitas...</b></label>
+            <div class="row mt-3">
+
+              <!-- Default unchecked -->
+           <div class="custom-control custom-radio">
+             <input type="radio" class="custom-control-input" id="todos" name="defaultExampleRadios" checked mdbInput (click)="buscarVisitas('')">
+             <label class="custom-control-label" for="todos">Todas</label>
+           </div>
+
+
+             <!-- Default checked -->
+           <div class="custom-control custom-radio">
+             <input type="radio" class="custom-control-input" id="activados" name="defaultExampleRadios" mdbInput (click)="buscarVisitas('ACEPTADA')">
+             <label class="custom-control-label" for="activados">Aceptadas</label>
+           </div>
+
+           <!-- Default unchecked -->
+           <div class="custom-control custom-radio">
+             <input type="radio" class="custom-control-input" id="desactivado" name="defaultExampleRadios" mdbInput (click)="buscarVisitas('PENDIENTE')">
+             <label class="custom-control-label" for="desactivado">Pendientes</label>
+           </div>
+
+
+           </div>
+
         </div>
       </div>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-12">
+
   <!-- .row -->
   <h3 class="card-title">Han solicitado (<small>{{_serviceVisita.totalVisitas}}</small>) visitas</h3>
+
+  <div class="alert alert-info" *ngIf="visitas.length === 0" >
+    No hay resultados de la búsqueda
+</div>
+
   <div class="row">
     <!-- .col -->
     <div class="col-md-6 col-lg-6 col-xlg-4" *ngFor="let visita of visitas">
@@ -70,5 +102,14 @@
     </div>
     <!-- /.col -->
   </div>
+
+</div>
+</div>
   <!-- /.row -->
+  <div class="row">
+    <div class="col">
+      <button (click)="cambiarPaginacion(-6)" class="btn btn-circle btn-lg btn-success mr-2"><</button>
+      <button (click)="cambiarPaginacion(6)" class="btn btn-circle btn-lg btn-success">></button>
+    </div>
+  </div>
 </div>

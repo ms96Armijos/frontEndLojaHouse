@@ -11,10 +11,13 @@
   border-bottom-right-radius: 8px
 }
 .bbb_deals_item_price_a {
-  font-size: 14px;
+  margin-bottom: 3px;
+  padding: 3px;
+  font-size: 12px;
   font-weight: 400;
   background-color: rgb(255, 255, 255);
-  color: rgba(0, 0, 0, 0.755)
+  color: rgb(0, 0, 0);
+  border-radius: 5px;
 }
 
 body {

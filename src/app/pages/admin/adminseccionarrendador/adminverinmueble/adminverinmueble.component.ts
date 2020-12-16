@@ -13,11 +13,13 @@ export class AdminverinmuebleComponent implements OnInit {
   idInmueble: string;
   inmueble: Inmueble;
 
+  existeInmueble: boolean = false;
+
   constructor( public _inmuebleService: InmuebleService, public activatedRoute: ActivatedRoute) {
 
     activatedRoute.params.subscribe(parametros => {
       this.idInmueble = parametros['idinmueble'];
-      console.log(this.idInmueble);
+      //console.log(this.idInmueble);
     });
 
   }
@@ -30,9 +32,9 @@ export class AdminverinmuebleComponent implements OnInit {
   obtenerInmueble(id: string){
     this._inmuebleService.obtenerInmueble( id )
     .subscribe( inmuebleObtenido => {
-
       this.inmueble = inmuebleObtenido;
-      console.log(this.inmueble)
+      this.existeInmueble = true;
+      //console.log(this.inmueble)
     });
   }
 

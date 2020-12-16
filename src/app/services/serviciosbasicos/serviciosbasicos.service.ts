@@ -89,7 +89,7 @@ export class ServiciosbasicosService {
 
 
   borrarServicio(id: string) {
-    let url = URL_SERVICIOS + '/servicio/' + id;
+    let url = URL_SERVICIOS + '/servicio/elimarservicio/' + id;
     url += '?token=' + this._usuarioService.token;
 
     return this.http.delete(url).pipe(

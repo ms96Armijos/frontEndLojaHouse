@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert';
 
+declare function inicializarPluginsSidebar()
+
 @Component({
   selector: 'app-vervisita',
   templateUrl: './vervisita.component.html',
@@ -14,6 +16,7 @@ export class VervisitaComponent implements OnInit {
 
   idVisita;
   visita: Visita = new Visita(null, null, null, null);
+  user: boolean = false;
 
   constructor(public _serviceVisita: VisitaService, public activatedRoute: ActivatedRoute, public toastr: ToastrService) {
     activatedRoute.params.subscribe(parametros => {
@@ -22,14 +25,15 @@ export class VervisitaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    inicializarPluginsSidebar();
     this.obtenerVisita(this.idVisita);
   }
 
   obtenerVisita(id: string){
     this._serviceVisita.obtenerVisita( id )
     .subscribe( visitaObtenida => {
-
       this.visita = visitaObtenida;
+      this.user=true;
     });
   }
 

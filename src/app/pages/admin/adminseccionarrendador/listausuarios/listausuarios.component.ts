@@ -18,6 +18,10 @@ export class ListausuariosComponent implements OnInit {
 
   rol = 'ARRENDADOR';
 
+  timer = null;
+  time = 1000;
+
+
   constructor( public _usuarioService: UsuarioService, public toastr: ToastrService ) { }
 
   ngOnInit(): void {
@@ -52,6 +56,10 @@ export class ListausuariosComponent implements OnInit {
 
   buscarUsuario(termino: string) {
 
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      console.log(termino);
+
     if (termino.length <= 0) {
       this.cargarUsuariosAdminArrendadorArrendador();
       return;
@@ -61,10 +69,10 @@ export class ListausuariosComponent implements OnInit {
 
     this._usuarioService.adminBuscarArrendadores(termino, this.desde)
       .subscribe((usuarios: Usuario[]) => {
-        console.log(termino);
         this.usuarios = usuarios;
         this.cargando = false;
       });
+    }, this.time);
   }
 
   desactivarUsuario(usuario: Usuario) {

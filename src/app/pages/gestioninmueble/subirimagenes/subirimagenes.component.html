@@ -13,7 +13,7 @@
           <div class="col-md-12">
               <div class="fileupload" appSubirimagenes (click)="fileField.click()"
                   (fileDropped)="upload($event)">
-                  <span class="ddinfo">Choose a file or drag here</span>
+                  <span class="ddinfo">Busque o arrástre sus imágenes</span>
                   <input type="file" name="imagen" #fileField (change)="upload($event.target.files)" hidden multiple>
               </div>
           </div>

@@ -8,20 +8,6 @@ body {
     margin-top: 100px
 }
 
-.rating {
-    position: relative;
-    display: flex;
-    width: 2.875rem;
-    height: 2.875rem;
-    margin-top: -1.75rem;
-    margin-left: 0.75rem;
-    justify-content: center;
-    align-items: center;
-    border: .25rem solid #fff;
-    border-radius: 50%;
-    color: #fff;
-    background-color: rebeccapurple
-}
 
 .image {
     max-width: 100%
@@ -57,8 +43,4 @@ body {
 
 .marker {
     color: red
-}
-
-.star-rating {
-    color: #f7b944
 }

@@ -3,6 +3,8 @@ import { UsuarioService } from './../../services/usuario/usuario.service';
 import { Component, OnInit } from '@angular/core';
 import decode from 'jwt-decode';
 
+declare function inicializarPluginsSidebar();
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -15,6 +17,8 @@ export class HeaderComponent implements OnInit {
   constructor(public _usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
+    inicializarPluginsSidebar();
+
     const token = localStorage.getItem('token');
     const tokenPayload = decode(token);
 

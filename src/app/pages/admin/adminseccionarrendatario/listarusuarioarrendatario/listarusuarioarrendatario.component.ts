@@ -19,6 +19,10 @@ export class ListarusuarioarrendatarioComponent implements OnInit {
 
   rol = 'ARRENDATARIO';
 
+  timer = null;
+  time = 1000;
+
+
 
   constructor( public _usuarioService: UsuarioService, public toastr: ToastrService ) { }
 
@@ -54,6 +58,10 @@ export class ListarusuarioarrendatarioComponent implements OnInit {
 
   buscarUsuario(termino: string) {
 
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      console.log(termino);
+
     if (termino.length <= 0) {
       this.cargarUsuariosAdminArrendadorArrendatario();
       return;
@@ -63,10 +71,10 @@ export class ListarusuarioarrendatarioComponent implements OnInit {
 
     this._usuarioService.adminBuscarArrendatarios(termino, this.desde)
       .subscribe((usuarios: Usuario[]) => {
-        console.log(termino);
         this.usuarios = usuarios;
         this.cargando = false;
       });
+    }, this.time);
   }
 
   desactivarUsuario(usuario: Usuario) {

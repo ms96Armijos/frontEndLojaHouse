@@ -9,6 +9,10 @@
     </div>
   </div>
   <div class="row">
+    <div class="alert alert-info" *ngIf="inmuebles.length === 0" >
+      No hay resultados de la búsqueda
+  </div>
+
     <div class="col-md-4" *ngFor="let inmueble of inmuebles">
         <div class="card">
 
@@ -32,8 +36,8 @@
         </div>
 
             <div class="card-body">
-                <h5 class="card-title">{{inmueble.nombre}}</h5>
-                <p class="card-text"><i class="fa fa-map-marker marker"></i> {{inmueble.direccion}}</p>
+                <h5 class="card-title">{{inmueble.nombre | limitTo : "35"}}</h5>
+                <p class="card-text"><i class="fa fa-map-marker marker"></i> {{inmueble.direccion | limitTo : "28"}}</p>
                 <p class="card-text" style="text-align: right;">${{inmueble.precioalquiler}}</p>
             </div>
             <button [routerLink]="['/alquilar', inmueble._id]" class="btn btn-block btn-primary"><abbr title="Alquilar inmueble"></abbr>Alquilar</button>

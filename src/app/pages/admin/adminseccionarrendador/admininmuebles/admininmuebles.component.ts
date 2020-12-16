@@ -19,6 +19,9 @@ export class AdmininmueblesComponent implements OnInit {
   desde = 0;
   contador: string [] = [];
 
+  timer = null;
+  time = 1000;
+
 
   constructor( public _inmuebleService: InmuebleService, public toastr: ToastrService, public activatedRoute: ActivatedRoute ) {
 
@@ -59,13 +62,17 @@ export class AdmininmueblesComponent implements OnInit {
 
   buscarInmuebles(termino: string) {
 
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      console.log(termino);
+
     if (termino.length <= 0) {
       this.cargarInmueblesAdminArrendador();
       return;
     }
     this._inmuebleService.adminBuscarInmueblesArrendador(termino, this.idUsuario, this.desde)
       .subscribe(inmuebles => this.inmuebles = inmuebles);
-
+    }, this.time);
   }
 
   publicarInmueble(inmueble: Inmueble) {

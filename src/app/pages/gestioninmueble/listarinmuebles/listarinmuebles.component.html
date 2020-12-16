@@ -4,6 +4,31 @@
         <div class="card-body">
           <input #input (keyup)="buscarInmuebles(input.value)" type="text" class="form-control"
             placeholder="Buscar inmuebles...">
+
+            <div class="row mt-3">
+
+             <!-- Default checked -->
+           <div class="custom-control custom-radio">
+             <input type="radio" class="custom-control-input" id="activados" name="defaultExampleRadios" checked mdbInput (click)="buscarInmuebles('DISPONIBLE')">
+             <label class="custom-control-label" for="activados">Disponibles</label>
+           </div>
+
+           <!-- Default unchecked -->
+           <div class="custom-control custom-radio">
+             <input type="radio" class="custom-control-input" id="desactivado" name="defaultExampleRadios" mdbInput (click)="buscarInmuebles('OCUPADO')">
+             <label class="custom-control-label" for="desactivado">Ocupados</label>
+           </div>
+
+                 <!-- Default unchecked -->
+                 <div class="custom-control custom-radio">
+                  <input type="radio" class="custom-control-input" id="todos" name="defaultExampleRadios"  mdbInput (click)="buscarInmuebles('')">
+                  <label class="custom-control-label" for="todos">Todos</label>
+                </div>
+
+
+           </div>
+
+
         </div>
       </div>
     </div>
@@ -24,9 +49,16 @@
           <div class="container mt-5 mb-5">
 
             <div class="row">
+
+              <div class="alert alert-info" *ngIf="inmuebles.length === 0" >
+                No hay resultados de la búsqueda
+            </div>
+
               <div class="col-md-4" *ngFor="let inmueble of inmuebles">
                   <div class="card">
-
+                    <div class="bbb_deals_item_price_a mr-auto"
+                    [ngStyle]="{'background-color':inmueble.estado == 'DISPONIBLE' ? '#007bff':'#fc4b6c'}">
+                    <b>{{inmueble.estado}}</b></div>
                     <div class="p-carousel" >
                       <div class="carousel slide" data-ride="carousel" id="{{inmueble._id}}">
                           <div class="carousel-inner" role="listbox">
@@ -46,14 +78,12 @@
                       </div>
                   </div>
 
-                  <div class="bbb_deals_item_price_a ml-auto"
-                  [ngStyle]="{'background-color':inmueble.estado == 'DISPONIBLE' ? '#007bff':'#fc4b6c'}">
-                  <b>{{inmueble.estado}}</b></div>
+
 
                       <div class="card-body">
-                         <a [routerLink]="['/arrendador-ver-inmueble', inmueble._id]"><h5 class="card-title">{{inmueble.nombre}}</h5></a>
+                         <a [routerLink]="['/arrendador-ver-inmueble', inmueble._id]"><h5 class="card-title">{{inmueble.nombre | limitTo : "35" }}</h5></a>
                           <p class="card-text"><i class="fa fa-map-marker marker"></i> {{inmueble.direccion| limitTo : "28"}}</p>
-                          <p class="card-text" style="text-align: risght;">${{inmueble.precioalquiler}}</p>
+                          <p class="card-text" style="text-align: risght; font-size: 18px; font-weight: bold;">${{inmueble.precioalquiler}}</p>
                       </div>
 
                       <button (click)="publicarInmueble( inmueble )"
@@ -72,10 +102,15 @@
                             [disabled]="inmueble.estado=='OCUPADO'"><abbr
                                     title="Eliminar inmueble"><i class="fa fa-trash"></i></abbr></button></div>
                       </div>
+
                   </div>
+
               </div>
             </div>
           </div>
+
+
+
         </div>
       </div>
     </div>

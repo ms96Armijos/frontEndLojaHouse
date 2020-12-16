@@ -16,6 +16,9 @@ export class VercontratosComponent implements OnInit {
   contratos: Contrato[] = [];
   desde = 0;
 
+  timer = null;
+  time = 1000;
+
 
   constructor( public _contratoService: ContratoService, public toastr: ToastrService, public router: Router ) { }
 
@@ -31,15 +34,17 @@ export class VercontratosComponent implements OnInit {
 
   buscarContratos(termino: string){
 
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      console.log(termino);
 
     if ( termino.length <= 0 ){
       this.cargarContratos();
       return;
     }
-    console.log(termino)
     this._contratoService.buscarContratos( termino )
     .subscribe( contratos => this.contratos = contratos);
-
+    }, this.time);
   }
 
   cambiarPaginacion(valor: number) {

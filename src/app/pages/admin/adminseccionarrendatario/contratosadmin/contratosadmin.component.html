@@ -26,6 +26,11 @@
               </tr>
             </thead>
 
+            <div class="alert alert-info" *ngIf="contratos.length === 0" >
+              No hay resultados de la búsqueda
+          </div>
+
+
             <tbody>
               <tr *ngFor="let contrato of contratos">
                 <td>{{contrato.nombrecontrato}}</td>

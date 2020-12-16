@@ -5,6 +5,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import swal from 'sweetalert';
 
+declare function inicializarPluginsSidebar();
+
+
 @Component({
   selector: 'app-listadovisitas',
   templateUrl: './listadovisitas.component.html',
@@ -19,6 +22,7 @@ export class ListadovisitasComponent implements OnInit {
     public toastr: ToastrService, public router: Router ) { }
 
   ngOnInit(): void {
+    inicializarPluginsSidebar();
     this.cargarVisitas();
   }
 

@@ -1,9 +1,13 @@
+import { UsuarioService } from './../../../../services/usuario/usuario.service';
+import { Usuario } from './../../../../models/usuario.model';
 import { Visita } from './../../../../models/visita.model';
 import { ToastrService } from 'ngx-toastr';
 import { VisitaService } from './../../../../services/visita/visita.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert';
+import decode from 'jwt-decode';
+
 
 @Component({
   selector: 'app-adminvisitas',
@@ -12,23 +16,42 @@ import swal from 'sweetalert';
 })
 export class AdminvisitasComponent implements OnInit {
 
+  token = localStorage.getItem('token');
+  tokenPayload = decode(this.token);
+  usuarioarrendador: Usuario = new Usuario(null, null, null, null, null);
+
+
   visitas: Visita[] = [];
   desde = 0;
   idUsuarioArrendador;
 
+  timer = null;
+  time = 1000;
 
-  constructor( public _serviceVisita: VisitaService,
+
+  constructor( public _usuarioService: UsuarioService, public _serviceVisita: VisitaService,
     public toastr: ToastrService, public router: Router, public activatedRoute: ActivatedRoute ) {
 
       activatedRoute.params.subscribe(parametros => {
         this.idUsuarioArrendador = parametros['idusuario'];
         console.log(this.idUsuarioArrendador);
+        this.obtenerUsuarioArrendador(this.tokenPayload.usuario._id);
       });
     }
 
   ngOnInit(): void {
     this.cargarVisitasAdminArrendador();
   }
+
+  obtenerUsuarioArrendador(id: string) {
+    this._usuarioService.obtenerUsuario(id)
+      .subscribe(usuario => {
+
+        this.usuarioarrendador = usuario;
+        // console.log('user: '+usuario.nombre );
+      });
+  }
+
 
   cargarVisitasAdminArrendador() {
     this._serviceVisita.cargarVisitasAdminArrendador(this.desde, this.idUsuarioArrendador)
@@ -53,6 +76,9 @@ export class AdminvisitasComponent implements OnInit {
 
   buscarVisitas(termino: string) {
 
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      console.log(termino);
 
     if (termino.length <= 0) {
       this.cargarVisitasAdminArrendador();
@@ -60,10 +86,9 @@ export class AdminvisitasComponent implements OnInit {
     }
     this._serviceVisita.buscarAdminVisitasSeccionArrendador(termino, this.idUsuarioArrendador, this.desde)
       .subscribe((visitas: Visita[]) => {
-        console.log(termino);
         this.visitas = visitas;
       });
-
+    }, this.time);
   }
 
   aceptarVisita(visita: Visita) {

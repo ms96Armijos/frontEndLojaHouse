@@ -13,6 +13,8 @@ import * as jsPDF from 'jspdf';
 })
 export class PlantillaComponent implements OnInit {
 
+  existeContrato: boolean = false;
+
   @ViewChild('contratolojahouse') htmlData: ElementRef;
 
   contratos: Contrato = new Contrato(null, null, null, null, null);
@@ -34,6 +36,7 @@ export class PlantillaComponent implements OnInit {
       .subscribe(contrato => {
         //console.log(contrato);
         this.contratos = contrato;
+        this.existeContrato = true;
       });
   }
 

@@ -17,19 +17,23 @@ export class ListarinmueblesComponent implements OnInit {
   desde = 0;
   contador: string [] = [];
 
+  timer = null;
+  time = 1000;
+
+
   constructor( public _inmuebleService: InmuebleService, public toastr: ToastrService ) {
 
   }
 
   ngOnInit(): void {
     this.cargarInmuebles();
+    this.buscarInmuebles('DISPONIBLE');
   }
 
 
   cargarInmuebles() {
     this._inmuebleService.cargarInmuebles(this.desde)
       .subscribe(inmuebles => this.inmuebles = inmuebles);
-
   }
 
   cambiarPaginacion(valor: number) {
@@ -51,15 +55,17 @@ export class ListarinmueblesComponent implements OnInit {
 
 
   buscarInmuebles(termino: string) {
+clearTimeout(this.timer);
 
-    console.log(termino)
+this.timer = setTimeout(() => {
+  console.log(termino);
     if (termino.length <= 0) {
       this.cargarInmuebles();
       return;
     }
     this._inmuebleService.buscarInmuebles(termino)
       .subscribe(inmuebles => this.inmuebles = inmuebles);
-
+    }, this.time);
   }
 
   borrarInmueble(inmueble: Inmueble) {

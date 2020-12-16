@@ -7,9 +7,17 @@
           placeholder="Buscar usuario...">
 
           <div class="row mt-3">
+
+             <!-- Default unchecked -->
+          <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="todos" name="defaultExampleRadios" checked mdbInput (click)="buscarUsuario('')">
+            <label class="custom-control-label" for="todos">Todos</label>
+          </div>
+
+
             <!-- Default checked -->
           <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" id="activados" name="defaultExampleRadios" checked mdbInput (click)="buscarUsuario('1')">
+            <input type="radio" class="custom-control-input" id="activados" name="defaultExampleRadios" mdbInput (click)="buscarUsuario('1')">
             <label class="custom-control-label" for="activados">Activados</label>
           </div>
 
@@ -19,11 +27,7 @@
             <label class="custom-control-label" for="desactivado">Desactivados</label>
           </div>
 
-          <!-- Default unchecked -->
-          <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" id="todos" name="defaultExampleRadios" mdbInput (click)="buscarUsuario('')">
-            <label class="custom-control-label" for="todos">Todos</label>
-          </div>
+
           </div>
 
 

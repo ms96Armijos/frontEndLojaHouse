@@ -1,10 +1,16 @@
-<div class="container m-b-5">
+<div class="container">
 
   <!-- .row -->
   <div class="row">
+
+    <div class="alert alert-info" *ngIf="!user" >
+      No hay resultados de la búsqueda
+  </div>
+
+
     <!-- .col -->
-    <div class="col-md-12 col-lg-12 col-xlg-12 mx-auto">
-      <div class="card card-body ribbon-wrapper card mt-3">
+    <div class="col-md-8 col-lg-8 col-xlg-8 mx-auto">
+      <div class="card card-body ribbon-wrapper card mt-3" *ngIf="user" >
 
         <div *ngIf="visita.estado === 'ACEPTADA'" class="ribbon ribbon-success">La visita está: <b>ACEPTADA</b></div>
         <div *ngIf="visita.estado === 'PENDIENTE'" class="ribbon ribbon-warning">La visita está: <b>PENDIENTE</b></div>
