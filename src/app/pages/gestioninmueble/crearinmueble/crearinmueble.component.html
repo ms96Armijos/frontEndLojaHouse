@@ -27,6 +27,7 @@
                 <option value="CUARTO">Cuarto</option>
                 <option value="MINIDEPARTAMENTO">Mini-departamento</option>
               </select>
+              <span *ngIf="formaInmueble.submitted && formaInmueble.controls['tipo'].errors" class="text-danger animated fadeIn">El tipo de inmueble es obligatorio</span>
             </div>
 
             <div class="container">
@@ -83,8 +84,33 @@
               </div>
             </div>
 
+            <div class="col-md-6">
+              <label><b>Ciudad donde se ubica inmueble</b></label>
+              <select [ngModel]="inmuebles.ciudad" name="ciudad" class="form-control" required>
+                <option *ngFor="let ciudad of ciudades" (click)="seleccionarCiudad(ciudad)">{{ciudad}}</option>
+              </select>
+              <span *ngIf="formaInmueble.submitted && formaInmueble.controls['ciudad'].errors" class="text-danger animated fadeIn">El ciudad donde se ubica el inmueble es obligatorio</span>
+            </div>
 
             <div class="col-md-6">
+              <label><b>Provincia donde se ubica inmueble</b></label>
+              <select [ngModel]="inmuebles.provincia" name="provincia" class="form-control" required>
+                <option *ngFor="let provincia of provincias" (click)="seleccionarProvincia(provincia)">{{provincia}}</option>
+              </select>
+              <span *ngIf="formaInmueble.submitted && formaInmueble.controls['provincia'].errors" class="text-danger animated fadeIn">La provincia donde se ubica el inmueble es obligatorio</span>
+            </div>
+
+            <div class="col-md-6">
+              <label><b>Barrio donde se ubica inmueble</b></label>
+              <select [ngModel]="inmuebles.barrio" name="barrio" class="form-control" required>
+                <option *ngFor="let barrio of barrios" (click)="seleccionarBarrio(barrio)">{{barrio}}</option>
+              </select>
+              <span *ngIf="formaInmueble.submitted && formaInmueble.controls['barrio'].errors" class="text-danger animated fadeIn">El barrio donde se ubica el inmueble es obligatorio</span>
+
+            </div>
+
+
+            <div class="col-md-6 mt-4">
               <div class="form-group">
                 <label for="codigo"><b>Código de la casa</b></label>
                 <div class="input-group">
@@ -96,7 +122,7 @@
             </div>
 
 
-            <div class="col-md-6">
+            <div class="col-md-6 mt-4">
               <label for="garantia"><b>Si solicita un monto inicial como garantía, ingrese su valor</b></label><br>
               <input [ngModel] ="inmuebles.garantia" name="garantia" type="number" min="1" pattern="^[0-9]+"
                 class="form-control text-center">
@@ -104,7 +130,7 @@
 
 
 
-            <div class="col-md-6">
+            <div class="col-md-6 mt-4">
               <label for="codigo"><b>Precio de alquiler</b></label>
               <div class="input-group">
                 <div class="input-group-addon"></div>

@@ -26,6 +26,7 @@ import { VerPasswordDirective } from './login/ver-password.directive';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PaginapublicaComponent } from './paginapublica/paginapublica.component';
 import { InmueblepublicoComponent } from './inmueblepublico/inmueblepublico.component';
+import { EnviarmensajeComponent } from './enviarmensaje/enviarmensaje.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { InmueblepublicoComponent } from './inmueblepublico/inmueblepublico.comp
     VerPasswordDirective,
     CambiopasswordComponent,
     PaginapublicaComponent,
-    InmueblepublicoComponent
+    InmueblepublicoComponent,
+    EnviarmensajeComponent
   ],
   imports: [
     APP_ROUTES,

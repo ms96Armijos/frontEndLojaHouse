@@ -30,10 +30,12 @@
 
 
   body{
-    background: #61717b;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #6b6b6b, #536976);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #5b5e6d, #536976); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #606c88;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #3f4c6b, #606c88);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #3f4c6b, #606c88); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
+
+
 
 .t-products {
     background-color: rgb(242, 233, 214);
@@ -132,6 +134,76 @@ button:active {
     align-items: center;
     justify-content: center;
     color: #fff
+}
+
+.form-select:focus {
+  border-color: #8bbafe;
+  outline: 0;
+  box-shadow: none
+}
+
+
+/*ESTILOS DEL BUSCADOR*/
+html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.selectWrapper{
+  border-radius:.30rem;
+  display:inline-block;
+  overflow:hidden;
+  background:#cccccc;
+  border:1px solid #cccccc;
+  margin: 0px;
+  padding: 0px;
+}
+.selectBox{
+  width:220px;
+  height:40px;
+  border:0px;
+  outline:none;
+  font-size: 15px;
+}
+
+.buscar{
+  height:40px;
+  width: 150px;
+  color: #fff;
+  padding: 5px;
+}
+
+
+
+.search {
+    margin-top: auto;
+    height: 50px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: .30rem;
+    padding: 10px;
+    margin-bottom: 30px;
+}
+
+.search_input {
+    color: #222;
+    border: 0;
+    outline: 0;
+    background: none;
+    width: 0;
+    margin-top: 2px;
+    caret-color: transparent;
+    /*line-height: 40px;*/
+    transition: width 0.4s linear
+}
+
+.search .search_input {
+    padding: 0 10px;
+    width: 100%;
+    caret-color: red;
+    transition: width 0.4s linear
 }
 
 

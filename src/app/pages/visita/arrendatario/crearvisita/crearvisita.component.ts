@@ -16,7 +16,7 @@ import decode from 'jwt-decode';
 })
 export class CrearvisitaComponent implements OnInit {
 
-  inmuebles: Inmueble = new Inmueble(null, null, null, null, null, null);
+  inmuebles: Inmueble = new Inmueble(null, null, null, null, null, null, null, null, null);
   usuarios: Usuario = new Usuario(null, null, null, null, null);
 
   token = localStorage.getItem('token');

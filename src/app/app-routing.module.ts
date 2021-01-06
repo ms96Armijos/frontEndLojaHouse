@@ -1,3 +1,4 @@
+import { EnviarmensajeComponent } from './enviarmensaje/enviarmensaje.component';
 import { PrincipalComponent } from './pages/principal/principal.component';
 import { LoginComponent } from './login/login.component';
 import { RegistroComponent } from './login/registro/registro.component';
@@ -15,6 +16,7 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent, data: {titulo: 'Inicio de sesión'}},
   { path: 'registro', component: RegistroComponent, data: {titulo: 'Registro de usuario'}},
   { path: 'reseteopassword', component: ReseteopasswordComponent, data: {titulo: 'Reseteo Contraseña'} },
+  { path: 'enviarmensaje', component: EnviarmensajeComponent, data: {titulo: 'Enviar mensaje'} },
   { path: 'verinmueblepublico/:idinmueble', component: PaginapublicaComponent, data: {titulo: 'Detalle del inmueble'} },
   { path: 'ver-inmueble-publico/:idinmueble', component: InmueblepublicoComponent, data: { titulo: 'Ver inmueble' } },
   //{ path: '', redirectTo: '/principal', pathMatch: 'full'},

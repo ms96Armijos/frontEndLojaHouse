@@ -10,6 +10,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 
+
+
 @Component({
   selector: 'app-paginapublica',
   templateUrl: './paginapublica.component.html',
@@ -17,7 +19,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PaginapublicaComponent implements OnInit {
 
-  inmuebles: Inmueble = new Inmueble(null, null, null, null, null, null);
+  inmuebles: Inmueble = new Inmueble(null, null, null, null, null, null, null, null, null);
   usuarios: Usuario = new Usuario(null, null, null, null, null);
 
   token = localStorage.getItem('token');
@@ -36,6 +38,7 @@ export class PaginapublicaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.obtenerArrendatario(localStorage.getItem(this.tokenPayload.usuario._id));
   }
 

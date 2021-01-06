@@ -116,6 +116,13 @@ export class InmuebleService {
       .pipe(map((resp: any) => resp.inmuebles));
   }
 
+  busquedaAnidadaInmuebles(tipo: string, ubicacion: string, precio: number) {
+    let url = URL_SERVICIOS + '/busqueda/coleccion/inmuebles/' + tipo + '/' + ubicacion +'/' + precio;
+    console.log(url)
+    return this.http.get(url)
+      .pipe(map((resp: any) => resp.inmuebles));
+  }
+
   publicarInmueble(inmueble: Inmueble) {
     let url = URL_SERVICIOS + '/inmueble/desactivarinmueble/' + inmueble._id;
     url += '?token=' + this._usuarioService.token;

@@ -21,6 +21,7 @@ export class PerfilComponent implements OnInit {
   ngOnInit(): void {
     const token = localStorage.getItem('token');
     const tokenPayload = decode(token);
+    console.log(tokenPayload);
     this.obtenerUsuario(tokenPayload.usuario._id);
   }
 

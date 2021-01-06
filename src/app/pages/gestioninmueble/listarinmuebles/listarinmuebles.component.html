@@ -82,8 +82,8 @@
 
                       <div class="card-body">
                          <a [routerLink]="['/arrendador-ver-inmueble', inmueble._id]"><h5 class="card-title">{{inmueble.nombre | limitTo : "35" }}</h5></a>
-                          <p class="card-text"><i class="fa fa-map-marker marker"></i> {{inmueble.direccion| limitTo : "28"}}</p>
-                          <p class="card-text" style="text-align: risght; font-size: 18px; font-weight: bold;">${{inmueble.precioalquiler}}</p>
+                          <p class="card-text"><i class="fa fa-map-marker marker"></i> {{inmueble.barrio}}</p>
+                          <p class="card-text" style="text-align: right; font-size: 18px; font-weight: bold;">${{inmueble.precioalquiler}}</p>
                       </div>
 
                       <button (click)="publicarInmueble( inmueble )"

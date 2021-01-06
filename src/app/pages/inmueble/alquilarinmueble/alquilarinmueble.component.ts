@@ -22,7 +22,7 @@ export class AlquilarinmuebleComponent implements OnInit {
 
   @ViewChild('nombreArrendatario') nombreArrendatario: ElementRef;
 
-  inmuebles: Inmueble = new Inmueble('', '', '', '', '', null);
+  inmuebles: Inmueble = new Inmueble(null, null,null, null, null, null, null, null, null);
   usuarioArrendatario: Usuario = new Usuario(null, null, null, null, null);
 
 

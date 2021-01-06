@@ -5,6 +5,9 @@ import { Inmueble } from './../models/inmueble.model';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 
+declare function inicializarPluginsSidebar();
+
+
 @Component({
   selector: 'app-inmueblepublico',
   templateUrl: './inmueblepublico.component.html',
@@ -14,6 +17,9 @@ export class InmueblepublicoComponent implements OnInit {
   idInmueble: string;
   inmueble: Inmueble;
   estaLogueado = false;
+
+  timer = null;
+  time = 1000;
 
   constructor( public _inmuebleService: InmuebleService, public toastr: ToastrService, public activatedRoute: ActivatedRoute, public _usuarioService: UsuarioService ) {
     this.logueado();
@@ -25,7 +31,11 @@ export class InmueblepublicoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    inicializarPluginsSidebar();
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
     this.obtenerInmueble(this.idInmueble);
+  }, this.time);
   }
 
   obtenerInmueble(id: string){

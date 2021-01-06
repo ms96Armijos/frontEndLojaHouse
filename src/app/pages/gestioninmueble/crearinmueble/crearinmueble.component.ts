@@ -22,7 +22,19 @@ export class CrearinmuebleComponent implements OnInit {
    idInmuebleCreado: string;
    banderaCreadoActualizado = false;
 
-  inmuebles: Inmueble = new Inmueble(null, null, null, null, null, null);
+  inmuebles: Inmueble = new Inmueble(null, null, null, null, null, null, null, null, null);
+
+
+  //ARREGLO DE CIUDADES
+    ciudades = ["Loja", "Machala", "Quito"];
+  //ARREGLO DE PROVINCIAS
+    provincias = ["Loja", "El Oro"];
+  //ARREGLO DE BARRIOS
+    barrios = ["Motupe","Menfis", "Plateado", "Sauces Norte", "San Sebastián"];
+
+    ciudadSeleccionada: string = "Loja";
+    provinciaSeleccionada: string = "Loja";
+    barrioSeleccionado: string = "San Sebastián";
 
   desde = 0;
   servicios = [];
@@ -73,6 +85,20 @@ export class CrearinmuebleComponent implements OnInit {
     });
   }
 
+
+
+
+  seleccionarCiudad(ciudad: string){
+    this.ciudadSeleccionada = ciudad;
+  }
+
+  seleccionarProvincia(provincia: string){
+    this.provinciaSeleccionada = provincia;
+  }
+  seleccionarBarrio(barrio: string){
+    this.barrioSeleccionado = barrio;
+  }
+
   crearInmueble(forma: NgForm) {
     if (forma.invalid) {
       return;
@@ -95,6 +121,9 @@ export class CrearinmuebleComponent implements OnInit {
     this.inmuebles.estado = 'DISPONIBLE';
     this.inmuebles.publicado = 'PRIVADO';
     this.inmuebles.usuario = Object(idArrendador);
+    this.inmuebles.ciudad = this.ciudadSeleccionada;
+    this.inmuebles.provincia = this.provinciaSeleccionada;
+    this.inmuebles.barrio = this.barrioSeleccionado;
 
     this._inmuebleService.crearInmueble(this.inmuebles)
       .subscribe(resp => {

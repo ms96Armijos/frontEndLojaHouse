@@ -43,6 +43,7 @@ export class UsuarioService {
     }
   }
 
+
   guardarDatosEnStorage(id: string, token: string,  menu: any) {
     localStorage.setItem('id', id);
     localStorage.setItem('token', token);
@@ -96,6 +97,7 @@ export class UsuarioService {
       })
     );
   }
+
 
   crearUsuario(usuario: Usuario) {
     const url = URL_SERVICIOS + '/usuario/crearusuario';

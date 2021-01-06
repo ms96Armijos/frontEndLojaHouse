@@ -1,3 +1,4 @@
+import { EnviarmensajeService } from './enviarmensaje/enviarmensaje.service';
 
 
 export { ContratoService } from './contrato/contrato.service';
@@ -8,5 +9,6 @@ export { ServiciosbasicosService } from './serviciosbasicos/serviciosbasicos.ser
 export { SubirarchivoService } from './subirarchivo/subirarchivo.service';
 export { UsuarioService } from './usuario/usuario.service';
 export { VisitaService } from './visita/visita.service';
+export { EnviarmensajeService } from '../services/enviarmensaje/enviarmensaje.service';
 export { SharedService } from "./shared/shared.service";
 export { SidebarService } from "./shared/sidebar.service";

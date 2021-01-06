@@ -15,8 +15,15 @@ declare function inicializarPluginsSidebar();
 export class PrincipalComponent implements OnInit {
 
   inmuebles: Inmueble[] = [];
+  precios: String[]=['Seleccionar...', '50-100','100-150', '150-200'];
+  ubicaciones: string[]=['Seleccionar...', "Motupe", "Menfis", "Sauces Norte", "San Sebastián"];
+  tipos: string[]=['Seleccionar...', "Casa", "Departamento", "Cuarto", "Minidepartamento"];
   desde: number = 0;
   estaLogueado = false;
+
+  location: string = "Motupe";
+  type: string = "Casa";
+  price: number = 50;
 
   constructor(public _inmuebleService: InmuebleService, public toastr: ToastrService, public router: Router, public _usuarioService: UsuarioService) {
     this.logueado();
@@ -66,5 +73,36 @@ export class PrincipalComponent implements OnInit {
     this.cargarInmuebles();
   }
 
+
+
+  busquedaAnidadaInmuebles(tipo: string, ubicacion: string, precio: number) {
+
+      /*console.log(termino);
+        if (termino.length <= 0) {
+          this.cargarInmuebles();
+          return;
+        }*/
+        this._inmuebleService.busquedaAnidadaInmuebles(tipo, ubicacion, precio)
+          .subscribe(inmuebles =>  this.inmuebles = inmuebles);
+      }
+
+      ubicacionInmueble(ubicacion:string){
+        this.location = ubicacion;
+      }
+      tipoInmueble(tipo:string){
+        this.type = tipo;
+      }
+      precioInmueble(precio:number){
+        this.price = precio;
+      }
+
+
+      cadena(){
+        console.log(this.type)
+        console.log(this.price)
+        console.log(this.location)
+
+        this.busquedaAnidadaInmuebles(this.type, this.location, this.price);
+      }
 
 }

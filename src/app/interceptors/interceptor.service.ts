@@ -32,7 +32,7 @@ export class InterceptorService {
           localStorage.removeItem('token');
           localStorage.removeItem('menu');
           localStorage.removeItem('id');
-          this.router.navigate(['/login']);
+          this.router.navigate(['/principal']);
         }
 
         return throwError( err );

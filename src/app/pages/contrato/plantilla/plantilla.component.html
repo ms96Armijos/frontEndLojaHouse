@@ -8,75 +8,89 @@
           <h4 class="card-title text-center mt-5" id="titulo" #titulo><b>Contrato de Arrendamiento {{contratos.acuerdo==='PENDIENTE'? '(BORRADOR)':''}}</b></h4>
             <div class="card-body">
 
-              <p style="text-align: justify; color: black;">
-                Por medio del presente dejamos manifiesta constancia, entre nosotros: Sr(a). <b>{{contratos.usuarioarrendador.nombre +' '+ contratos.usuarioarrendador.apellido}}</b>,<br>
-                con cédula de identidad <b>{{contratos.usuarioarrendador.cedula}}</b>, al que más adelante se
-                lo identificará con el nombre de ARRENDADOR.<br> Y al Sr(a). <b>{{contratos.usuarioarrendatario.nombre+' '+ contratos.usuarioarrendatario.apellido}}</b>,
-                con cédula de identidad <b>{{contratos.usuarioarrendatario.cedula}}</b>, al que más adelante se le identificará
-                con el<br> nombre de ARRENDATARIO. Entre ambos convenimos libremente en celebrar el presente contrato de<br> arrendamiento,
-                bajo el tenor de las siguientes cláusulas:
-              </p>
+              <section style=" color: black; margin-bottom: 15px;">
+                  Por medio del presente dejamos manifiesta constancia, entre nosotros: Sr(a). <b>{{contratos.usuarioarrendador.nombre +' '+ contratos.usuarioarrendador.apellido}}</b>,
+                  con cédula de identidad <b>{{contratos.usuarioarrendador.cedula}}</b>, al que más adelante se
+                  lo identificará con el nombre de ARRENDADOR. Y al Sr(a). <b>{{contratos.usuarioarrendatario.nombre+' '+ contratos.usuarioarrendatario.apellido}}</b>,
+                  con cédula de identidad <b>{{contratos.usuarioarrendatario.cedula}}</b>, al que más adelante se le identificará
+                  con el nombre de ARRENDATARIO. Entre ambos convenimos libremente en celebrar el presente contrato de arrendamiento,
+                  bajo el tenor de las siguientes cláusulas:
+              </section>
 
-              <p style="text-align: justify; color: black;">
+
+              <section style=" color: black; margin-bottom: 15px;">
                 <b>PRIMERA.-</b> El arrendador da en arrendamiento al arrendatario un <b>{{contratos.inmueble.tipo}}</b> ubicado
-                en <b>{{contratos.inmueble.direccion}}</b> y<br> que consta de los servicios de: <b>{{contratos.inmueble.servicio}}</b>
-              </p>
+                  en <b>{{contratos.inmueble.direccion}}</b> y que consta de los servicios de: <b>{{contratos.inmueble.servicio}}.</b>
+              </section>
 
-              <p style="text-align: justify; color: black;">
-                <b>SEGUNDA.-</b> El arrendatario se compromete a mantener en perfectas condiciones el local arrendado y lo<br> destinará única y
-                exclusivamente para el uso de <b>MOTIVO DE USO</b> sin poder darle otro uso, salvo convenio<br> posterior con el arrendador/a.
-              </p>
 
-              <p style="text-align: justify; color: black;">
+              <section style=" color: black; margin-bottom: 15px;">
+                <b>SEGUNDA.-</b> El arrendatario se compromete a mantener en perfectas condiciones el local arrendado y lo destinará única y
+                  exclusivamente para el uso de <b>MOTIVO DE USO</b> sin poder darle otro uso, salvo convenio posterior con el arrendador/a.
+              </section>
+
+              <section style=" color: black; margin-bottom: 15px;">
                 <b>TERCERA.-</b> El canon de arrendamiento será de <b>${{contratos.monto}}</b> dólares, valor que será cancelado de forma
-                mensual,<br> pagaderos y por mesadas anticipadas entre los tres primeros días del  inicio de cada mes,
-                  el mismo que<br> dará inicio desde <b>{{contratos.fechainicio |date:'dd-MM-yyyy'}}</b> hasta el
-                  <b>{{contratos.fechafin |date:'dd-MM-yyyy'}}.</b><br>
-                  En caso de ser renovado el contrato, y de así expresarlo el arrendatario se lo hará previo un reajuste del<br>
+                  mensual, pagaderos y por mesadas anticipadas entre los tres primeros días del  inicio de cada mes,
+                  el mismo que dará inicio desde <b>{{contratos.fechainicio |date:'dd-MM-yyyy'}}</b> hasta el
+                  <b>{{contratos.fechafin |date:'dd-MM-yyyy'}}.</b>
+                  En caso de ser renovado el contrato, y de así expresarlo el arrendatario se lo hará previo un reajuste del
                   canon suscrito anteriormente. La renovación comprenderá el período de un año.
-                  En este tenor las partes<br> renuncian expresamente el acogerse a un canon distinto del acordado tanto para este contrato,
-                  cuanto<br> para su futura renovación. Así el arrendatario renuncia a cualquier reclamo o acción legal, que tenga como<br>
+                  En este tenor las partes renuncian expresamente el acogerse a un canon distinto del acordado tanto para este contrato,
+                  cuanto para su futura renovación. Así el arrendatario renuncia a cualquier reclamo o acción legal, que tenga como
                   fuente este antecedente.
-              </p>
+              </section>
 
-              <p style="text-align: justify; color: black;">
+
+              <section style=" color: black; margin-bottom: 15px;">
                 <b>CUARTA.-</b> El plazo del presente contrato es <b>de {{contratos.tiempocontrato}} meses</b>, el mismo que termina el
-                <b>{{contratos.fechafin|date:'dd-MM-yyyy'}}</b>, pudiendo<br>
-                ser renovado el mismo de común acuerdo entre las partes en convenio.
-              </p>
+                  <b>{{contratos.fechafin|date:'dd-MM-yyyy'}}</b>, pudiendo ser renovado el mismo de común acuerdo entre las partes en convenio.
+              </section>
 
-              <p style="text-align: justify; color: black;">
-                <b>QUINTA.-</b> Para el término o fin del contrato, las partes deberán comunicar con noventa días de anticipación,<br>
-                conforme lo determina la ley, y en caso de que no se cancelen dos pensiones locativas consecutivas será<br> motivo
-                válido para que el arrendador/a pueda dar por terminado el presente contrato.
-              </p>
 
-              <p style="text-align: justify; color: black;">
-                <b>SEXTA.-</b> El arrendatario declara que recibe en perfectas condiciones el local arrendado para el goce de su uso<br>
-                estipulado en la cláusula segunda y comprometiéndose a mantenerlo en buen estado; y, a realizar los arreglos<br> locativos
-                pertinentes que el caso lo amerite si existiere leve deterioro. Por otro lado, toda mejora que se desee<br> hacer  en el
+              <section style=" color: black; margin-bottom: 15px;">
+                <b>QUINTA.-</b> Para el término o fin del contrato, las partes deberán comunicar con noventa días de anticipación,
+                  conforme lo determina la ley, y en caso de que no se cancelen dos pensiones locativas consecutivas será motivo
+                  válido para que el arrendador/a pueda dar por terminado el presente contrato.
+              </section>
+
+
+              <section style=" color: black; margin-bottom: 15px;">
+                <b>SEXTA.-</b> El arrendatario declara que recibe en perfectas condiciones el local arrendado para el goce de su uso
+                estipulado en la cláusula segunda y comprometiéndose a mantenerlo en buen estado; y, a realizar los arreglos locativos
+                pertinentes que el caso lo amerite si existiere leve deterioro. Por otro lado, toda mejora que se desee hacer  en el
                 local arrendado se lo realizará previo el consentimiento de la arrendadora.
-              </p>
+              </section>
 
-              <p style="text-align: justify; color: black;">
+              <section style=" color: black; margin-bottom: 15px;">
                 <b>SÉPTIMA.-</b> El pago de los servicios básicos será cancelado por cuenta exclusiva del arrendatario.
-              </p>
+              </section>
 
-              <p style="text-align: justify; color: black;">
-                <b>OCTAVA.-</b> En caso de presentarse alguna controversia de orden legal, las partes renuncian expresamente<br>
-                domicilio y fuero, y se someten a los jueces competentes de la Ciudad de.....,provincia de..., y, al trámite Verbal<br>
-                Sumario que de darse el caso lo amerite.
-              </p>
 
-              <p style="text-align: justify; color: black;">
-                <b>NOVENA.-</b> Y para dejar constancia entre las  partes y convenidas en mutuo  acuerdo  para su consecuencia final<br>
+              <section style=" color: black; margin-bottom: 15px;">
+                <b>OCTAVA.-</b> En caso de presentarse alguna controversia de orden legal, las partes renuncian expresamente
+                domicilio y fuero, y se someten a los jueces competentes de la Ciudad de {{contratos.inmueble.ciudad}}, provincia
+                de {{contratos.inmueble.provincia}}, y, al trámite Verbal Sumario que de darse el caso lo amerite.
+              </section>
+
+
+              <section style=" color: black; margin-bottom: 15px;">
+                <b>NOVENA.-</b> Y para dejar constancia entre las  partes y convenidas en mutuo  acuerdo  para su consecuencia final
                 de este acto de contrato de todo lo expuesto en su contenido.
-                Firman conjuntamente en la Ciudad de<br> ..., provincia de ..... Ecuador, el  .... del 2020
-              </p>
+                Firman conjuntamente en la Ciudad de {{contratos.inmueble.ciudad}}, provincia de {{contratos.inmueble.provincia}},
+                el  {{contratos.fechainicio |date:'dd-MM-yyyy'}}.
+              </section>
 
-                <div class="col-12" style="text-align: right; color: black;">
-                  <h6>El acuerdo está <b>{{!contratos.acuerdo? 'PENDIENTE':contratos.acuerdo}}</b> entre las partes</h6>
-                </div>
+              <section>
+
+              </section>
+
+              <br>
+
+              <div class="col-12" style=" color: black;" align="right">
+                <h6>El acuerdo está <b>{{!contratos.acuerdo? 'PENDIENTE':contratos.acuerdo}}</b> entre las partes</h6>
+              </div>
+              <br>
 
               <div class="row m-b-15">
                 <div class="col-2">
@@ -91,3 +105,4 @@
   </div>
 
   </div>
+</div>
