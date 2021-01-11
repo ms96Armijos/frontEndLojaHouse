@@ -25,7 +25,7 @@
           <div class="col-md-8 col-lg-9">
             <a [routerLink]="['/vervisita', visita._id]">
               <h5 class="box-title m-b-0">
-                <b>{{visita.usuarioarrendatario.nombre+' '+ visita.usuarioarrendatario.apellido}}</b></h5>
+                <b>{{visita.usuarioarrendatario.nombre + ' ' + visita.usuarioarrendatario.apellido}}</b></h5>
             </a>
             <hr>
 
@@ -38,9 +38,8 @@
             </div>
             <hr>
             <i><h5>{{visita.inmueble.estado == 'OCUPADO' ? 'YA SE HA GENERADO EL CONTRATO' : 'FALTA GENERAR EL CONTRATO DE ALQUILER'}}</h5></i>
+
             <div style="text-align: right;">
-
-
 
               <button (click)="aceptarVisita( visita )"
               [disabled]="visita.estado === 'ACEPTADA'"
@@ -50,14 +49,14 @@
               </button>
               <button (click)="rechazarVisita( visita )"
               [disabled]="visita.estado === 'RECHAZADA'  || visita.inmueble.estado=='OCUPADO'"
-              [hidden]="visita.inmueble.estado=='OCUPADO'"
+              [hidden]="visita.inmueble.estado==='OCUPADO'"
                 class="btn btn-outline-danger m-l-5"><abbr title="Rechazar visita"><i class="fa fa-remove"
                     aria-hidden="true"></i></abbr></button>
 
 
-              <button [routerLink]="['/crearcontrato', visita._id]"
-                [disabled]="(visita.estado === 'RECHAZADA' || visita.estado === 'PENDIENTE')  || visita.inmueble.estado=='OCUPADO'"
-                [hidden]="visita.inmueble.estado=='OCUPADO'"
+              <button *ngIf="usuarioarrendador.rol !== 'ADMINISTRADOR'"  [routerLink]="['/crearcontrato', visita._id]"
+                [disabled]="(visita.estado === 'RECHAZADA' || visita.estado === 'PENDIENTE')  || visita.inmueble.estado ==='OCUPADO'"
+                [hidden]="visita.inmueble.estado==='OCUPADO' || visita.usuarioarrendatario.rol === 'ADMINISTRADOR'"
                 class="btn btn-outline-secondary m-l-5"><abbr title="Generar contrato de alquiler"><i class="fa fa-book"
                     aria-hidden="true"></i></abbr></button>
 

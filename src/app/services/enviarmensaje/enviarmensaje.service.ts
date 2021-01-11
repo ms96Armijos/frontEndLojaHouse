@@ -35,7 +35,7 @@ export class EnviarmensajeService {
           return true;
         }),
         catchError((err) => {
-          return swal('Uppss...' + '', err.error.mensaje);
+          return swal('Uppss...' + '', err.error.mensaje, 'error');
         })
       );
   }
@@ -53,7 +53,7 @@ export class EnviarmensajeService {
   }
 
   obtenerMensaje(id: string) {
-    let url = URL_SERVICIOS + '/mensaje/obtenermensaje' + id;
+    let url = URL_SERVICIOS + '/mensaje/obtenermensaje/' + id;
     url += '?token=' + this._usuarioService.token;
     return this.http.get(url).pipe(map((resp: any) => resp.mensaje));
   }
@@ -89,5 +89,20 @@ export class EnviarmensajeService {
     );
   }
 
+  leerMensaje(mensaje: Mensaje) {
+    let url = URL_SERVICIOS + '/mensaje/leermensaje/' + mensaje._id;
+    url += '?token=' + this._usuarioService.token;
+
+    return this.http.put(url, mensaje)
+      .pipe(map((resp: any) => resp.mensaje));
+  }
+
+
+  buscarMensajes(termino: string, desde: number) {
+    let url = URL_SERVICIOS + '/busqueda/coleccion/mensajes/'+termino+'/' + desde;
+
+    return this.http.get(url)
+      .pipe(map((resp: any) => resp.mensajes));
+  }
 
 }

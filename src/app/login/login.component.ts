@@ -4,6 +4,7 @@ import { UsuarioService } from './../services/usuario/usuario.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+declare function inicializarPluginsSidebar();
 
 
 @Component({
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
   constructor( public router: Router, public _usuarioService: UsuarioService ) { }
 
   ngOnInit() {
+    inicializarPluginsSidebar();
   }
 
   ingresar(forma: NgForm) {

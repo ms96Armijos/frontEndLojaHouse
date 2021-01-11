@@ -1,9 +1,13 @@
+import { UsuarioService } from './../../../../services/usuario/usuario.service';
+import { Usuario } from './../../../../models/usuario.model';
 import { ToastrService } from 'ngx-toastr';
 import { VisitaService } from './../../../../services/visita/visita.service';
 import { Visita } from './../../../../models/visita.model';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert';
+import decode from 'jwt-decode';
+
 
 declare function inicializarPluginsSidebar()
 
@@ -18,7 +22,13 @@ export class VervisitaComponent implements OnInit {
   visita: Visita = new Visita(null, null, null, null);
   user: boolean = false;
 
-  constructor(public _serviceVisita: VisitaService, public activatedRoute: ActivatedRoute, public toastr: ToastrService) {
+  token = localStorage.getItem('token');
+  tokenPayload = decode(this.token);
+  usuarioarrendador: Usuario = new Usuario(null, null, null, null, null);
+
+
+
+  constructor(public _usuarioService: UsuarioService, public _serviceVisita: VisitaService, public activatedRoute: ActivatedRoute, public toastr: ToastrService) {
     activatedRoute.params.subscribe(parametros => {
       this.idVisita = parametros['idvisita'];
     });
@@ -27,7 +37,17 @@ export class VervisitaComponent implements OnInit {
   ngOnInit(): void {
     inicializarPluginsSidebar();
     this.obtenerVisita(this.idVisita);
+    this.obtenerUsuarioArrendador(this.tokenPayload.usuario._id);
   }
+
+  obtenerUsuarioArrendador(id: string) {
+    this._usuarioService.obtenerUsuario(id)
+      .subscribe(usuario => {
+        this.usuarioarrendador = usuario;
+        // console.log('user: '+usuario.nombre );
+      });
+  }
+
 
   obtenerVisita(id: string){
     this._serviceVisita.obtenerVisita( id )

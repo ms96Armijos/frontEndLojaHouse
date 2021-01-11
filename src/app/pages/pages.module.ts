@@ -41,6 +41,8 @@ import { ListarusuarioarrendatarioComponent } from './admin/adminseccionarrendat
 import { AdminverinmuebleComponent } from './admin/adminseccionarrendador/adminverinmueble/adminverinmueble.component';
 import { AcuerdoComponent } from './contrato/acuerdo/acuerdo.component';
 import { VervisitaComponent } from './visita/arrendador/vervisita/vervisita.component';
+import { MensajesComponent } from './mensaje/mensajes/mensajes.component';
+import { VermensajeComponent } from './mensaje/vermensaje/vermensaje.component';
 
 
 
@@ -79,6 +81,8 @@ import { VervisitaComponent } from './visita/arrendador/vervisita/vervisita.comp
     AdminverinmuebleComponent,
     AcuerdoComponent,
     VervisitaComponent,
+    MensajesComponent,
+    VermensajeComponent,
   ],
   exports: [
     DashboardComponent,

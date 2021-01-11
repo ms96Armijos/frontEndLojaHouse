@@ -29,6 +29,10 @@
                       <a class="nav-link" href="/#/login">Iniciar Sesión <span class="sr-only">(current)</span></a>
                   </li>
 
+                  <li class="nav-item" *ngIf="!estaLogueado" >
+                    <a class="nav-link" href="/#/enviarmensaje">Contáctanos</a>
+                </li>
+
                   <li class="nav-item" *ngIf="!estaLogueado">
                       <a class="nav-link" href="/#/registro">Registrarse</a>
                   </li>
@@ -115,8 +119,6 @@
 
       <div class="col-12">
           <div class="row g-2">
-
-
         <div class="alert alert-info" *ngIf="inmuebles.length === 0" >
           No hay resultados de la búsqueda
         </div>
@@ -158,8 +160,8 @@
   </div>
   </div>
 
-
   </div>
+
       <div class="row" align="center">
         <div class="col">
           <button (click)="cambiarPaginacion(-6)" class="btn btn-circle btn-lg btn-success mr-2"><</button>
@@ -167,7 +169,8 @@
         </div>
       </div>
 
-      <footer>Hola</footer>
+      <br>
+
 </body>
 
 

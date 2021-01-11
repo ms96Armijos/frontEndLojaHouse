@@ -46,7 +46,6 @@ export class AdminvisitasComponent implements OnInit {
   obtenerUsuarioArrendador(id: string) {
     this._usuarioService.obtenerUsuario(id)
       .subscribe(usuario => {
-
         this.usuarioarrendador = usuario;
         // console.log('user: '+usuario.nombre );
       });

@@ -29,7 +29,7 @@
 
               <div class="form-group col-12">
                 <label for="correo">Escribe tu correo</label>
-                <input ngModel  name="correo" placeholder="Ejm.: correo@gmail.com" class="form-control input-sm" type="text" required>
+                <input ngModel  name="correo" placeholder="Ejm.: correo@gmail.com" class="form-control input-sm" type="text" required email pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
                 <span class="bar"></span>
                 <span *ngIf="formaMensaje.submitted && formaMensaje.controls['correo'].errors"
                 class="text-danger animated fadeIn">Debes ingresar tu correo electrónico</span>

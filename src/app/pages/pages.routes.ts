@@ -1,3 +1,5 @@
+import { VermensajeComponent } from './mensaje/vermensaje/vermensaje.component';
+import { MensajesComponent } from './mensaje/mensajes/mensajes.component';
 import { ArrendadorGuard } from './../services/guards/arrendador.guard';
 import { VervisitaComponent } from './visita/arrendador/vervisita/vervisita.component';
 import { AcuerdoComponent } from './contrato/acuerdo/acuerdo.component';
@@ -87,6 +89,11 @@ const pagesRoutes: Routes = [
       { path: 'arrendador-visitas/:idusuario', component: AdminvisitasComponent, canActivate: [AdminGuard], data: { titulo: 'Visitas registradas' } },
       { path: 'arrendador-contratos/:idusuario', component: AdmincontratosComponent, canActivate: [AdminGuard], data: { titulo: 'Contratos registradas' } },
       { path: 'arrendador-ver-inmueble/:idinmueble', component: AdminverinmuebleComponent, data: { titulo: 'Ver inmueble' } },
+
+      //SECCIÓN MENSAJES
+      { path: 'mensajes', component: MensajesComponent, canActivate: [AdminGuard], data: { titulo: 'Mensajes recibidos' } },
+      { path: 'ver-mensaje/:idmensaje', component: VermensajeComponent, data: { titulo: 'Mensaje' } },
+
 
 
       //ARRENDATARIO

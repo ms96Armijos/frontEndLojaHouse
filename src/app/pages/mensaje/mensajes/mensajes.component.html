@@ -1,0 +1,74 @@
+<div class="container m-b-5">
+  <div class="row animate fadeIn">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <input #input (keyup)="buscarMensaje(input.value)"  type="text" class="form-control"
+            placeholder="Buscar mensaje...">
+
+            <div class="row mt-3">
+              <!-- Default checked -->
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="recibido" name="defaultExampleRadios" checked mdbInput (click)="buscarMensaje('ENVIADO')">
+              <label class="custom-control-label" for="recibido">Recibidos</label>
+            </div>
+
+            <!-- Default unchecked -->
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="leido" name="defaultExampleRadios" mdbInput (click)="buscarMensaje('LEIDO')">
+              <label class="custom-control-label" for="leido">Leídos</label>
+            </div>
+
+            <!-- Default unchecked -->
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="eliminados" name="defaultExampleRadios" mdbInput (click)="buscarMensaje('ELIMINADO')">
+              <label class="custom-control-label" for="eliminados">Eliminados</label>
+            </div>
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">Existen (<small>{{_enviarMensajeService.totalMensajes}}</small>) mensajes</h3>
+
+          <table class="table table-hover" style="width:100%;">
+            <thead>
+              <tr>
+                <th>Mensaje</th>
+                <th>Usuario</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+
+
+            <tbody>
+              <tr *ngFor="let mensaje of mensajes">
+                <td>{{mensaje.titulo}}</td>
+                <td>{{mensaje.correo}}</td>
+                <td>
+                  <button (click)="leerMensaje(mensaje)" [routerLink]="['/ver-mensaje', mensaje._id]"  class="btn btn-success"><i
+                    class="fa fa-eye"></i></button>
+                    <button (click)="borrarMensaje(mensaje)" style="background: #fc4b6c;" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+
+
+          </table>
+          <div class="alert alert-info" *ngIf="mensajes.length === 0" >
+            No hay resultados de la búsqueda
+        </div>
+
+          <button (click)="cambiarPaginacion(-6)" class="btn btn-circle btn-lg btn-success mr-2"><</button>
+          <button (click)="cambiarPaginacion(6)" class="btn btn-circle btn-lg btn-success">></button>
+</div>
+

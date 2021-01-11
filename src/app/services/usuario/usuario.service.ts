@@ -92,7 +92,7 @@ export class UsuarioService {
         return true;
       }),
       catchError((err) => {
-        swal('Lo siento...', ' ' + err.mensaje, 'error');
+        swal('Lo siento...', ' ' + err.error.mensaje, 'error');
         return throwError(err.error.mensaje);
       })
     );

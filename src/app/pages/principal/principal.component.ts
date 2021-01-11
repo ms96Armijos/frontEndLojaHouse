@@ -25,18 +25,26 @@ export class PrincipalComponent implements OnInit {
   type: string = "Casa";
   price: number = 50;
 
+  timer = null;
+  time = 1000;
+
   constructor(public _inmuebleService: InmuebleService, public toastr: ToastrService, public router: Router, public _usuarioService: UsuarioService) {
     this.logueado();
   }
 
   ngOnInit(): void {
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
     inicializarPluginsSidebar();
     this.cargarInmuebles();
+  }, this.time);
   }
 
   cargarInmuebles() {
+
     this._inmuebleService.cargarInmueblesPulicos(this.desde)
       .subscribe(inmuebles => this.inmuebles = inmuebles);
+
   }
 
 

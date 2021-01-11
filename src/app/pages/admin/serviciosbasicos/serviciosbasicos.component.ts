@@ -56,8 +56,6 @@ export class ServiciosbasicosComponent implements OnInit {
       this._basicosService.buscarServicios( termino )
       .subscribe( servicios => this.servicios = servicios);
     }, this.time);
-
-
   }
 
   borrarServicio( servicio: Servicio ){
@@ -80,8 +78,5 @@ export class ServiciosbasicosComponent implements OnInit {
             });
         }
       });
-
   }
-
-
 }

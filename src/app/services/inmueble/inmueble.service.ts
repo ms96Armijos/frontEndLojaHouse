@@ -67,6 +67,30 @@ export class InmuebleService {
     );
   }
 
+  borrarInmuebleDesdeElAdministrador(inmueble: Inmueble) {
+    let url = URL_SERVICIOS + '/inmueble/eliminar-inmueble/admin/' + inmueble._id;
+    url += '?token=' + this._usuarioService.token;
+
+    return this.http.delete(url).pipe(
+      map((resp: any) => {
+        swal(
+          'Inmueble eliminado',
+          'Se ha eliminado el inmueble',
+          'success'
+        );
+        return true;
+      }),
+      catchError((err) => {
+        swal(
+          'Uppss...' + err.error.mensaje,
+          ' No se ha podido eliminar el inmueble',
+          'error'
+        );
+        return throwError(err.error.mensaje);
+      })
+    );
+  }
+
   crearInmueble(inmueble: Inmueble) {
     let url = URL_SERVICIOS + '/inmueble';
 
@@ -179,6 +203,8 @@ export class InmuebleService {
     return this.http.get(url)
       .pipe(map((resp: any) => resp.inmuebles));
   }
+
+
 
 
 }

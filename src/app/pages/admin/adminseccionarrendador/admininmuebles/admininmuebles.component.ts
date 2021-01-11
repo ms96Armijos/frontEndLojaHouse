@@ -115,7 +115,7 @@ export class AdmininmueblesComponent implements OnInit {
 
     swal({
       title: '¿Está seguro de borrar el inmueble?',
-      text: 'Está a punto de borrar a: ' + inmueble.nombre,
+      text: 'Recuerde que no se podrá recuperar una vez borrado',
       icon: 'warning',
       buttons: [
         'Cancelar',
@@ -126,7 +126,7 @@ export class AdmininmueblesComponent implements OnInit {
       .then(borrar => {
         if (borrar) {
           inmueble.estado = 'ELIMINADO';
-          this._inmuebleService.borrarInmueble(inmueble)
+          this._inmuebleService.borrarInmuebleDesdeElAdministrador(inmueble)
             .subscribe(borrado => {
               this.cargarInmueblesAdminArrendador();
             });

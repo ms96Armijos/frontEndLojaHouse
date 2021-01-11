@@ -31,20 +31,23 @@ export class InmueblepublicoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    inicializarPluginsSidebar();
     clearTimeout(this.timer);
     this.timer = setTimeout(() => {
+    inicializarPluginsSidebar();
+
     this.obtenerInmueble(this.idInmueble);
   }, this.time);
   }
 
   obtenerInmueble(id: string){
+
     this._inmuebleService.obtenerInmueblePublico( id )
     .subscribe( inmuebleObtenido => {
 
       this.inmueble = inmuebleObtenido;
       console.log(this.inmueble)
     });
+
   }
 
   logueado() {
