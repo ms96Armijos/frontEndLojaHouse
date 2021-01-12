@@ -1,3 +1,4 @@
+import { BARRIOSDELOJA } from './../../config/config';
 import { Router } from '@angular/router';
 import { UsuarioService } from './../../services/usuario/usuario.service';
 import { InmuebleService } from './../../services/inmueble/inmueble.service';
@@ -16,7 +17,7 @@ export class PrincipalComponent implements OnInit {
 
   inmuebles: Inmueble[] = [];
   precios: String[]=['Seleccionar...', '50-100','100-150', '150-200'];
-  ubicaciones: string[]=['Seleccionar...', "Motupe", "Menfis", "Sauces Norte", "San Sebastián"];
+  ubicaciones: string[]=[].concat("Seleccioinar...", BARRIOSDELOJA);
   tipos: string[]=['Seleccionar...', "Casa", "Departamento", "Cuarto", "Minidepartamento"];
   desde: number = 0;
   estaLogueado = false;

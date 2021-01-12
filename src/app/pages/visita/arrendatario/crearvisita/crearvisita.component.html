@@ -83,8 +83,8 @@
                     <label for="celular">Descripción</label>
                     <div class="input-group">
                       <div class="input-group-addon"></div>
-                      <textarea ngModel name="descripcion" type="text" required class="form-control"
-                        aria-label="With textarea"></textarea>
+                      <textarea [(ngModel)]="descripcion" name="descripcion" type="text" required class="form-control"
+                        aria-label="With textarea" rows="5" ></textarea>
                     </div>
                     <span *ngIf="formaVisita.submitted && formaVisita.controls['descripcion'].errors"
                       class="text-danger animated fadeIn m-l-10">Ingrese una descripción</span>

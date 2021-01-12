@@ -134,7 +134,7 @@ export class UsuarioService {
       catchError((err) => {
         console.log(err);
 
-        swal('Uppss...', '' + err.mensaje, 'error');
+        swal('Uppss...', '' + err.error.errors.message, 'error');
         return throwError('Lo siento, ha ocurrido un error ' + err.message);
       }));
   }
@@ -172,6 +172,7 @@ export class UsuarioService {
   obtenerUsuario(id: string) {
     let url = URL_SERVICIOS + '/usuario/obtenerusuario/' + id;
     url += '?token=' + this.token;
+    console.log(url)
     return this.http.get(url).pipe(map((resp: any) => resp.usuario));
   }
 
@@ -257,7 +258,6 @@ buscarAdminUsuariosArrendatario(termino: string) {
   return this.http.get(url)
     .pipe(map((resp: any) => resp.usuarios));
 }
-
 
 }
 

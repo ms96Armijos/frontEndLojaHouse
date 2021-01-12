@@ -53,6 +53,11 @@ export class PerfilComponent implements OnInit {
       return;
     }
 
+    if(!this.validarcedula(usuario.cedula)){
+      this.toastr.warning('El número de cédula es inválido');
+      return;
+    }
+
     this.usuario.nombre = usuario.nombre;
     this.usuario.apellido = usuario.apellido;
     this.usuario.movil = usuario.movil;
@@ -67,6 +72,37 @@ export class PerfilComponent implements OnInit {
       'success'
     );
   }
+
+   validarcedula(a) {
+		var total = 0;
+		var longitud = a.length;
+		var longcheck = longitud - 1;
+
+
+		for (let i = 0; i < longcheck; i++) {
+			if (i % 2 === 0) {
+				var aux = a.charAt(i) * 2;
+				if (aux > 9) aux -= 9;
+				total += aux;
+			} else {
+				total += parseInt(a.charAt(i)); // parseInt o concatenará en lugar de sumar
+			}
+		}
+
+		total = total % 10 ? 10 - total % 10 : 0;
+
+		if (a.charAt(longitud - 1) == total) {
+      return true;
+			//document.getElementById("salida").innerHTML = ("* Cédula Válida");
+
+		} else {
+      return false;
+			//document.getElementById("salida").innerHTML = ("* Cédula Inválida");
+
+
+		}
+
+	}
 
   seleccionarImagen(archivo: File) {
     if (!archivo) {

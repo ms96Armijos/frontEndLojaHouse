@@ -16,11 +16,16 @@ import decode from 'jwt-decode';
 })
 export class CrearvisitaComponent implements OnInit {
 
-  inmuebles: Inmueble = new Inmueble(null, null, null, null, null, null, null, null, null);
+  inmuebles: Inmueble = new Inmueble("", "", "", "", "", 0, "", "", "");
   usuarios: Usuario = new Usuario(null, null, null, null, null);
 
   token = localStorage.getItem('token');
   tokenPayload = decode(this.token);
+
+  timer = null;
+  time = 1000;
+  descripcion: string;
+
 
 
   constructor(public _inmuebleService: InmuebleService,
@@ -30,28 +35,33 @@ export class CrearvisitaComponent implements OnInit {
 
     activatedRoute.params.subscribe(parametros => {
       const id = parametros['idinmueble'];
-      this.obtenerInmueble(id);
+      clearTimeout(this.timer);
+      this.timer = setTimeout(() => {
+        this.obtenerInmueble(id);
+      this.obtenerArrendatario();
+    }, this.time);
     });
 
   }
 
   ngOnInit(): void {
-    this.obtenerArrendatario(localStorage.getItem(this.tokenPayload.usuario._id));
+
   }
 
   obtenerInmueble(id: string) {
     this._inmuebleService.obtenerInmueble(id)
       .subscribe(inmueble => {
         this.inmuebles = inmueble;
+        this.descripcion = 'Hola, estoy interesado en su inmueble '+ this.inmuebles.nombre +', y me gustaría estar en contacto con usted para poder llegar a un acuerdo. Muchas gracias por su tiempo, hasta luego.';
         console.log(this.inmuebles);
       });
   }
 
-  obtenerArrendatario(id: string) {
-    this._usuarioService.obtenerUsuario(id)
+  obtenerArrendatario() {
+    this._usuarioService.obtenerUsuario(localStorage.getItem(this.tokenPayload.usuario._id))
       .subscribe(usuarios => {
         this.usuarios = usuarios;
-        console.log(this.usuarios);
+        console.log("User: "+this.usuarios);
       });
   }
 
@@ -67,7 +77,7 @@ export class CrearvisitaComponent implements OnInit {
 
     //const fecha = new Date(forma.value.fecha);
 
-    const visita = new Visita(forma.value.fecha, forma.value.descripcion, Object(idinmueble), Object(arrendatario_id), 'PENDIENTE');
+    const visita = new Visita(forma.value.fecha, this.descripcion, Object(idinmueble), Object(arrendatario_id), 'PENDIENTE');
 
     console.log(visita);
     this._visitaService.crearVisita(visita)

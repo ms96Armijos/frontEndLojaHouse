@@ -55,19 +55,22 @@
                               <h6 class="mb-0">{{inmueble.descripcion | limitTo : "23" }}</h6>
                               <p class="card-text"><i class="fa fa-map-marker marker"></i> {{inmueble.direccion | limitTo : "28" }}</p>
                           </div>
+
+
                           <button (click)="publicarInmueble( inmueble )"
+                          [hidden]="inmueble.estado==='OCUPADO'"
                           [ngStyle]="{'background-color':inmueble.publicado == 'PUBLICO'? 'green':'red'}"
                           class="btn btn-block btn-outline-light btn-rounded mb-2" [disabled]="inmueble.estado=='OCUPADO'">
                           {{inmueble.publicado == 'PUBLICO' ? 'Publicado' : 'Publicar'}}</button>
 
                   <div class="row">
-                      <div class="col-6">
-                      <button [routerLink]="['/crearinmueble', inmueble._id]"
-                              class="btn btn-block btn-success"><abbr title="Editar inmueble"><i
-                              class="fa fa-save"></i></abbr></button></div>
-                        <div class="col-6">
-                        <button (click)="borrarInmueble(inmueble)" class="btn btn-block btn-danger"><abbr
-                                title="Eliminar inmueble"><i class="fa fa-trash"></i></abbr></button></div>
+
+
+                  <div class="col-6">
+                      <button (click)="borrarInmueble(inmueble)" class="btn btn-block btn-danger"><abbr
+                            title="Eliminar inmueble"><i class="fa fa-trash"></i></abbr></button>
+                  </div>
+
                   </div>
                     </div>
                 </div>

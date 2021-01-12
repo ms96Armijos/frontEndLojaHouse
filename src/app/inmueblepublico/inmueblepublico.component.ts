@@ -15,7 +15,7 @@ declare function inicializarPluginsSidebar();
 })
 export class InmueblepublicoComponent implements OnInit {
   idInmueble: string;
-  inmueble: Inmueble;
+  inmueble: Inmueble = new Inmueble("", "", "", "", "", 0, "", "", "");
   estaLogueado = false;
 
   timer = null;

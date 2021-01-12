@@ -1,3 +1,4 @@
+import { BARRIOSDELOJA, CIUDADES, PROVINCIAS } from './../../../config/config';
 import { ServiciosbasicosService } from './../../../services/serviciosbasicos/serviciosbasicos.service';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -26,15 +27,16 @@ export class CrearinmuebleComponent implements OnInit {
 
 
   //ARREGLO DE CIUDADES
-    ciudades = ["Loja", "Machala", "Quito"];
+    ciudades = CIUDADES;
   //ARREGLO DE PROVINCIAS
-    provincias = ["Loja", "El Oro"];
+    provincias = PROVINCIAS;
   //ARREGLO DE BARRIOS
-    barrios = ["Motupe","Menfis", "Plateado", "Sauces Norte", "San Sebastián"];
+
+    barrios: any = BARRIOSDELOJA;
 
     ciudadSeleccionada: string = "Loja";
     provinciaSeleccionada: string = "Loja";
-    barrioSeleccionado: string = "San Sebastián";
+    barrioSeleccionado: string = "Gran Colombia";
 
   desde = 0;
   servicios = [];
@@ -59,6 +61,7 @@ export class CrearinmuebleComponent implements OnInit {
                public toastr: ToastrService,
                public _basicosService: ServiciosbasicosService,
                public activatedRoute: ActivatedRoute ) {
+
       activatedRoute.params.subscribe(parametros => {
         let id = parametros['idinmueble'];
 
@@ -70,6 +73,10 @@ export class CrearinmuebleComponent implements OnInit {
     }
 
   ngOnInit(): void {
+
+
+
+
     this._basicosService.cargarServicios()
     .subscribe(servicios => {
       this.servicios = servicios;

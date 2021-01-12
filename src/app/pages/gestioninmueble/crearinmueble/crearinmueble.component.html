@@ -85,7 +85,7 @@
             </div>
 
             <div class="col-md-6">
-              <label><b>Ciudad donde se ubica inmueble</b></label>
+              <label><b>Ciudad</b></label>
               <select [ngModel]="inmuebles.ciudad" name="ciudad" class="form-control" required>
                 <option *ngFor="let ciudad of ciudades" (click)="seleccionarCiudad(ciudad)">{{ciudad}}</option>
               </select>
@@ -93,7 +93,7 @@
             </div>
 
             <div class="col-md-6">
-              <label><b>Provincia donde se ubica inmueble</b></label>
+              <label><b>Provincia</b></label>
               <select [ngModel]="inmuebles.provincia" name="provincia" class="form-control" required>
                 <option *ngFor="let provincia of provincias" (click)="seleccionarProvincia(provincia)">{{provincia}}</option>
               </select>
@@ -101,7 +101,7 @@
             </div>
 
             <div class="col-md-6">
-              <label><b>Barrio donde se ubica inmueble</b></label>
+              <label><b>Barrio</b></label>
               <select [ngModel]="inmuebles.barrio" name="barrio" class="form-control" required>
                 <option *ngFor="let barrio of barrios" (click)="seleccionarBarrio(barrio)">{{barrio}}</option>
               </select>
@@ -112,7 +112,7 @@
 
             <div class="col-md-6 mt-4">
               <div class="form-group">
-                <label for="codigo"><b>Código de la casa</b></label>
+                <label for="codigo"><b>Código del inmueble</b></label>
                 <div class="input-group">
                   <div class="input-group-addon"></div>
                   <input [ngModel] ="inmuebles.codigo" name="codigo" type="text" class="form-control"
