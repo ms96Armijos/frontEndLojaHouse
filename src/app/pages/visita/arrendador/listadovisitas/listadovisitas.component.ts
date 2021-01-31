@@ -1,3 +1,5 @@
+import { ContratoService } from './../../../../services/contrato/contrato.service';
+import { Contrato } from './../../../../models/contrato.model';
 import { ToastrService } from 'ngx-toastr';
 import { VisitaService } from './../../../../services/visita/visita.service';
 import { Visita } from './../../../../models/visita.model';
@@ -18,12 +20,20 @@ export class ListadovisitasComponent implements OnInit {
   visitas: Visita[] = [];
   desde = 0;
 
-  constructor( public _serviceVisita: VisitaService,
+  timer = null;
+  time = 1000;
+
+
+  constructor(public _serviceVisita: VisitaService,
     public toastr: ToastrService, public router: Router ) { }
 
   ngOnInit(): void {
     inicializarPluginsSidebar();
     this.cargarVisitas();
+
+    this.buscarVisitas('PENDIENTE');
+
+
   }
 
   cargarVisitas() {
@@ -48,8 +58,8 @@ export class ListadovisitasComponent implements OnInit {
   }
 
   buscarVisitas(termino: string) {
-
-
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
     if (termino.length <= 0) {
       this.cargarVisitas();
       return;
@@ -59,7 +69,7 @@ export class ListadovisitasComponent implements OnInit {
         console.log(termino);
         this.visitas = visitas;
       });
-
+    }, this.time);
   }
 
   aceptarVisita(visita: Visita) {

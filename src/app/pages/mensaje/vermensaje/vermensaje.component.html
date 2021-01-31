@@ -11,14 +11,15 @@
           <!-- bbb_deals Item -->
           <div class=" bbb_deals_item">
 
-            <h2 for="example-date-input" style="text-align: center;">{{mensaje.titulo}}</h2>
+            <h2 for="example-date-input" style="text-align: center;">{{mensaje.titulo}}. <abbr title="Copia el correo electrónico del usuario y ve al menú lateral izquierdo, elige la sección de arrendador o arrendatario para realizar las acciones respectivas."><i class="fa fa-info-circle" aria-hidden="true"></i></abbr> </h2>
 
 
             <div class="bbb_deals_content">
 
               <div class="available">
 
-                <div class="bbb_deals_item_category">Usuario:</div>
+
+                <div class="bbb_deals_item_category">Usuario {{_enviarMensajeService.usuario.rol | lowercase}}:</div>
                 <div class="available_title">{{mensaje.correo}}</div>
                 <br>
                 <div class="bbb_deals_item_category">Asunto del mensaje:</div>

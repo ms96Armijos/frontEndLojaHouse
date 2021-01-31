@@ -1,3 +1,4 @@
+import { Usuario } from './../../models/usuario.model';
 import { UsuarioService } from './../usuario/usuario.service';
 import { HttpClient } from '@angular/common/http';
 import { URL_SERVICIOS } from './../../config/config';
@@ -15,6 +16,7 @@ export class EnviarmensajeService {
 
   mensaje: Mensaje;
   totalMensajes = 0;
+  usuario: Usuario = new Usuario(null, null, null, null, null);
 
 
   constructor(public http: HttpClient, public _usuarioService: UsuarioService) { }
@@ -55,7 +57,10 @@ export class EnviarmensajeService {
   obtenerMensaje(id: string) {
     let url = URL_SERVICIOS + '/mensaje/obtenermensaje/' + id;
     url += '?token=' + this._usuarioService.token;
-    return this.http.get(url).pipe(map((resp: any) => resp.mensaje));
+    return this.http.get(url).pipe(map((resp: any) => {
+      this.usuario = resp.usuario;
+      return resp.mensaje
+    }));
   }
 
   /*buscarMensajes(termino: string) {

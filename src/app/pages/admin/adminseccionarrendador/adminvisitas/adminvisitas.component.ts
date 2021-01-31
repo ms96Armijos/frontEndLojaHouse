@@ -1,3 +1,5 @@
+import { ContratoService } from './../../../../services/contrato/contrato.service';
+import { Contrato } from './../../../../models/contrato.model';
 import { UsuarioService } from './../../../../services/usuario/usuario.service';
 import { Usuario } from './../../../../models/usuario.model';
 import { Visita } from './../../../../models/visita.model';
@@ -24,6 +26,7 @@ export class AdminvisitasComponent implements OnInit {
   visitas: Visita[] = [];
   desde = 0;
   idUsuarioArrendador;
+
 
   timer = null;
   time = 1000;

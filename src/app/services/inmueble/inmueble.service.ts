@@ -71,11 +71,11 @@ export class InmuebleService {
     let url = URL_SERVICIOS + '/inmueble/eliminar-inmueble/admin/' + inmueble._id;
     url += '?token=' + this._usuarioService.token;
 
-    return this.http.delete(url).pipe(
+    return this.http.put(url, inmueble).pipe(
       map((resp: any) => {
         swal(
           'Inmueble eliminado',
-          'Se ha eliminado el inmueble',
+          'Se ha eliminado el bien inmueble',
           'success'
         );
         return true;
@@ -83,7 +83,7 @@ export class InmuebleService {
       catchError((err) => {
         swal(
           'Uppss...' + err.error.mensaje,
-          ' No se ha podido eliminar el inmueble',
+          ' No se ha podido eliminar el inmuebele',
           'error'
         );
         return throwError(err.error.mensaje);

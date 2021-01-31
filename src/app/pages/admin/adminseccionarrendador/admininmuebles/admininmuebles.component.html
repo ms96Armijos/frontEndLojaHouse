@@ -13,9 +13,12 @@
   <div class="row">
     <div class="col-12">
       <div class="card">
+
         <div class="card-body">
 
           <h3 class="card-title">Inmuebles registrados(<small>{{_inmuebleService.totalInmuebles}}</small>)</h3>
+
+
 
           <div class="container mb-5">
             <div class="row g-1">
@@ -25,54 +28,157 @@
             </div>
 
                 <div class="col-md-4" *ngFor="let inmueble of inmuebles">
+
                   <br>
-                    <div class="p-card">
+                    <div class="card">
 
-                        <div class="p-carousel" >
-                            <div class="carousel slide" data-ride="carousel" id="{{inmueble._id}}">
-                                <div class="carousel-inner" role="listbox">
-                                  <div *ngFor="let avatar of inmueble.imagen; let i = index" class="carousel-item" [ngClass]="{'active': i===0}">
-                                    <img  style="width:310px; height:310px" [src]='avatar'>
+                          <div class="bbb_deals_item_price_a mr-auto"
+                            [ngStyle]="{'background-color':inmueble.publicado == 'PUBLICO' ? '#007bff':'#fc4b6c'}">
+                            <b>{{inmueble.publicado == 'PUBLICO' ? 'Inmueble publicado' : 'Inmueble sin publicar'}}</b>
+                          </div>
+
+                          <div class="p-carousel" >
+                              <div class="carousel slide" data-ride="carousel" id="{{inmueble._id}}">
+                                  <div class="carousel-inner" role="listbox">
+                                    <div *ngFor="let avatar of inmueble.imagen; let i = index" class="carousel-item" [ngClass]="{'active': i===0}">
+                                      <img  style="width:310px; height:310px" [src]='avatar'>
+                                    </div>
                                   </div>
-                                </div>
 
-                                <div>
-                                  <a class="carousel-control-prev" href="#{{inmueble._id}}" role="button"
-                                  data-slide="prev"><span class="carousel-control-prev-icon"></span><span
-                                  class="sr-only">Previous</span></a><a class="carousel-control-next"
-                                  href="#{{inmueble._id}}" role="button" data-slide="next"><span
-                                  class="carousel-control-next-icon"></span><span class="sr-only">Next</span></a>
-                                </div>
+                                  <div>
+                                    <a class="carousel-control-prev" href="#{{inmueble._id}}" role="button"
+                                    data-slide="prev"><span class="carousel-control-prev-icon"></span><span
+                                    class="sr-only">Previous</span></a><a class="carousel-control-next"
+                                    href="#{{inmueble._id}}" role="button" data-slide="next"><span
+                                    class="carousel-control-next-icon"></span><span class="sr-only">Next</span></a>
+                                  </div>
 
-                            </div>
-                        </div>
+                              </div>
+                          </div>
 
-                        <div class="p-details">
-                          <div style="text-align: end; font-size: 18px; font-weight: bold;">$ {{inmueble.precioalquiler}}</div>
-                          <br>
-                             <a  [routerLink]="['/arrendador-ver-inmueble', inmueble._id]"> <div style="text-align: justify;"><h5>{{inmueble.nombre}}</h5></div></a>
-                             <hr>
-                              <h6 class="mb-0">{{inmueble.descripcion | limitTo : "23" }}</h6>
-                              <p class="card-text"><i class="fa fa-map-marker marker"></i> {{inmueble.direccion | limitTo : "28" }}</p>
+                          <div class="p-details">
+                            <div style="text-align: end; font-size: 18px; font-weight: bold;">$ {{inmueble.precioalquiler}}</div>
+                            <br>
+                              <a  [routerLink]="['/arrendador-ver-inmueble', inmueble._id]"> <div style="text-align: justify;"><h5>{{inmueble.nombre | limitTo : "19"}}</h5></div></a>
+                              <hr>
+                              <p class="card-text mt-2"><i class="fa fa-map-marker marker"></i> {{inmueble.direccion | limitTo : "28" }}</p>
+                                <h6 class="mb-0">{{inmueble.descripcion | limitTo : "23" }}</h6><br>
                           </div>
 
 
-                          <button (click)="publicarInmueble( inmueble )"
-                          [hidden]="inmueble.estado==='OCUPADO'"
-                          [ngStyle]="{'background-color':inmueble.publicado == 'PUBLICO'? 'green':'red'}"
-                          class="btn btn-block btn-outline-light btn-rounded mb-2" [disabled]="inmueble.estado=='OCUPADO'">
-                          {{inmueble.publicado == 'PUBLICO' ? 'Publicado' : 'Publicar'}}</button>
 
-                  <div class="row">
+                          <div *ngIf="contratos.length !== 0; else sinContrato">
+
+                            <div *ngFor="let contrato of contratos; last as isLast" >
+
+                              <div *ngIf="isLast && inmueble._id === contrato.inmueble._id &&  (contrato.fechafin)>=(fechaHoy)">
+
+                                <div class="row" align="center" [hidden]="contrato.estado==='VIGENTE'">
+                                  <div class="col-md-6">
+                                    <button type="button" (click)="publicarInmueble( inmueble )" class="btn btn-circle btn-xl btn-success" [disabled]="contrato.estado==='VIGENTE' || contrato.estado==='BORRADOR'"><i class="fa fa-check"></i></button>
+                                    <h6 [hidden]="inmueble.publicado == 'PUBLICO'"><b>Publicar</b></h6>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                    <button type="button" (click)="publicarInmueble( inmueble )" class="btn btn-warning btn-circle btn-xl" [disabled]="contrato.estado==='VIGENTE' || contrato.estado==='BORRADOR'"><i class="fa fa-times"></i>
+                                    </button>
+                                    <h6 [hidden]="inmueble.publicado === 'PRIVADO'"><b>Dejar de publicar</b></h6>
+                                  </div>
+                                </div>
+
+                                <br>
+                                <div align="center" style="color: red;">
+                                  {{inmueble.estado === 'OCUPADO'? 'El inmueble ha sido arrendado': ''}}
+                                </div>
+
+                               <div class="row">
+                                <div class="col-12">
+                                  <button class="btn btn-block btn-success" (click)="publicarInmueble(inmueble)" [hidden]="inmueble.estado=='DISPONIBLE'" [disabled]="contrato.estado==='VIGENTE' || contrato.estado==='BORRADOR'">Dejar de arrendar</button>
+                                </div>
+                               </div>
 
 
-                  <div class="col-6">
-                      <button (click)="borrarInmueble(inmueble)" class="btn btn-block btn-danger"><abbr
-                            title="Eliminar inmueble"><i class="fa fa-trash"></i></abbr></button>
-                  </div>
+                            </div>
 
-                  </div>
-                    </div>
+                            <div *ngIf="isLast && contrato.inmueble._id === inmueble._id &&  contrato.estado==='TERMINADO'">
+                              <div class="row" align="center" [hidden]="contrato.estado==='VIGENTE'">
+                                <div class="col-md-6">
+                                  <button type="button" (click)="publicarInmueble( inmueble )" class="btn btn-success btn-circle btn-xl" [disabled]="inmueble.publicado == 'PUBLICO' || inmueble.estado=='OCUPADO'"><i class="fa fa-check"></i>
+                                  </button>
+                                  <h6 [hidden]="inmueble.publicado === 'PUBLICO'"><b>Publicar</b></h6>
+                                </div>
+
+                                <div class="col-md-6">
+                                  <button type="button" (click)="publicarInmueble( inmueble)" class="btn btn-warning btn-circle btn-xl" [disabled]="inmueble.publicado == 'PRIVADO' || inmueble.estado=='OCUPADO'"><i class="fa fa-times"></i>
+                                  </button>
+                                  <h6 [hidden]="inmueble.publicado === 'PRIVADO'"><b>Dejar de publicar</b></h6>
+                                </div>
+                              </div>
+                              <div align="center" style="color: red;">
+                                {{inmueble.estado === 'OCUPADO'? 'El inmueble ha sido arrendado': ''}}
+                              </div>
+
+                              <div class="row">
+                                <div class="col-12">
+                                  <button class="btn btn-block btn-success" (click)="publicarInmueble(inmueble)" [hidden]="inmueble.estado==='DISPONIBLE'" [disabled]="(contrato.fechafin)>=(fechaHoy)">Dejar de arrendar</button>
+                                </div>
+                               </div>
+                            </div>
+
+
+                        <div *ngIf="isLast && contratos.length !==0 && contrato.inmueble._id !== inmueble._id">
+                          <div class="row" align="center" >
+                            <div class="col-md-6">
+                              <button type="button" (click)="publicarInmueble( inmueble )" class="btn btn-circle btn-xl btn-success" [disabled]="inmueble.publicado === 'PUBLICO' || inmueble.estado==='OCUPADO'"><i class="fa fa-check"></i></button>
+                              <h6 [hidden]="inmueble.publicado === 'PUBLICO'"><b>Publicar</b></h6>
+                            </div>
+
+                            <div class="col-md-6">
+                              <button type="button" (click)="publicarInmueble( inmueble )" class="btn btn-warning btn-circle btn-xl" [disabled]="inmueble.publicado === 'PRIVADO' || inmueble.estado==='OCUPADO'"><i class="fa fa-times"></i>
+                              </button>
+                              <h6 [hidden]="inmueble.publicado === 'PRIVADO'"><b>Dejar de arrendar</b></h6>
+                            </div>
+                          </div>
+                        </div>
+
+                          <!--  <button (click)="publicarInmueble( inmueble )"
+                                [hidden]="inmueble.estado==='OCUPADO'"
+                                [ngStyle]="{'background-color':inmueble.publicado == 'PUBLICO'? '#007bff':'orange'}"
+                                class="btn btn-block btn-outline-light btn-rounded mb-2" [disabled]="inmueble.estado=='OCUPADO'">
+                                {{inmueble.publicado == 'PUBLICO' ? 'Dejar de publicar' : 'Publicar'}}
+                            </button>-->
+
+
+
+
+                      </div>
+                          </div>
+
+                          <ng-template #sinContrato>
+                            <div class="row" align="center" >
+                              <div class="col-md-6">
+                                <button type="button" (click)="publicarInmueble( inmueble )" class="btn btn-circle btn-xl btn-success" [disabled]="inmueble.publicado === 'PUBLICO' || inmueble.estado==='OCUPADO'"><i class="fa fa-check"></i></button>
+                                <h6 [hidden]="inmueble.publicado === 'PUBLICO'"><b>Publicar</b></h6>
+                              </div>
+
+                              <div class="col-md-6">
+                                <button type="button" (click)="publicarInmueble( inmueble )" class="btn btn-warning btn-circle btn-xl" [disabled]="inmueble.publicado === 'PRIVADO' || inmueble.estado==='OCUPADO'"><i class="fa fa-times"></i>
+                                </button>
+                                <h6 [hidden]="inmueble.publicado === 'PRIVADO'"><b>Dejar de publicar</b></h6>
+                              </div>
+                            </div>
+                          </ng-template>
+
+                          <hr>
+
+                          <div class="row" [hidden]="inmueble.estado==='OCUPADO'">
+                            <div class="col-12">
+                                <button (click)="borrarInmueble(inmueble)" class="btn btn-block btn-danger">
+                                  <abbr title="Eliminar inmueble"><i class="fa fa-trash"></i></abbr>
+                                </button>
+                            </div>
+                        </div>
+
                 </div>
             </div>
           </div>

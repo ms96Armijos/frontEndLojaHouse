@@ -1,9 +1,13 @@
+import { ContratoService } from './../../../../services/contrato/contrato.service';
+import { Contrato } from 'src/app/models/contrato.model';
 import { InmuebleService } from './../../../../services/inmueble/inmueble.service';
 import { ToastrService } from 'ngx-toastr';
 import { Inmueble } from './../../../../models/inmueble.model';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert';
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-admininmuebles',
@@ -14,6 +18,8 @@ export class AdmininmueblesComponent implements OnInit {
 
   idUsuario: string;
 
+  contratos: Contrato[] = [];
+
   inmuebles: Inmueble[] = [];
   imagenTemporal: string;
   desde = 0;
@@ -22,24 +28,38 @@ export class AdmininmueblesComponent implements OnInit {
   timer = null;
   time = 1000;
 
+  fechaHoy;
 
-  constructor( public _inmuebleService: InmuebleService, public toastr: ToastrService, public activatedRoute: ActivatedRoute ) {
+
+
+  constructor( public _contratoService: ContratoService, public _inmuebleService: InmuebleService, public toastr: ToastrService, public activatedRoute: ActivatedRoute ) {
 
     activatedRoute.params.subscribe(parametros => {
       this.idUsuario = parametros['idusuario'];
       console.log(this.idUsuario)
       //this.obtenerVisita(id);
       //this.obtenerUsuarioArrendador(this.tokenPayload.usuario._id);
+      let now = moment(); // add this 2 of 4
+    this.fechaHoy = now.format();
     });
   }
 
   ngOnInit(): void {
     this.cargarInmueblesAdminArrendador();
+    this.cargarContratosAdminArrendador();
   }
+
+  cargarContratosAdminArrendador(){
+    this._contratoService.cargarContratosAdminArrendador(this.desde, this.idUsuario)
+    .subscribe( contratos => {this.contratos = contratos});
+  }
+
+
 
   cargarInmueblesAdminArrendador() {
     this._inmuebleService.cargarInmueblesAdminArrendador(this.desde, this.idUsuario)
-      .subscribe(inmuebles => this.inmuebles = inmuebles);
+      .subscribe(inmuebles => {this.inmuebles = inmuebles
+      console.log(inmuebles)});
 
   }
 
@@ -126,6 +146,7 @@ export class AdmininmueblesComponent implements OnInit {
       .then(borrar => {
         if (borrar) {
           inmueble.estado = 'ELIMINADO';
+          inmueble.publicado = 'PRIVADO';
           this._inmuebleService.borrarInmuebleDesdeElAdministrador(inmueble)
             .subscribe(borrado => {
               this.cargarInmueblesAdminArrendador();

@@ -1,52 +1,67 @@
-<div class="col-lg-6 mx-auto m-t-40">
-  <div class="card bbb_deals">
-    <div class="card-body">
-      <form #formaMensaje="ngForm" (ngSubmit)="crearMensaje(formaMensaje)" class="form p-t-20">
-        <div class="row">
-          <div class="col-md-12">
 
-            <h2>Escríbe un mensaje al administrador</h2>
-            <div class="form-group row">
+			<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <a href="/#/principal" class="navbar-brand">LojaHouse</a>
 
-              <div class="form-group col-12">
-                <label for="titulo">Título del mensaje</label>
-                <input ngModel  name="titulo" placeholder="Ejm.: Recuperar cuenta" class="form-control input-sm" type="text" required>
-                <span class="bar"></span>
-                <span *ngIf="formaMensaje.submitted && formaMensaje.controls['titulo'].errors"
-                class="text-danger animated fadeIn">Debes ingresar el título del mensaje</span>
-              </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
 
-              <div class="col-md-12 form-group">
-                <label for="asunto">Asunto del mensaje</label>
-                <div class="input-group">
-                  <div class="input-group-addon"></div>
-                  <textarea ngModel name="asunto" type="text" required class="form-control"
-                    aria-label="With textarea"></textarea>
+      </div>
+      </nav>
+<body>
+  <div class="col-lg-6 mx-auto m-t-40">
+    <div class="card bbb_deals">
+      <div class="card-body">
+        <form #formaMensaje="ngForm" (ngSubmit)="crearMensaje(formaMensaje)" class="form p-t-20">
+          <div class="row">
+            <div class="col-md-12">
+
+              <h2>Escríbe un mensaje al administrador</h2><br>
+              <div class="form-group row">
+
+                <div class="form-group col-12">
+                  <label for="titulo">Título del mensaje</label>
+                  <input ngModel  name="titulo" placeholder="Ejm.: Recuperar cuenta" class="form-control input-sm" type="text" required>
+                  <span class="bar"></span>
+                  <span *ngIf="formaMensaje.submitted && formaMensaje.controls['titulo'].errors"
+                  class="text-danger animated fadeIn">Debes ingresar el título del mensaje</span>
                 </div>
-                <span *ngIf="formaMensaje.submitted && formaMensaje.controls['asunto'].errors"
-                  class="text-danger animated fadeIn m-l-10">Ingrese el asunto del mensaje</span>
+
+                <div class="col-md-12 form-group">
+                  <label for="asunto">Asunto del mensaje</label>
+                  <div class="input-group">
+                    <div class="input-group-addon"></div>
+                    <textarea ngModel name="asunto" type="text" required class="form-control"
+                      aria-label="With textarea"></textarea>
+                  </div>
+                  <span *ngIf="formaMensaje.submitted && formaMensaje.controls['asunto'].errors"
+                    class="text-danger animated fadeIn m-l-10">Ingrese el asunto del mensaje</span>
+                </div>
+
+                <div class="form-group col-12">
+                  <label for="correo">Escribe tu correo</label>
+                  <input ngModel  name="correo" placeholder="Ejm.: correo@gmail.com" class="form-control input-sm" type="text" required email pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+                  <span class="bar"></span>
+                  <span *ngIf="formaMensaje.submitted && formaMensaje.controls['correo'].errors"
+                  class="text-danger animated fadeIn">Debes ingresar tu correo electrónico</span>
+                </div>
               </div>
 
-              <div class="form-group col-12">
-                <label for="correo">Escribe tu correo</label>
-                <input ngModel  name="correo" placeholder="Ejm.: correo@gmail.com" class="form-control input-sm" type="text" required email pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
-                <span class="bar"></span>
-                <span *ngIf="formaMensaje.submitted && formaMensaje.controls['correo'].errors"
-                class="text-danger animated fadeIn">Debes ingresar tu correo electrónico</span>
-              </div>
             </div>
-
           </div>
-        </div>
-        <div class="form-group text-center">
-          <div class="col-xs-12">
-            <button class="btn btn-block btn-lg btn-info btn-rounded"  type="submit">
-              Enviar mensaje
-            </button>
+          <div class="form-group text-center">
+            <div class="col-xs-12">
+              <button class="btn btn-block btn-lg btn-info btn-rounded"  type="submit">
+                Enviar mensaje
+              </button>
 
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
-</div>
+
+</body>

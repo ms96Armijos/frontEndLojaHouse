@@ -11,7 +11,6 @@ import { Visita } from './../../../models/visita.model';
 import { Component, OnInit } from '@angular/core';
 import decode from 'jwt-decode';
 
-
 @Component({
   selector: 'app-nuevo',
   templateUrl: './nuevo.component.html',
@@ -82,16 +81,31 @@ export class NuevoComponent implements OnInit {
     //if (tiempocontrato > 0){
     const contrato = new Contrato(nombrecontrato, forma.value.fechainicio,
       forma.value.fechafin, forma.value.monto, null, Object(inmueblesId),
-      Object(arrendadorId), Object(arrendatarioid));
+      Object(arrendadorId), Object(arrendatarioid), 'BORRADOR');
+
+      console.log(forma.value.fechainicio);
 
     this._contratoService.crearContrato(contrato)
       .subscribe(/*resp => {
           this.router.navigate(['/plantillacontrato', contrato._id]);
-        }*/);
+        }*/
+        resp => this.aceptarVisita(this.visitas));
+
     //}else{
     // this.toastr.error('No se puede establecer un tiempo menor a cero meses', 'Por favor elija una fecha correcta');
     //}
 
   }
+
+  aceptarVisita(visita: Visita) {
+
+    visita.estado = 'ATENDIDA';
+          this._visitaService.aceptarVisita(visita)
+            .subscribe();
+          this.toastr.success('Visita ' + visita.estado);
+  }
+
+
+
 
 }

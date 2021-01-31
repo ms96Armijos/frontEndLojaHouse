@@ -1,4 +1,4 @@
-import { BARRIOSDELOJA } from './../../config/config';
+import { BARRIOSDELOJA, TIPOSDEINMUEBLE, PRECIODEALQUILER } from './../../config/config';
 import { Router } from '@angular/router';
 import { UsuarioService } from './../../services/usuario/usuario.service';
 import { InmuebleService } from './../../services/inmueble/inmueble.service';
@@ -16,9 +16,10 @@ declare function inicializarPluginsSidebar();
 export class PrincipalComponent implements OnInit {
 
   inmuebles: Inmueble[] = [];
-  precios: String[]=['Seleccionar...', '50-100','100-150', '150-200'];
+  precios: String[]= PRECIODEALQUILER;
   ubicaciones: string[]=[].concat("Seleccioinar...", BARRIOSDELOJA);
-  tipos: string[]=['Seleccionar...', "Casa", "Departamento", "Cuarto", "Minidepartamento"];
+  tipos: string[]=TIPOSDEINMUEBLE;
+
   desde: number = 0;
   estaLogueado = false;
 
@@ -45,7 +46,6 @@ export class PrincipalComponent implements OnInit {
 
     this._inmuebleService.cargarInmueblesPulicos(this.desde)
       .subscribe(inmuebles => this.inmuebles = inmuebles);
-
   }
 
 

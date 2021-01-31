@@ -56,6 +56,7 @@ export class AcuerdoComponent implements OnInit {
         if (borrar) {
           if (contrato.acuerdo === 'PENDIENTE' || contrato.acuerdo === 'RECHAZADA') {
             contrato.acuerdo = 'ACEPTADO';
+            contrato.estado="VIGENTE";
           }
 
           this._contratoService.aceptarAcuerdo(contrato)

@@ -11,9 +11,6 @@
   </div>
 
   <div class="row">
-
-
-
     <div class="col-12">
       <div class="card">
         <div class="card-body">
@@ -21,10 +18,11 @@
           <table class="table table-hover" style="width:100%">
             <thead>
               <tr>
-                <th style="text-align: center;"><b>Nombre del contrato</b></th>
-                <th style="text-align: center;"><b>Inicio del contrato</b></th>
-                <th style="text-align: center;"><b>Fin del contrato</b></th>
-                <th style="text-align: center;"><b>Meses de alquiler</b></th>
+                <th style="text-align: center;"><b>Nombre</b></th>
+                <th style="text-align: center;"><b>Inicio</b></th>
+                <th style="text-align: center;"><b>Finalización</b></th>
+                <th style="text-align: center;"><b>Estado</b></th>
+                <th style="text-align: center;"><b>Puedes</b></th>
                 <th style="text-align: center;"><b>Acciones</b></th>
               </tr>
             </thead>
@@ -32,19 +30,35 @@
             <div class="alert alert-info" *ngIf="contratos.length === 0" >
               No hay resultados de la búsqueda
           </div>
-            <tbody>
-              <tr *ngFor="let contrato of contratos">
-                <td>{{contrato.nombrecontrato}}</td>
-                <td style="text-align: center;">{{contrato.fechainicio|date:'dd-MM-yyyy'}}</td>
-                <td style="text-align: center;">{{contrato.fechafin|date:'dd-MM-yyyy'}}</td>
-                <td style="text-align: center;">{{contrato.tiempocontrato}}</td>
-                <td style="text-align: center;">
+            <tbody *ngFor="let inmueble of inmuebles">
+              <tr *ngFor="let contrato of contratos" >
+                <td  *ngIf="contrato.inmueble._id === inmueble._id">{{contrato.nombrecontrato}}</td>
+                <td style="text-align: center;"  *ngIf="contrato.inmueble._id === inmueble._id">{{contrato.fechainicio|date:'dd-MM-yyyy'}}</td>
+                <td style="text-align: center;"  *ngIf="contrato.inmueble._id === inmueble._id">{{contrato.fechafin|date:'dd-MM-yyyy'}}</td>
+                <td style="text-align: center;"  *ngIf="contrato.inmueble._id === inmueble._id">
+                  <div>{{contrato.estado}}</div>
+              </td>
+
+              <td style="text-align: center;" *ngIf="contrato.inmueble._id === inmueble._id">
+                <div class="col">
+                  <div *ngIf="contrato.fechafin>=fechaHoy" >Sin acciones</div>
+                  <button type="button" class="btn btn-success" [ngStyle]="{'background-color': contrato.fechafin>=fechaHoy? '#26c6da':'#fc4b6c'}" (click)="estadoDelContrato(contrato)" [disabled]="contrato.estado === 'TERMINADO' || contrato.fechafin>=fechaHoy" [hidden]="contrato.fechafin>=fechaHoy"style="size: 10px;">Terminar el contrato</button>
+                  <button type="button" class="btn btn-success" [ngStyle]="{'background-color': contrato.fechafin>=fechaHoy? '#26c6da':'#fc4b6c'}" (click)="publicarInmueble(inmueble)" [disabled]="contrato.estado === 'VIGENTE' || inmueble.estado === 'DISPONIBLE'" [hidden]="contrato.fechafin>=fechaHoy" style="size: 10px;">Publicar el inmueble</button>
+                </div>
+            </td>
+
+
+                <td style="text-align: center;"  *ngIf="contrato.inmueble._id === inmueble._id">
                   <button [routerLink]="['/plantillacontrato', contrato._id]" class="btn btn-primary"><i
                     class="fa fa-eye"></i></button>
                 </td>
               </tr>
             </tbody>
           </table>
+
+          <div class="alert alert-info" *ngIf="contratos.length === 0" >
+            No hay resultados de la búsqueda
+        </div>
 
           <button (click)="cambiarPaginacion(-5)" class="btn btn-circle btn-lg btn-success mr-2"><</button>
           <button (click)="cambiarPaginacion(5)" class="btn btn-circle btn-lg btn-success">></button>

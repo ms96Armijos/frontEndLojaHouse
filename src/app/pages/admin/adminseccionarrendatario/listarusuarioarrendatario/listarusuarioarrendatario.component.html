@@ -48,6 +48,11 @@
 
 <div class="container mb-5">
   <div class="row" *ngIf="!cargando">
+
+    <div class="alert alert-info" *ngIf="usuarios.length === 0" >
+      No hay resultados de la búsqueda
+  </div>
+
       <div class="col-md-4" *ngFor="let usuario of usuarios">
           <div class="ribbon-wrapper card mt-3">
             <div class="row" style="align-self: flex-end;" >
@@ -57,8 +62,8 @@
               {{usuario.estado == 0 ? 'Activar' : 'Desactivar'}}</button>
             </div>
 
-            <div *ngIf="usuario.estado === '0'"  class="ribbon ribbon-danger">Usuario: <b>DESACTIVADO</b></div>
-            <div *ngIf="usuario.estado === '1'"  class="ribbon ribbon-success">Usuario: <b>ACTIVADO</b></div>
+            <div *ngIf="usuario.estado === '0'"  class="ribbon ribbon-danger">El usuario está: <b>DESACTIVADO</b></div>
+            <div *ngIf="usuario.estado === '1'"  class="ribbon ribbon-success">El usuario está: <b>ACTIVADO</b></div>
 
               <div class="product-1 align-items-center p-2 text-center">
                   <div class="image-container"><img class="xyz rounded" [src]="usuario.imagen | imagen" width="200" height="200"><img class="xyz-replacement rounded" [src]="usuario.imagen | imagen" width="200" height="200"></div><br>

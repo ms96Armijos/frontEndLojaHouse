@@ -27,3 +27,7 @@ export const PROVINCIAS = ["Esmeraldas", "Manabí", "Los Ríos", "Guayas", "Sant
 "Carchi", "Imbabura", "Pichincha", "Santo Domingo", "Cotopaxi", "Tungurahua",
 "Chimborazo", "Bolívar", "Cañar", "Azuay", "Loja", "Sucumbíos", "Orellana", "Napo", "Pastaza", "Morona Santiago",
 "Zamora Chinchipe", "Galápagos"];
+
+
+export const TIPOSDEINMUEBLE = ['Seleccionar...', "Casa", "Departamento", "Cuarto", "Minidepartamento"];
+export const PRECIODEALQUILER = ['Seleccionar...', '50-100','100-150', '150-200'];

@@ -21,6 +21,7 @@
                 <th style="text-align: center;"><b>Nombre del contrato</b></th>
                 <th style="text-align: center;"><b>Inicio del contrato</b></th>
                 <th style="text-align: center;"><b>Fin del contrato</b></th>
+                <th style="text-align: center;"><b>Acuerdo</b></th>
                 <th style="text-align: center;"><b>Estado</b></th>
                 <th style="text-align: center;"><b>Acciones</b></th>
               </tr>
@@ -32,6 +33,7 @@
                 <td style="text-align: center;">{{contrato.fechainicio|date:'dd-MM-yyyy'}}</td>
                 <td style="text-align: center;">{{contrato.fechafin|date:'dd-MM-yyyy'}}</td>
                 <td style="text-align: center;">{{contrato.acuerdo}}</td>
+                <td style="text-align: center;">{{contrato.estado}}</td>
                 <td style="text-align: center;">
                   <button [routerLink]="['/plantillacontrato', contrato._id]" class="btn btn-outline-primary mr-2">
                     <abbr title="Ver contrato"><i

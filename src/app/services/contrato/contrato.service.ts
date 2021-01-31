@@ -24,6 +24,7 @@ export class ContratoService {
     return this.http.post(url, contrato).pipe(
       map((resp: any) => {
         swal(
+          '¡Genial!',
           'Tu contrato ha sido creado\n',
           'success'
         );
@@ -31,7 +32,7 @@ export class ContratoService {
         return true;
       }),
       catchError((err) => {
-        swal('Uppss...' + err.error.mensaje, ' Existen campos obligatorios vacíos', 'error');
+        swal('Uppss...', err.error.mensaje,'error');
         return throwError(err.error.mensaje);
       })
     );
@@ -126,6 +127,15 @@ export class ContratoService {
       .pipe(map((resp: any) => resp.contrato));
   }
 
+
+  cambiarEstadoDelContrato(contrato: Contrato) {
+    let url = URL_SERVICIOS + '/contrato/' + contrato._id + '/estado';
+    url += '?token=' + this._usuarioService.token;
+
+
+    return this.http.put(url, contrato)
+      .pipe(map((resp: any) => resp.contrato));
+  }
 
 
 //CARGAR CONTRATOS PARA EL ADMIN-ARRENDADOR

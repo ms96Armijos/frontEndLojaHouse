@@ -1,8 +1,13 @@
+import { ContratoService } from './../../../services/contrato/contrato.service';
+import { Contrato } from './../../../models/contrato.model';
 import { InmuebleService } from './../../../services/inmueble/inmueble.service';
 import { ToastrService } from 'ngx-toastr';
 import { Inmueble } from './../../../models/inmueble.model';
 import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert';
+import * as moment from 'moment';
+
+
 
 @Component({
   selector: 'app-listarinmuebles',
@@ -12,6 +17,8 @@ import swal from 'sweetalert';
 export class ListarinmueblesComponent implements OnInit {
 
 
+  contratos: Contrato[] = [];
+
   inmuebles: Inmueble[] = [];
   imagenTemporal: string;
   desde = 0;
@@ -20,15 +27,26 @@ export class ListarinmueblesComponent implements OnInit {
   timer = null;
   time = 1000;
 
+  fechaHoy;
 
-  constructor( public _inmuebleService: InmuebleService, public toastr: ToastrService ) {
 
+  constructor( public _contratoService: ContratoService, public _inmuebleService: InmuebleService, public toastr: ToastrService ) {
+    let now = moment(); // add this 2 of 4
+    this.fechaHoy = now.format();
+    console.log('hello world', now.format()); // add this 3 of 4
   }
 
   ngOnInit(): void {
     this.cargarInmuebles();
     this.buscarInmuebles('DISPONIBLE');
+    this.cargarContratos();
   }
+
+  cargarContratos(){
+    this._contratoService.cargarContratos(this.desde)
+    .subscribe( contratos => {this.contratos = contratos});
+  }
+
 
 
   cargarInmuebles() {
@@ -83,6 +101,7 @@ this.timer = setTimeout(() => {
       .then(borrar => {
         if (borrar) {
           inmueble.estado = 'ELIMINADO';
+          inmueble.publicado = 'PRIVADO';
           this._inmuebleService.borrarInmueble(inmueble)
             .subscribe(borrado => {
               this.cargarInmuebles();

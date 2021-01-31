@@ -3,14 +3,15 @@
     <div class="col-12">
       <div class="card">
         <div class="card-body">
-          <label for="busqueda" title="Buscar visitas"><b>Buscar visitas...</b></label>
+          <label for="busqueda" title="Filtrar visitas"><b>Filtrar visitas.</b></label>
             <div class="row mt-3">
 
-              <!-- Default unchecked -->
+           <!-- Default unchecked -->
            <div class="custom-control custom-radio">
-             <input type="radio" class="custom-control-input" id="todos" name="defaultExampleRadios" checked mdbInput (click)="buscarVisitas('')">
-             <label class="custom-control-label" for="todos">Todas</label>
-           </div>
+            <input type="radio" class="custom-control-input" id="pendiente" name="defaultExampleRadios" checked mdbInput (click)="buscarVisitas('PENDIENTE')">
+            <label class="custom-control-label" for="pendiente">Pendientes</label>
+          </div>
+
 
 
              <!-- Default checked -->
@@ -19,11 +20,18 @@
              <label class="custom-control-label" for="activados">Aceptadas</label>
            </div>
 
+
            <!-- Default unchecked -->
            <div class="custom-control custom-radio">
-             <input type="radio" class="custom-control-input" id="desactivado" name="defaultExampleRadios" mdbInput (click)="buscarVisitas('PENDIENTE')">
-             <label class="custom-control-label" for="desactivado">Pendientes</label>
-           </div>
+            <input type="radio" class="custom-control-input" id="atendida" name="defaultExampleRadios" mdbInput (click)="buscarVisitas('ATENDIDA')">
+            <label class="custom-control-label" for="atendida">Atendidas</label>
+          </div>
+
+          <!-- Default unchecked -->
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="todos" name="defaultExampleRadios"  mdbInput (click)="buscarVisitas('')">
+              <label class="custom-control-label" for="todos">Todas</label>
+          </div>
 
 
            </div>
@@ -46,11 +54,14 @@
   <div class="row">
     <!-- .col -->
     <div class="col-md-6 col-lg-6 col-xlg-4" *ngFor="let visita of visitas">
+
       <div class="card card-body ribbon-wrapper card mt-3">
 
+        <div>
         <div *ngIf="visita.estado === 'ACEPTADA'" class="ribbon ribbon-success">La visita está: <b>ACEPTADA</b></div>
         <div *ngIf="visita.estado === 'PENDIENTE'" class="ribbon ribbon-warning">La visita está: <b>PENDIENTE</b></div>
         <div *ngIf="visita.estado === 'RECHAZADA'" class="ribbon ribbon-danger">La visita está: <b>RECHAZADA</b></div>
+        <div *ngIf="visita.estado === 'ATENDIDA'" class="ribbon ribbon-primary">La visita está: <b>ATENDIDA</b></div>
 
 
         <div class="row">
@@ -73,32 +84,38 @@
               <h6>Fecha solicitada para la visita: <b>{{visita.fecha |date:'dd-MM-yyyy'}}</b></h6>
             </div>
             <hr>
-            <i><h6>{{visita.inmueble.estado == 'OCUPADO' ? 'YA SE HA GENERADO EL CONTRATO' : 'FALTA GENERAR EL CONTRATO DE ALQUILER'}}</h6></i>
-            <div style="text-align: right;">
-              <button (click)="aceptarVisita( visita )"
-              [disabled]="visita.estado === 'ACEPTADA'"
-              [hidden]="visita.inmueble.estado=='OCUPADO'"
-                class="btn btn-outline-primary m-l-5"><abbr title="Aceptar visita"><i class="fa fa-check"
-                    aria-hidden="true"></i></abbr>
-              </button>
-              <button (click)="rechazarVisita( visita )"
-              [disabled]="visita.estado === 'RECHAZADA' || visita.inmueble.estado=='OCUPADO'"
-              [hidden]="visita.inmueble.estado=='OCUPADO'"
-                class="btn btn-outline-danger m-l-5"><abbr title="Rechazar visita"><i class="fa fa-remove"
-                    aria-hidden="true"></i></abbr></button>
+            <div><i><h6>{{visita.estado === 'ATENDIDA'? 'YA SE HA GENERADO EL CONTRATO' : 'FALTA GENERAR EL CONTRATO DE ALQUILER'}}</h6></i></div>
 
-              <button [routerLink]="['/crearcontrato', visita._id]"
-                [disabled]="(visita.estado === 'RECHAZADA' || visita.estado === 'PENDIENTE') || visita.inmueble.estado=='OCUPADO'"
-                [hidden]="visita.inmueble.estado=='OCUPADO'"
-                class="btn btn-outline-secondary m-l-5"><abbr title="Generar contrato de alquiler"><i class="fa fa-book"
-                    aria-hidden="true"></i></abbr></button>
-              <button (click)="borrarVisita( visita )" hidden="visita.inmueble.estado=='OCUPADO'" [disabled]="visita.inmueble.estado=='OCUPADO'" class="btn btn-danger m-l-5"><abbr title="Elimiar solicitud"><i
-                    class="fa fa-trash" aria-hidden="true"></i></abbr></button>
+
+            <div [hidden]="visita.estado === 'ATENDIDA'">
+              <div style="text-align: right;" >
+                <button (click)="aceptarVisita( visita )"
+                [disabled]="visita.estado === 'ACEPTADA'"
+                [hidden]="visita.estado === 'ATENDIDA'"
+                  class="btn btn-outline-primary m-l-5"><abbr title="Aceptar visita"><i class="fa fa-check"
+                      aria-hidden="true"></i></abbr>
+                </button>
+                <button (click)="rechazarVisita( visita )"
+                [disabled]="visita.estado === 'RECHAZADA'"
+                [hidden]="visita.estado === 'ATENDIDA'"
+                  class="btn btn-outline-danger m-l-5"><abbr title="Rechazar visita"><i class="fa fa-remove"
+                      aria-hidden="true"></i></abbr></button>
+
+                <button [routerLink]="['/crearcontrato', visita._id]"
+                  [disabled]="(visita.estado !== 'ACEPTADA')"
+                  [hidden]="visita.estado === 'ATENDIDA'"
+                  class="btn btn-outline-secondary m-l-5"><abbr title="Generar contrato de alquiler"><i class="fa fa-book"
+                      aria-hidden="true"></i></abbr></button>
+                <button (click)="borrarVisita( visita )" hidden="visita.inmueble.estado=='OCUPADO'" [disabled]="visita.inmueble.estado=='OCUPADO'" class="btn btn-danger m-l-5"><abbr title="Elimiar solicitud"><i
+                      class="fa fa-trash" aria-hidden="true"></i></abbr></button>
+              </div>
             </div>
 
           </div>
         </div>
       </div>
+        </div>
+
     </div>
     <!-- /.col -->
   </div>

@@ -238,7 +238,7 @@ export class UsuarioService {
 
     return this.http.get(url).pipe(map((resp: any) => resp.usuario),
     catchError((err) => {
-     //return swal('Lo siento...' + err.error.mensaje, 'warning');
+     return swal('Lo siento...', err.error.mensaje, 'warning');
      return throwError(err.error.mensaje);
     }));
 }
