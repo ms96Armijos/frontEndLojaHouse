@@ -38,7 +38,7 @@
               <h6>Fecha solicitada para la visita: <b>{{visita.fecha |date:'dd-MM-yyyy'}}</b></h6>
             </div>
             <hr>
-            <i><h5>{{visita.inmueble.estado == 'OCUPADO' ? 'YA SE HA GENERADO EL CONTRATO' : 'FALTA GENERAR EL CONTRATO DE ALQUILER'}}</h5></i>
+
 
             <div [hidden]="visita.estado === 'ATENDIDA'">
               <div style="text-align: right;" >

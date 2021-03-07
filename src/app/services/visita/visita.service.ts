@@ -36,7 +36,7 @@ export class VisitaService {
           return true;
         }),
         catchError((err) => {
-          return swal('Uppss...' + '', err.error.mensaje);
+          return swal('Uppss...' + '', err.error.mensaje, 'error');
           //swal('Uppss...' + '', ' La visita: ' + visita + ' ya existe, ingresa uno diferente', 'error');
           //return throwError(err.error.mensaje);
         })

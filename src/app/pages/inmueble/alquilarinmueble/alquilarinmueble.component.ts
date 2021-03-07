@@ -133,7 +133,7 @@ export class AlquilarinmuebleComponent implements OnInit {
 
     swal({
       title: '¿Está seguro de generar el siguiente contrato de alquiler?',
-      text: 'Está a punto de generar el contrato de alquiler: ',
+      text: 'Recuerde que no podrá modificar este contrato, por favor revise bien la información del contrato antes de continuar.',
       icon: 'warning',
       buttons: [
         'Cancelar',

@@ -8,6 +8,7 @@ import { Usuario } from './../../../../models/usuario.model';
 import { Inmueble } from './../../../../models/inmueble.model';
 import { Component, OnInit } from '@angular/core';
 import decode from 'jwt-decode';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-crearvisita',
@@ -16,7 +17,7 @@ import decode from 'jwt-decode';
 })
 export class CrearvisitaComponent implements OnInit {
 
-  inmuebles: Inmueble = new Inmueble("", "", "", "", "", 0, "", "", "");
+  inmuebles: Inmueble = new Inmueble(null, null, null, null, null, null, null, null, null);
   usuarios: Usuario = new Usuario(null, null, null, null, null);
 
   token = localStorage.getItem('token');
@@ -79,7 +80,11 @@ export class CrearvisitaComponent implements OnInit {
 
     const visita = new Visita(forma.value.fecha, this.descripcion, Object(idinmueble), Object(arrendatario_id), 'PENDIENTE');
 
-    console.log(visita);
+    if(!visita.fecha){
+      swal('Uppss...' + '', 'Debes ingresar la fecha de visita', 'warning');
+      return;
+    }
+    //console.log(visita);
     this._visitaService.crearVisita(visita)
       .subscribe(resp => {
        this.router.navigate(['/visitas-arrendatario']);

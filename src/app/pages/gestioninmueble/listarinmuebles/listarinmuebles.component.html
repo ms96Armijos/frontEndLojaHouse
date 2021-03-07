@@ -41,7 +41,7 @@
           <div class="text-right">
 
             <a routerLink="/crearinmueble" class="btn btn-md btn-rounded btn-success" [routerLink]="['/crearinmueble','nuevo']"><b>
-                Crear Inmueble</b></a>
+                Nuevo Inmueble</b></a>
           </div>
           <h3 class="card-title">Inmuebles registrados(<small>{{_inmuebleService.totalInmuebles}}</small>)</h3>
 
@@ -58,7 +58,10 @@
                   <div class="card">
                     <div class="bbb_deals_item_price_a mr-auto"
                     [ngStyle]="{'background-color':inmueble.publicado == 'PUBLICO' ? '#007bff':'#fc4b6c'}">
-                    <b>{{inmueble.publicado == 'PUBLICO' ? 'Inmueble publicado' : 'Inmueble sin publicar'}}</b></div>
+                    <b [hidden]="inmueble.estado==='OCUPADO'">{{inmueble.publicado == 'PUBLICO' ? 'Inmueble publicado' : 'Inmueble sin publicar'}}</b>
+                    <b [hidden]="inmueble.estado!=='OCUPADO'">{{inmueble.estado == 'OCUPADO' ? 'Inmueble Ocupado' : ''}}</b>
+                  </div>
+
                     <div class="p-carousel" >
                       <div class="carousel slide" data-ride="carousel" id="{{inmueble._id}}">
                           <div class="carousel-inner" role="listbox">
@@ -112,53 +115,80 @@
 
                           <br>
 
+                          <div align="center" style="color: red; margin-bottom: 15px;">
+                            {{inmueble.estado === 'OCUPADO'? 'El inmueble está arrendado': ''}}
+                          </div>
+
+                        <!-- <div class="row">
+                          <div class="col-12">
+                            <button class="btn btn-block btn-success" (click)="publicarInmueble(inmueble)" [hidden]="inmueble.estado==='DISPONIBLE'" [disabled]="contrato.estado==='VIGENTE' || contrato.estado==='BORRADOR'">Dejar de arrendar</button>
+                          <br>
+                          </div>
+                         </div>-->
+                        </div>
+
+
+                        <div style="text-align: center;"  *ngIf="contrato.inmueble._id === inmueble._id" [hidden]="contrato.estado==='TERMINADO'">
+                          <div class="col">
+                            <h6 style="text-align: justify; color: red;">{{ (contrato.fechafin)<=(fechaHoy)? 'El contrato ha expirado, por favor termine el contrato y publique su bien inmueble': ''}}</h6>
+                            <button type="button" class="btn btn-success btn-block" [ngStyle]="{'background-color': contrato.fechafin>=fechaHoy? '#26c6da':'#fc4b6c'}" (click)="estadoDelContrato(contrato)" [disabled]="contrato.estado === 'TERMINADO' || contrato.fechafin>=fechaHoy" [hidden]="contrato.fechafin>=fechaHoy" style="size: 10px;">Terminar el contrato</button>
+                          </div>
+                        </div>
+
+                        <div *ngIf="contrato.inmueble._id === inmueble._id &&  (contrato.fechafin)<=(fechaHoy)" [hidden]="inmueble.estado==='DISPONIBLE'">
+
+                          <div class="row" align="center" [hidden]="contrato.estado==='VIGENTE'">
+                            <div class="col-md-6">
+                              <button type="button" (click)="publicarInmueble( inmueble )" class="btn btn-success btn-circle btn-xl" [disabled]="inmueble.publicado === 'PUBLICO'"><i class="fa fa-check"></i>
+                              </button>
+                              <h6 [hidden]="inmueble.publicado == 'PUBLICO'"><b>Publicar</b></h6>
+                            </div>
+
+                            <div class="col-md-6">
+                              <button type="button" (click)="publicarInmueble( inmueble)" class="btn btn-warning btn-circle btn-xl" [disabled]="inmueble.publicado === 'PRIVADO'"><i class="fa fa-times"></i>
+                              </button>
+                              <h6 [hidden]="inmueble.publicado === 'PRIVADO'"><b>Dejar de publicar</b></h6>
+                            </div>
+                          </div>
+
+                          <br>
+
+
+                        </div>
+                      <!--  <div *ngIf="isLast && contrato.inmueble._id === inmueble._id &&  contrato.estado==='TERMINADO'">
+                          <div class="row" align="center" [hidden]="contrato.estado==='VIGENTE'">
+                            <div class="col-md-6">
+                              <button type="button" (click)="publicarInmueble( inmueble )" class="btn btn-success btn-circle btn-xl" [disabled]="inmueble.publicado === 'PUBLICO' || inmueble.estado==='OCUPADO'"><i class="fa fa-check"></i>
+                              </button>
+                              <h6 [hidden]="inmueble.publicado === 'PUBLICO'"><b>Publicar</b></h6>
+                            </div>
+
+                            <div class="col-md-6">
+                              <button type="button" (click)="publicarInmueble( inmueble)" class="btn btn-warning btn-circle btn-xl" [disabled]="inmueble.publicado === 'PRIVADO' || inmueble.estado==='OCUPADO'"><i class="fa fa-times"></i>
+                              </button>
+                              <h6 [hidden]="inmueble.publicado == 'PRIVADO'"><b>Dejar de publicar</b></h6>
+                            </div>
+                          </div>
                           <div align="center" style="color: red;">
                             {{inmueble.estado === 'OCUPADO'? 'El inmueble ha sido arrendado': ''}}
                           </div>
 
                          <div class="row">
                           <div class="col-12">
-                            <button class="btn btn-block btn-success" (click)="publicarInmueble(inmueble)" [hidden]="inmueble.estado==='DISPONIBLE'" [disabled]="contrato.estado==='VIGENTE' || contrato.estado==='BORRADOR'">Dejar de arrendar</button>
+                            <button class="btn btn-block btn-success" (click)="publicarInmueble(inmueble)" [hidden]="inmueble.estado==='DISPONIBLE'" [disabled]="(contrato.fechafin)>=(fechaHoy)">Dejar de arrendar</button>
                           </div>
                          </div>
-                        </div>
+                        </div>-->
 
-
-
-                        <div *ngIf="isLast && contrato.inmueble._id === inmueble._id &&  contrato.estado==='TERMINADO'">
-                          <div class="row" align="center" [hidden]="contrato.estado==='VIGENTE'">
-                            <div class="col-md-6">
-                              <button type="button" (click)="publicarInmueble( inmueble )" class="btn btn-success btn-circle btn-xl" [disabled]="inmueble.publicado === 'PUBLICO' || inmueble.estado=='OCUPADO'"><i class="fa fa-check"></i>
-                              </button>
-                              <h6 [hidden]="inmueble.publicado === 'PUBLICO'"><b>Publicar</b></h6>
-                            </div>
-
-                            <div class="col-md-6">
-                              <button type="button" (click)="publicarInmueble( inmueble)" class="btn btn-warning btn-circle btn-xl" [disabled]="inmueble.publicado == 'PRIVADO' || inmueble.estado=='OCUPADO'"><i class="fa fa-times"></i>
-                              </button>
-                              <h6 [hidden]="inmueble.publicado == 'PRIVADO'"><b>Dejar de publicar</b></h6>
-                            </div>
-                          </div>
-                          <div align="center" style="color: red;">
-                            {{inmueble.estado == 'OCUPADO'? 'El inmueble ha sido arrendado': ''}}
-                          </div>
-
-                         <div class="row">
-                          <div class="col-12">
-                            <button class="btn btn-block btn-success" (click)="publicarInmueble(inmueble)" [hidden]="inmueble.estado=='DISPONIBLE'" [disabled]="(contrato.fechafin)>=(fechaHoy)">Dejar de arrendar</button>
-                          </div>
-                         </div>
-                        </div>
-
-                        <div *ngIf="isLast && contratos.length !==0 && contrato.inmueble._id !== inmueble._id">
+                        <div *ngIf="isLast && contratos.length !==0 && contrato.inmueble._id !== inmueble._id && inmueble.estado === 'DISPONIBLE'">
                           <div class="row" align="center" >
                             <div class="col-md-6">
-                              <button type="button" (click)="publicarInmueble( inmueble )" class="btn btn-circle btn-xl btn-success" [disabled]="inmueble.publicado === 'PUBLICO' || inmueble.estado==='OCUPADO'"><i class="fa fa-check"></i></button>
+                              <button type="button" (click)="publicarInmueble( inmueble )" class="btn btn-circle btn-xl btn-success" [disabled]="inmueble.publicado === 'PUBLICO'"><i class="fa fa-check"></i></button>
                               <h6 [hidden]="inmueble.publicado == 'PUBLICO'"><b>Publicar</b></h6>
                             </div>
 
                             <div class="col-md-6">
-                              <button type="button" (click)="publicarInmueble( inmueble )" class="btn btn-warning btn-circle btn-xl" [disabled]="inmueble.publicado === 'PRIVADO' || inmueble.estado==='OCUPADO'"><i class="fa fa-times"></i>
+                              <button type="button" (click)="publicarInmueble( inmueble )" class="btn btn-warning btn-circle btn-xl" [disabled]="inmueble.publicado === 'PRIVADO'"><i class="fa fa-times"></i>
                               </button>
                               <h6 [hidden]="inmueble.publicado == 'PRIVADO'"><b>Dejar de publicar</b></h6>
                             </div>
@@ -178,7 +208,7 @@
                       <div class="row" align="center" >
                         <div class="col-md-6">
                           <button type="button" (click)="publicarInmueble( inmueble )" class="btn btn-circle btn-xl btn-success" [disabled]="inmueble.publicado === 'PUBLICO' || inmueble.estado==='OCUPADO'"><i class="fa fa-check"></i></button>
-                          <h6 [hidden]="inmueble.publicado == 'PUBLICO'"><b>Publicar</b></h6>
+                          <h6 [hidden]="inmueble.publicado === 'PUBLICO'"><b>Publicar</b></h6>
                         </div>
 
                         <div class="col-md-6">

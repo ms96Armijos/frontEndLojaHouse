@@ -22,7 +22,7 @@
                 <th style="text-align: center;"><b>Inicio</b></th>
                 <th style="text-align: center;"><b>Finalización</b></th>
                 <th style="text-align: center;"><b>Estado</b></th>
-                <th style="text-align: center;"><b>Puedes</b></th>
+                <th style="text-align: center;"><b>Contrato</b></th>
                 <th style="text-align: center;"><b>Acciones</b></th>
               </tr>
             </thead>
@@ -37,7 +37,7 @@
                 <td style="text-align: center;"  *ngIf="contrato.inmueble._id === inmueble._id">{{contrato.fechainicio|date:'dd-MM-yyyy'}}</td>
                 <td style="text-align: center;"  *ngIf="contrato.inmueble._id === inmueble._id">{{contrato.fechafin|date:'dd-MM-yyyy'}}</td>
                 <td style="text-align: center;"  *ngIf="contrato.inmueble._id === inmueble._id">
-                  <div>{{contrato.estado}}</div>
+                  <div>{{contrato.fechafin>=fechaHoy? contrato.estado: 'HA TERMINADO'}}</div>
               </td>
 
               <td style="text-align: center;"  *ngIf="contrato.inmueble._id === inmueble._id">
@@ -46,13 +46,13 @@
                   <button type="button" class="btn btn-success" [ngStyle]="{'background-color': contrato.fechafin>=fechaHoy? '#26c6da':'#fc4b6c'}" (click)="estadoDelContrato(contrato)" [disabled]="contrato.estado === 'TERMINADO' || contrato.fechafin>=fechaHoy" [hidden]="contrato.fechafin>=fechaHoy" style="size: 10px;">Terminar el contrato</button>
                   <button type="button" class="btn btn-success" [ngStyle]="{'background-color': contrato.fechafin>=fechaHoy? '#26c6da':'#fc4b6c'}" (click)="publicarInmueble(inmueble)" [disabled]="contrato.estado === 'VIGENTE' || inmueble.estado === 'DISPONIBLE'" [hidden]="contrato.fechafin>=fechaHoy" style="size: 10px;">Publicar el inmueble</button>
                 </div>
-            </td>
+              </td>
 
 
                 <td style="text-align: center;" *ngIf="contrato.inmueble._id === inmueble._id">
                   <button [routerLink]="['/plantillacontrato', contrato._id]" class="btn btn-primary">
-                    <i class="fa fa-eye"></i></button>
-                    <button (click)="borrarContrato(contrato)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                    <abbr title="Ver contrato"><i class="fa fa-eye"></i></abbr></button>
+                    <!--<button (click)="borrarContrato(contrato)" class="btn btn-danger"><i class="fa fa-trash"></i></button>-->
                 </td>
               </tr>
             </tbody>

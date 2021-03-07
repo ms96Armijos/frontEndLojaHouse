@@ -67,4 +67,8 @@ export class ListavisitaarrendatarioComponent implements OnInit {
 
   }
 
+  borrarVisita(visita: Visita){
+
+  }
+
 }

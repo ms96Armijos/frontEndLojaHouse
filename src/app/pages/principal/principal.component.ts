@@ -17,7 +17,7 @@ export class PrincipalComponent implements OnInit {
 
   inmuebles: Inmueble[] = [];
   precios: String[]= PRECIODEALQUILER;
-  ubicaciones: string[]=[].concat("Seleccioinar...", BARRIOSDELOJA);
+  ubicaciones: string[]=[].concat("Seleccionar...", BARRIOSDELOJA);
   tipos: string[]=TIPOSDEINMUEBLE;
 
   desde: number = 0;

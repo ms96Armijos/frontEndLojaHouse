@@ -148,4 +148,38 @@ this.timer = setTimeout(() => {
     });
   }
 
+
+  estadoDelContrato(contrato: Contrato) {
+
+    let estadoObtenido: string;
+
+    if (contrato.estado === 'VIGENTE') {
+      estadoObtenido = 'TERMINADO';
+      swal({
+        title: '¿Está seguro de realizar la siguiente acción?',
+        text: 'El contrato será: ' + estadoObtenido,
+        icon: 'warning',
+        buttons: [
+          'Cancelar',
+          'Aceptar'
+        ],
+        dangerMode: true,
+      }).then(borrar => {
+        if (borrar) {
+          if (contrato.estado === 'VIGENTE') {
+            contrato.estado="TERMINADO";
+          }
+            this._contratoService.cambiarEstadoDelContrato(contrato)
+            .subscribe();
+          this.toastr.success('Contrato ' + estadoObtenido);
+        }
+      });
+    }else{
+      this.toastr.warning('Ya está ' + contrato.estado + ' el contrato');
+    }
+  }
+
+
+
+
 }

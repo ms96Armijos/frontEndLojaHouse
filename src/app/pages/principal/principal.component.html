@@ -146,9 +146,9 @@
                   </div>
 
                   <div class="card-body">
-                    <h5 class="card-title">{{inmueble.nombre | limitTo : "12"}}</h5>
+                    <h5 class="card-title">{{inmueble.nombre | limitTo : "20"}}</h5>
                     <p class="card-text"><i class="fa fa-map-marker marker"></i> {{inmueble.barrio}}</p>
-                    <h6 class="mb-0">{{inmueble.descripcion | limitTo : "23" }}</h6><br>
+                    <h6 class="mb-0">{{inmueble.descripcion | limitTo : "26" }}</h6><br>
                     <p class="card-text" style="text-align: right;"><b>${{inmueble.precioalquiler}}</b></p>
                 </div>
                 <button [routerLink]="['/ver-inmueble-publico', inmueble._id]"

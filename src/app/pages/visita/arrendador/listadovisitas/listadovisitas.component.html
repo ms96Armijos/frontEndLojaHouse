@@ -84,7 +84,7 @@
               <h6>Fecha solicitada para la visita: <b>{{visita.fecha |date:'dd-MM-yyyy'}}</b></h6>
             </div>
             <hr>
-            <div><i><h6>{{visita.estado === 'ATENDIDA'? 'YA SE HA GENERADO EL CONTRATO' : 'FALTA GENERAR EL CONTRATO DE ALQUILER'}}</h6></i></div>
+
 
 
             <div [hidden]="visita.estado === 'ATENDIDA'">
@@ -106,6 +106,14 @@
                   [hidden]="visita.estado === 'ATENDIDA'"
                   class="btn btn-outline-secondary m-l-5"><abbr title="Generar contrato de alquiler"><i class="fa fa-book"
                       aria-hidden="true"></i></abbr></button>
+
+
+                      <button
+
+                  class="btn btn-outline-primary m-l-5"><a [routerLink]="['/vervisita', visita._id]"><abbr title="Ver visita"><i class="fa fa-eye"
+                    aria-hidden="true"></i></abbr></a>
+                </button>
+
                 <button (click)="borrarVisita( visita )" hidden="visita.inmueble.estado=='OCUPADO'" [disabled]="visita.inmueble.estado=='OCUPADO'" class="btn btn-danger m-l-5"><abbr title="Elimiar solicitud"><i
                       class="fa fa-trash" aria-hidden="true"></i></abbr></button>
               </div>

@@ -30,4 +30,4 @@ export const PROVINCIAS = ["Esmeraldas", "Manabí", "Los Ríos", "Guayas", "Sant
 
 
 export const TIPOSDEINMUEBLE = ['Seleccionar...', "Casa", "Departamento", "Cuarto", "Minidepartamento"];
-export const PRECIODEALQUILER = ['Seleccionar...', '50-100','100-150', '150-200'];
+export const PRECIODEALQUILER = ['Seleccionar...', '50-100','100-150', '150-200', '>200'];

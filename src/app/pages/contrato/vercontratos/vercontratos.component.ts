@@ -146,9 +146,24 @@ export class VercontratosComponent implements OnInit {
           inmueble.estado = "DISPONIBLE";
         }
       }
-      this._inmuebleService.publicarInmueble(inmueble)
-      .subscribe();
-      this.toastr.success('El inmueble ' + inmueble.nombre + ' ha sido publicado');
+
+      swal({
+        title: '¿Está seguro de realizar la siguiente acción?',
+        text: 'El inmueble estará: DISPONIBLE',
+        icon: 'warning',
+        buttons: [
+          'Cancelar',
+          'Aceptar'
+        ],
+        dangerMode: true,
+      }).then(borrar => {
+        if (borrar) {
+
+          this._inmuebleService.publicarInmueble(inmueble)
+          .subscribe();
+          this.toastr.success('El inmueble ' + inmueble.nombre + ' está DISPONIBLE para publicar');
+        }
+      });
   }
 
 }

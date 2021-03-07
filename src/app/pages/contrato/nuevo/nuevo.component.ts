@@ -10,6 +10,7 @@ import { Usuario } from './../../../models/usuario.model';
 import { Visita } from './../../../models/visita.model';
 import { Component, OnInit } from '@angular/core';
 import decode from 'jwt-decode';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-nuevo',
@@ -85,11 +86,32 @@ export class NuevoComponent implements OnInit {
 
       console.log(forma.value.fechainicio);
 
-    this._contratoService.crearContrato(contrato)
-      .subscribe(/*resp => {
-          this.router.navigate(['/plantillacontrato', contrato._id]);
-        }*/
-        resp => this.aceptarVisita(this.visitas));
+
+
+      swal({
+        title: '¿Está seguro de crear el contrato?',
+        text: 'Recuerde que no podrá modificar este contrato, por favor revise bien la información del contrato antes de continuar.',
+        icon: 'warning',
+        buttons: [
+          'Cancelar',
+          'Continuar'
+        ],
+        dangerMode: true,
+      })
+        .then(crearContratoAlquiler => {
+          if (crearContratoAlquiler) {
+            this._contratoService.crearContrato(contrato)
+            .subscribe(/*resp => {
+                this.router.navigate(['/plantillacontrato', contrato._id]);
+              }*/
+              resp => this.aceptarVisita(this.visitas));
+          }
+        });
+
+
+
+
+
 
     //}else{
     // this.toastr.error('No se puede establecer un tiempo menor a cero meses', 'Por favor elija una fecha correcta');

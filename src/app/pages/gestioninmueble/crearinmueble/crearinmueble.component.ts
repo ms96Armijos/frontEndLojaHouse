@@ -117,6 +117,8 @@ export class CrearinmuebleComponent implements OnInit {
       //console.log(serv.nombre); // 1, "string", false
       this.nuevservicios.push(serv.nombre);
     }
+
+
     this.inmuebles.nombre = forma.value.nombre;
     this.inmuebles.descripcion = forma.value.descripcion;
     this.inmuebles.direccion = forma.value.direccion;
@@ -131,6 +133,10 @@ export class CrearinmuebleComponent implements OnInit {
     this.inmuebles.ciudad = this.ciudadSeleccionada;
     this.inmuebles.provincia = this.provinciaSeleccionada;
     this.inmuebles.barrio = this.barrioSeleccionado;
+
+    if(forma.value.garantia === undefined){
+      this.inmuebles.garantia='0';
+    }
 
     this._inmuebleService.crearInmueble(this.inmuebles)
       .subscribe(resp => {

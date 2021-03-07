@@ -134,8 +134,8 @@
               <label for="codigo"><b>Precio de alquiler</b></label>
               <div class="input-group">
                 <div class="input-group-addon"></div>
-                <input [ngModel] ="inmuebles.precioalquiler" name="precioalquiler" type="number" required min="1"
-                pattern="^[0-9]+" class="form-control text-center">
+                <input [ngModel] ="inmuebles.precioalquiler" name="precioalquiler" type="text" required min="1"
+                 class="form-control text-center">
               </div>
               <span *ngIf="formaInmueble.submitted && formaInmueble.controls['precioalquiler'].errors" class="text-danger animated fadeIn">Ingrese el precio de alquiler</span>
             </div>
