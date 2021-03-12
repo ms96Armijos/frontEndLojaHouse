@@ -2,6 +2,7 @@ import { VisitasarrendatarioService } from './../../../../services/visita/visita
 import { ToastrService } from 'ngx-toastr';
 import { Visita } from './../../../../models/visita.model';
 import { Component, OnInit } from '@angular/core';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-listavisitaarrendatario',
@@ -67,8 +68,30 @@ export class ListavisitaarrendatarioComponent implements OnInit {
 
   }
 
+
   borrarVisita(visita: Visita){
 
+
+      swal({
+        title: '¿Está seguro de realizar la siguiente acción?',
+        text: 'La visita será: ELIMINADA',
+        icon: 'warning',
+        buttons: [
+          'Cancelar',
+          'Aceptar'
+        ],
+        dangerMode: true,
+      }).then(borrar => {
+        if (borrar) {
+          visita.estado ='ELIMINADA'
+
+          this._visitaArrendatarioService.eliminarVisita(visita)
+            .subscribe(borrados => {
+              this.cargarSolicitudesArrendatario();
+            });
+          //this.toastr.success('Visita ELIMINADA satisfactoriamente');
+        }
+      });
   }
 
 }

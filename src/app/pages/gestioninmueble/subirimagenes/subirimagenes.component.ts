@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { SubirfotoinmuebleService } from 'src/app/services/inmueble/subirfotoinmueble.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-subirimagenes',
@@ -34,7 +35,7 @@ export class SubirimagenesComponent implements OnInit {
   }
 
 
-  constructor(public router: Router, public activatedRoute: ActivatedRoute, public fb: FormBuilder,
+  constructor(public toastr: ToastrService, public router: Router, public activatedRoute: ActivatedRoute, public fb: FormBuilder,
     private sanitizer: DomSanitizer,
     public subirFotosInmuebleService: SubirfotoinmuebleService) {
 
@@ -103,6 +104,7 @@ export class SubirimagenesComponent implements OnInit {
               case HttpEventType.Response:
 
                 console.log('Imágenes cargadas exitosamente', event.body);
+                this.toastr.success('Imágenes cargadas exitosamente');
                 setTimeout(() => {
                   this.progress = 0;
                   this.fileArr = [];
@@ -112,10 +114,12 @@ export class SubirimagenesComponent implements OnInit {
             }
           } else {
             console.log('No hay img');
+            this.toastr.warning('No hay imágenes');
           }
         });
     } else {
       console.log('no hay imag');
+      this.toastr.warning('No hay imágenes');
     }
 
     //this.router.navigate(['/crearinmueble', this.id]);

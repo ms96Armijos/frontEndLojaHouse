@@ -66,7 +66,7 @@ export class NuevoComponent implements OnInit {
       return;
     }
 
-    const nombrecontrato = this.visitas.usuarioarrendatario.apellido + '_' + this.visitas.inmueble.tipo;
+    const nombrecontrato = this.visitas.usuarioarrendatario.apellido + '(' + this.visitas.inmueble.tipo+')';
 
     const inmueblesId = this.visitas.inmueble._id;
     const arrendadorId = this.usuarioarrendador._id;
@@ -99,13 +99,21 @@ export class NuevoComponent implements OnInit {
         dangerMode: true,
       })
         .then(crearContratoAlquiler => {
-          if (crearContratoAlquiler) {
-            this._contratoService.crearContrato(contrato)
-            .subscribe(/*resp => {
-                this.router.navigate(['/plantillacontrato', contrato._id]);
-              }*/
-              resp => this.aceptarVisita(this.visitas));
-          }
+         if(this.visitas.estado === 'ACEPTADA'){
+            if (crearContratoAlquiler) {
+              this._contratoService.crearContrato(contrato)
+              .subscribe(/*resp => {
+                  this.router.navigate(['/plantillacontrato', contrato._id]);
+                }*/
+                resp => this.aceptarVisita(this.visitas));
+            }
+         }else{
+          swal(
+            '¡Lo siento!',
+            'Para poder continuar debes aceptar la visita previamente.\n Acepta la visita y vuelve a intentarlo',
+            'warning'
+          );
+         }
         });
 
 

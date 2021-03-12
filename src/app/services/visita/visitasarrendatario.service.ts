@@ -3,7 +3,9 @@ import { UsuarioService } from './../usuario/usuario.service';
 import { HttpClient } from '@angular/common/http';
 import { Visita } from './../../models/visita.model';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import swal from 'sweetalert';
 
 @Injectable({
   providedIn: 'root'
@@ -52,5 +54,29 @@ export class VisitasarrendatarioService {
     let url = URL_SERVICIOS + '/visita/arrendatario/obtenervisita/' + id;
     url += '?token=' + this._usuarioService.token;
     return this.http.get(url).pipe(map((resp: any) => resp.visita));
+  }
+
+  eliminarVisita(visita: Visita) {
+    let url = URL_SERVICIOS + '/visita/eliminarvisita/' + visita._id;
+    url += '?token=' + this._usuarioService.token;
+
+    return this.http.put(url, visita)
+      .pipe(map((resp: any) =>
+      {
+        swal(
+          'Visita eliminada',
+          'Se ha eliminado la visita',
+          'success'
+        );
+        return true;
+      }),
+      catchError((err) => {
+        swal(
+          'Uppss...' + err.error.mensaje,
+          ' No se puede eliminar esta visita',
+          'error'
+        );
+        return throwError(err.error.mensaje);
+      }));
   }
 }

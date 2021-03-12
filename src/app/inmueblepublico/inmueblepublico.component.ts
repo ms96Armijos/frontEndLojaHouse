@@ -19,7 +19,7 @@ export class InmueblepublicoComponent implements OnInit {
   estaLogueado = false;
 
   timer = null;
-  time = 1000;
+  time = 500;
 
   constructor( public _inmuebleService: InmuebleService, public toastr: ToastrService, public activatedRoute: ActivatedRoute, public _usuarioService: UsuarioService ) {
     this.logueado();

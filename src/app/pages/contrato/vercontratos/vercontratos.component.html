@@ -21,8 +21,8 @@
                 <th style="text-align: center;"><b>Nombre</b></th>
                 <th style="text-align: center;"><b>Inicio</b></th>
                 <th style="text-align: center;"><b>Finalización</b></th>
+                <th style="text-align: center;"><b>Meses de alquiler</b></th>
                 <th style="text-align: center;"><b>Estado</b></th>
-                <th style="text-align: center;"><b>Contrato</b></th>
                 <th style="text-align: center;"><b>Acciones</b></th>
               </tr>
             </thead>
@@ -31,28 +31,22 @@
               No hay resultados de la búsqueda
           </div>
 
-            <tbody *ngFor="let inmueble of inmuebles">
-              <tr *ngFor="let contrato of contratos" >
-                <td  *ngIf="contrato.inmueble._id === inmueble._id">{{contrato.nombrecontrato}}</td>
-                <td style="text-align: center;"  *ngIf="contrato.inmueble._id === inmueble._id">{{contrato.fechainicio|date:'dd-MM-yyyy'}}</td>
-                <td style="text-align: center;"  *ngIf="contrato.inmueble._id === inmueble._id">{{contrato.fechafin|date:'dd-MM-yyyy'}}</td>
-                <td style="text-align: center;"  *ngIf="contrato.inmueble._id === inmueble._id">
-                  <div>{{contrato.fechafin>=fechaHoy? contrato.estado: 'HA TERMINADO'}}</div>
-              </td>
-
-              <td style="text-align: center;"  *ngIf="contrato.inmueble._id === inmueble._id">
-                <div class="col">
-                  <div *ngIf="contrato.fechafin>=fechaHoy" >Sin acciones</div>
-                  <button type="button" class="btn btn-success" [ngStyle]="{'background-color': contrato.fechafin>=fechaHoy? '#26c6da':'#fc4b6c'}" (click)="estadoDelContrato(contrato)" [disabled]="contrato.estado === 'TERMINADO' || contrato.fechafin>=fechaHoy" [hidden]="contrato.fechafin>=fechaHoy" style="size: 10px;">Terminar el contrato</button>
-                  <button type="button" class="btn btn-success" [ngStyle]="{'background-color': contrato.fechafin>=fechaHoy? '#26c6da':'#fc4b6c'}" (click)="publicarInmueble(inmueble)" [disabled]="contrato.estado === 'VIGENTE' || inmueble.estado === 'DISPONIBLE'" [hidden]="contrato.fechafin>=fechaHoy" style="size: 10px;">Publicar el inmueble</button>
-                </div>
+            <tbody *ngFor="let contrato of contratos">
+              <tr>
+                <td>{{contrato.nombrecontrato}}</td>
+                <td style="text-align: center;">{{contrato.fechainicio|date:'dd-MM-yyyy'}}</td>
+                <td style="text-align: center;">{{contrato.fechafin|date:'dd-MM-yyyy'}}</td>
+                <td style="text-align: center;">{{contrato.tiempocontrato}}</td>
+                <td style="text-align: center;">
+                  <div *ngIf="contrato.estado !== 'TERMINADO'" >{{contrato.fechafin>fechaHoy? contrato.estado: 'HA TERMINADO'}}</div>
+                  <div *ngIf="contrato.estado === 'TERMINADO'" >{{fechaHoy>contrato.fechafin? contrato.estado: 'HA TERMINADO'}}</div>
               </td>
 
 
-                <td style="text-align: center;" *ngIf="contrato.inmueble._id === inmueble._id">
+                <td style="text-align: center;">
                   <button [routerLink]="['/plantillacontrato', contrato._id]" class="btn btn-primary">
-                    <abbr title="Ver contrato"><i class="fa fa-eye"></i></abbr></button>
-                    <!--<button (click)="borrarContrato(contrato)" class="btn btn-danger"><i class="fa fa-trash"></i></button>-->
+                    <abbr title="Ver contrato"><i class="fa fa-book"></i></abbr></button>
+                    <button [routerLink]="['/visualizarcontrato', contrato._id]" class="btn btn-success"><i class="fa fa-eye"></i></button>
                 </td>
               </tr>
             </tbody>

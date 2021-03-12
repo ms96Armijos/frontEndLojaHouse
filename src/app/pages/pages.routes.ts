@@ -1,3 +1,4 @@
+import { VercontratoComponent } from './contrato/vercontrato/vercontrato.component';
 import { VermensajeComponent } from './mensaje/vermensaje/vermensaje.component';
 import { MensajesComponent } from './mensaje/mensajes/mensajes.component';
 import { ArrendadorGuard } from './../services/guards/arrendador.guard';
@@ -46,7 +47,7 @@ const pagesRoutes: Routes = [
       //
       { path: 'dashboard', component: DashboardComponent, data: { titulo: 'ARRENDADOR' } },
       //Listado de los bienes inmuebles registrados por un usuario arrendador:
-      { path: 'inmuebles', component: ListarinmueblesComponent, canActivate: [ArrendadorGuard], data: { titulo: 'Listado de inmuebles' } },
+      { path: 'inmuebles', component: ListarinmueblesComponent, canActivate: [ArrendadorGuard], data: { titulo: 'Listado de inmuebles disponibles' } },
       //Crear nuevos bienes inmuebles de acuerdo a un usuario arrendador específico:
       { path: 'crearinmueble/:idinmueble', component: CrearinmuebleComponent, canActivate: [ArrendadorGuard], data: { titulo: 'Crear inmueble' } },
       //Listado de solicitudes que le llegan al usuario arrendador:
@@ -57,6 +58,8 @@ const pagesRoutes: Routes = [
       { path: 'crearvisita/:idinmueble', component: CrearvisitaComponent, data: { titulo: 'Crear visita' } },
       //
       { path: 'vercontrato', component: VercontratosComponent, canActivate: [ArrendadorGuard], data: { titulo: 'Lista de contratos' } },
+      //visualizar un contrato específico
+      { path: 'visualizarcontrato/:idcontrato', component: VercontratoComponent, canActivate: [ArrendadorGuard], data: { titulo: 'Contrato' } },
       //
       { path: 'crearcontrato/:idvisita', component: NuevoComponent, canActivate: [ArrendadorGuard], data: { titulo: 'Crear contrato' } },
       //

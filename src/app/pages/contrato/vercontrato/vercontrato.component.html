@@ -1,0 +1,46 @@
+<div class="container" align="center">
+  <div class="card" style="width: 50%; box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.3);">
+    <div class="card-body">
+      <h5 class="card-title">{{contrato.nombrecontrato}}</h5>
+      <hr>
+      <!--Primera fila-->
+      <div class="row">
+        <div class="col">
+          <h6 class="card-subtitle mb-2 text-muted">Inicio del contrato:</h6>
+          <h5 class="card-title">{{contrato.fechainicio | date:'dd-MM-yyyy'}}</h5>
+        </div>
+        <div class="col">
+          <h6 class="card-subtitle mb-2 text-muted">Fin del contrato:</h6>
+          <h5 class="card-title">{{contrato.fechafin | date:'dd-MM-yyyy'}}</h5>
+        </div>
+      </div>
+      <!--Segunda fila-->
+      <br>
+      <div class="row">
+        <div class="col">
+          <h6 class="card-subtitle mb-2 text-muted">Meses de alquiler:</h6>
+          <h5 class="card-title">{{contrato.tiempocontrato}}</h5>
+        </div>
+        <div class="col">
+          <h6 class="card-subtitle mb-2 text-muted">Fin del contrato:</h6>
+          <h5 class="card-title">${{contrato.monto}}</h5>
+        </div>
+      </div>
+      <hr>
+
+
+       <!--Tercera fila-->
+       <div class="row">
+         <div class="col">
+          <button type="button" class="btn btn-success" [ngStyle]="{'background-color': contrato.fechafin>fechaHoy? '#26c6da':'#fc4b6c'}" (click)="estadoDelContrato(contrato)" [disabled]="(contrato.estado === 'BORRADOR' || contrato.estado === 'VIGENTE' || contrato.estado === 'TERMINADO') && contrato.fechafin>fechaHoy" [hidden]="contrato.estado==='TERMINADO' && contrato.fechafin<fechaHoy" style="size: 10px;">Terminar el contrato</button>
+         </div>
+         <div class="col">
+          <button type="button" class="btn btn-success" [ngStyle]="{'background-color': contrato.fechafin>fechaHoy? '#26c6da':'#fc4b6c'}" (click)="publicarInmueble(inmueble)" [disabled]="(contrato.estado === 'BORRADOR' || contrato.estado === 'VIGENTE' || inmueble.estado === 'DISPONIBLE') && contrato.fechafin>fechaHoy" [hidden]="(inmueble.estado==='DISPONIBLE' || inmueble.estado === 'ELIMINADO') && contrato.fechafin<fechaHoy" style="size: 10px;">Habilitar el inmueble</button>
+         </div>
+       </div>
+    </div>
+  </div>
+</div>
+
+
+

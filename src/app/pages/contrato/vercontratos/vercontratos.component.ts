@@ -1,5 +1,3 @@
-import { Inmueble } from './../../../models/inmueble.model';
-import { InmuebleService } from './../../../services/inmueble/inmueble.service';
 import { Contrato } from './../../../models/contrato.model';
 import { ToastrService } from 'ngx-toastr';
 import { ContratoService } from './../../../services/contrato/contrato.service';
@@ -18,7 +16,6 @@ export class VercontratosComponent implements OnInit {
 
   contratos: Contrato[] = [];
   desde = 0;
-  inmuebles: Inmueble[] = [];
 
   timer = null;
   time = 1000;
@@ -26,7 +23,6 @@ export class VercontratosComponent implements OnInit {
 
 
   constructor( public _contratoService: ContratoService,
-               public _inmuebleService: InmuebleService,
                public toastr: ToastrService,
                public router: Router ) {
     let now = moment(); // add this 2 of 4
@@ -35,7 +31,6 @@ export class VercontratosComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarContratos();
-    this.cargarInmuebles();
 
   }
 
@@ -46,12 +41,6 @@ export class VercontratosComponent implements OnInit {
     });
   }
 
-  cargarInmuebles() {
-    this._inmuebleService.cargarInmuebles(this.desde)
-      .subscribe(inmuebles => {
-        this.inmuebles = inmuebles
-      });
-  }
 
 
   buscarContratos(termino: string){
@@ -106,64 +95,6 @@ export class VercontratosComponent implements OnInit {
         }
       });
 
-  }
-
-  estadoDelContrato(contrato: Contrato) {
-
-    let estadoObtenido: string;
-
-    if (contrato.estado === 'VIGENTE') {
-      estadoObtenido = 'TERMINADO';
-      swal({
-        title: '¿Está seguro de realizar la siguiente acción?',
-        text: 'El contrato será: ' + estadoObtenido,
-        icon: 'warning',
-        buttons: [
-          'Cancelar',
-          'Aceptar'
-        ],
-        dangerMode: true,
-      }).then(borrar => {
-        if (borrar) {
-          if (contrato.estado === 'VIGENTE') {
-            contrato.estado="TERMINADO";
-          }
-            this._contratoService.cambiarEstadoDelContrato(contrato)
-            .subscribe();
-          this.toastr.success('Contrato ' + estadoObtenido);
-        }
-      });
-    }else{
-      this.toastr.warning('Ya está ' + contrato.estado + ' el contrato');
-    }
-  }
-
-  publicarInmueble(inmueble: Inmueble){
-
-      for (let i = 0; i < this.contratos.length; i++) {
-        if(inmueble._id === this.contratos[i].inmueble._id){
-          inmueble.publicado == "PUBLICO";
-          inmueble.estado = "DISPONIBLE";
-        }
-      }
-
-      swal({
-        title: '¿Está seguro de realizar la siguiente acción?',
-        text: 'El inmueble estará: DISPONIBLE',
-        icon: 'warning',
-        buttons: [
-          'Cancelar',
-          'Aceptar'
-        ],
-        dangerMode: true,
-      }).then(borrar => {
-        if (borrar) {
-
-          this._inmuebleService.publicarInmueble(inmueble)
-          .subscribe();
-          this.toastr.success('El inmueble ' + inmueble.nombre + ' está DISPONIBLE para publicar');
-        }
-      });
   }
 
 }

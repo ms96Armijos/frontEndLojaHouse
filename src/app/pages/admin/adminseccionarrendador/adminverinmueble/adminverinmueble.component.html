@@ -8,7 +8,7 @@
           <div class="bbb_deals_slider_container">
             <!-- bbb_deals Item -->
             <div class=" bbb_deals_item">
-
+              <div style="font-size: 20px;" align="center" class="bbb_deals_item_category"><b>{{inmueble.tipo}}</b></div>
               <div class="p-carousel">
                 <div class="carousel slide" data-ride="carousel" id="{{inmueble._id}}">
                   <div class="carousel-inner" role="listbox">
@@ -29,7 +29,6 @@
               </div>
               <br>
               <div class="bbb_deals_info_line d-flex flex-row justify-content-start">
-                <div class="bbb_deals_item_category">{{inmueble.tipo}}</div>
                 <div class="bbb_deals_item_price_a ml-auto"
                   [ngStyle]="{'background-color':inmueble.estado == 'DISPONIBLE' ? '#007bff':'#fc4b6c'}">
                   <b>{{inmueble.estado}}</b></div>
@@ -41,7 +40,9 @@
                   <div class="bbb_deals_item_price ml-auto">${{inmueble.precioalquiler}}</div>
                 </div>
                 <div class="available">
-
+                  <div class="bbb_deals_item_category">Código del inmueble:</div>
+                  <div class="available_title">{{inmueble.codigo}}</div>
+                  <br>
                   <div class="bbb_deals_item_category">Dirección:</div>
                   <div class="available_title">{{inmueble.direccion}}</div>
                   <br>

@@ -140,7 +140,7 @@ export class InmuebleService {
       .pipe(map((resp: any) => resp.inmuebles));
   }
 
-  busquedaAnidadaInmuebles(tipo: string, ubicacion: string, precio: number) {
+  busquedaAnidadaInmuebles(tipo: string, ubicacion: string, precio: String) {
     let url = URL_SERVICIOS + '/busqueda/coleccion/inmuebles/' + tipo + '/' + ubicacion +'/' + precio;
     console.log(url)
     return this.http.get(url)

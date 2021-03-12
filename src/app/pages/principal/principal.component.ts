@@ -25,10 +25,10 @@ export class PrincipalComponent implements OnInit {
 
   location: string = "Motupe";
   type: string = "Casa";
-  price: number = 50;
+  price: String = '50';
 
   timer = null;
-  time = 1000;
+  time = 500;
 
   constructor(public _inmuebleService: InmuebleService, public toastr: ToastrService, public router: Router, public _usuarioService: UsuarioService) {
     this.logueado();
@@ -84,13 +84,23 @@ export class PrincipalComponent implements OnInit {
 
 
 
-  busquedaAnidadaInmuebles(tipo: string, ubicacion: string, precio: number) {
+  busquedaAnidadaInmuebles(tipo: string, ubicacion: string, precio: String) {
 
       /*console.log(termino);
         if (termino.length <= 0) {
           this.cargarInmuebles();
           return;
         }*/
+
+        if(precio === '<50'){
+          precio = '0-50';
+        }
+
+        if(precio === '>200'){
+          precio = '200-0';
+        }
+
+        console.log(precio)
         this._inmuebleService.busquedaAnidadaInmuebles(tipo, ubicacion, precio)
           .subscribe(inmuebles =>  this.inmuebles = inmuebles);
       }
@@ -101,7 +111,7 @@ export class PrincipalComponent implements OnInit {
       tipoInmueble(tipo:string){
         this.type = tipo;
       }
-      precioInmueble(precio:number){
+      precioInmueble(precio:String){
         this.price = precio;
       }
 

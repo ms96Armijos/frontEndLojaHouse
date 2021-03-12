@@ -43,6 +43,7 @@ import { AcuerdoComponent } from './contrato/acuerdo/acuerdo.component';
 import { VervisitaComponent } from './visita/arrendador/vervisita/vervisita.component';
 import { MensajesComponent } from './mensaje/mensajes/mensajes.component';
 import { VermensajeComponent } from './mensaje/vermensaje/vermensaje.component';
+import { VercontratoComponent } from './contrato/vercontrato/vercontrato.component';
 
 
 
@@ -83,6 +84,7 @@ import { VermensajeComponent } from './mensaje/vermensaje/vermensaje.component';
     VervisitaComponent,
     MensajesComponent,
     VermensajeComponent,
+    VercontratoComponent,
   ],
   exports: [
     DashboardComponent,

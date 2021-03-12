@@ -10,12 +10,18 @@
     </div>
   </div>
 
+
   <div class="row">
     <div class="col-12">
       <div class="card">
         <div class="card-body">
           <h3 class="card-title">Has realizado (<small>{{_visitaArrendatarioService.totalSolicitudVisitas}}</small>) solicitudes</h3>
           <table class="table table-hover" style="width:100%">
+
+            <div class="alert alert-info" *ngIf="visitas.length === 0" >
+              No hay resultados de la búsqueda
+            </div>
+
             <thead>
               <tr>
                 <th><b>Estado</b></th>
@@ -31,7 +37,7 @@
                 <td>
                  <button [routerLink]="['/ver-visitas-arrendatario', visita._id]" class="btn btn-primary"><i
                       class="fa fa-eye"></i></button>
-                   <button (click)="borrarVisita(visita)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                   <button (click)="borrarVisita(visita)" [hidden]="visita.estado==='ACEPTADA' || visita.estado==='ATENDIDA' || visita.estado==='ELIMINADA'" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                 </td>
               </tr>
             </tbody>

@@ -1,5 +1,3 @@
-import { ContratoService } from './../../../../services/contrato/contrato.service';
-import { Contrato } from 'src/app/models/contrato.model';
 import { InmuebleService } from './../../../../services/inmueble/inmueble.service';
 import { ToastrService } from 'ngx-toastr';
 import { Inmueble } from './../../../../models/inmueble.model';
@@ -18,7 +16,6 @@ export class AdmininmueblesComponent implements OnInit {
 
   idUsuario: string;
 
-  contratos: Contrato[] = [];
 
   inmuebles: Inmueble[] = [];
   imagenTemporal: string;
@@ -32,7 +29,7 @@ export class AdmininmueblesComponent implements OnInit {
 
 
 
-  constructor( public _contratoService: ContratoService, public _inmuebleService: InmuebleService, public toastr: ToastrService, public activatedRoute: ActivatedRoute ) {
+  constructor(public _inmuebleService: InmuebleService, public toastr: ToastrService, public activatedRoute: ActivatedRoute ) {
 
     activatedRoute.params.subscribe(parametros => {
       this.idUsuario = parametros['idusuario'];
@@ -46,13 +43,9 @@ export class AdmininmueblesComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarInmueblesAdminArrendador();
-    this.cargarContratosAdminArrendador();
   }
 
-  cargarContratosAdminArrendador(){
-    this._contratoService.cargarContratosAdminArrendador(this.desde, this.idUsuario)
-    .subscribe( contratos => {this.contratos = contratos});
-  }
+
 
 
 

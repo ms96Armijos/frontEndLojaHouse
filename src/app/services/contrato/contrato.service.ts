@@ -45,6 +45,7 @@ export class ContratoService {
       map((resp: any) => {
         this.totalContratos = resp.total;
         this.contrato = resp.contratos;
+        console.log(this.contrato)
         return resp.contratos;
       })
     );
@@ -134,7 +135,23 @@ export class ContratoService {
 
 
     return this.http.put(url, contrato)
-      .pipe(map((resp: any) => resp.contrato));
+      .pipe(map((resp: any) =>
+
+      {
+        swal(
+          'contrato terminado!!',
+          'Se ha terminado el contrato',
+          'success'
+        );
+        return resp.contrato;
+      }),
+      catchError((err) => {
+        swal('Uppss...', err.error.errors, 'error');
+        return throwError(err.error.errors);
+      })
+
+
+      );
   }
 
 

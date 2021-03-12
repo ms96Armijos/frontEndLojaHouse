@@ -10,6 +10,7 @@
               </div>
           </div>
 
+
           <div class="col-md-12">
               <div class="fileupload" appSubirimagenes (click)="fileField.click()"
                   (fileDropped)="upload($event)">
@@ -22,11 +23,12 @@
               <div class="image-list" *ngFor="let file of fileArr; let i = index">
                   <div class="profile">
                       <img [src]="sanitize(file['url'])" alt="">
-                    </div>
+                  </div>
                     <a class="eliminar" href="javascript:void(0)" (click)="eliminarFoto(file)"><i class="fa fa-trash"></i></a>
-                </div>
-                <p class="message">{{msg}}</p>
               </div>
+                <p class="message">{{msg}}</p>
+          </div>
+          <span style="margin-left: 16px;"><b>Recuerde</b>:</span><div style="font-size: 12px; margin-bottom: 15px; margin-left: 16px;">Las imágenes que suba ahora reemplazarán las que contiene el inmueble actualmente</div>
             </div>
             <div class="row">
                 <button (click)="actualizar()" class="btn btn-block btn-lg btn-info btn-rounded">Guardar</button>
