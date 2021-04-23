@@ -53,7 +53,7 @@
 
   <div class="row">
     <!-- .col -->
-    <div class="col-md-6 col-lg-6 col-xlg-4" *ngFor="let visita of visitas">
+    <div class="col-md-12 col-lg-12 col-xlg-12" *ngFor="let visita of visitas">
 
       <div class="card card-body ribbon-wrapper card mt-3">
 
@@ -66,19 +66,19 @@
 
         <div class="row">
           <div class="col-md-4 col-lg-3 text-center">
-            <a [routerLink]="['/vervisita', visita._id]"><img [src]="visita.usuarioarrendatario.imagen | imagen"
-                class="w150" class="img-circle img-responsive"></a>
+            <img [src]="visita.usuarioarrendatario.imagen | imagen"
+              style="width:80%; height:80%" class="img-circle img-responsive">
           </div>
           <div class="col-md-8 col-lg-9">
-            <a [routerLink]="['/vervisita', visita._id]">
+            <a>
               <h5 class="box-title m-b-0">
-              <a [routerLink]="['/vervisita', visita._id]">  <b>{{visita.usuarioarrendatario.nombre+' '+ visita.usuarioarrendatario.apellido}}</b></a></h5>
+                <b>{{visita.usuarioarrendatario.nombre+' '+ visita.usuarioarrendatario.apellido}}</b></h5>
             </a>
             <hr>
 
-            <p><b>Descripción:</b><br>{{visita.descripcion | limitTo : "25" }}</p>
+            <p><b style="color: rgb(61, 60, 60); font-weight: bold;">Descripción:</b><br>{{visita.descripcion}}</p>
 
-            <small>Inmueble de interés: <b>{{visita.inmueble.tipo | limitTo : "4" }}</b></small>
+            <small>Inmueble de interés: <b>{{visita.inmueble.tipo}}</b></small>
             <br><br>
             <div style="text-align: end;">
               <h6>Fecha solicitada para la visita: <b>{{visita.fecha |date:'dd-MM-yyyy'}}</b></h6>
@@ -104,15 +104,14 @@
                 <button [routerLink]="['/crearcontrato', visita._id]"
                   [disabled]="(visita.estado !== 'ACEPTADA')"
                   [hidden]="visita.estado === 'ATENDIDA'"
-                  class="btn btn-outline-secondary m-l-5"><abbr title="Generar contrato de alquiler"><i class="fa fa-book"
+                  class="btn btn-outline-secondary m-l-5"><abbr title="Alquilar inmueble"><i class="fa fa-handshake-o"
                       aria-hidden="true"></i></abbr></button>
 
 
-                      <button
-
+               <!--  <button
                   class="btn btn-outline-primary m-l-5"><a [routerLink]="['/vervisita', visita._id]"><abbr title="Ver visita"><i class="fa fa-eye"
                     aria-hidden="true"></i></abbr></a>
-                </button>
+                </button>-->
 
                 <button (click)="borrarVisita( visita )" hidden="visita.inmueble.estado=='OCUPADO'" [disabled]="visita.inmueble.estado=='OCUPADO'" class="btn btn-danger m-l-5"><abbr title="Elimiar solicitud"><i
                       class="fa fa-trash" aria-hidden="true"></i></abbr></button>

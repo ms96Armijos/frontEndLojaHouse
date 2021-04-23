@@ -1,3 +1,5 @@
+import { ArrendatarioGuard } from './../services/guards/arrendatario.guard';
+import { ArrendadorAdminGuard } from './../services/guards/arrendador.admin.guard';
 import { VercontratoComponent } from './contrato/vercontrato/vercontrato.component';
 import { VermensajeComponent } from './mensaje/vermensaje/vermensaje.component';
 import { MensajesComponent } from './mensaje/mensajes/mensajes.component';
@@ -45,7 +47,7 @@ const pagesRoutes: Routes = [
     canActivate: [LoginGuardGuard],
     children: [
       //
-      { path: 'dashboard', component: DashboardComponent, data: { titulo: 'ARRENDADOR' } },
+      { path: 'dashboard', component: DashboardComponent, data: { titulo: 'ARRENDADOR'}},
       //Listado de los bienes inmuebles registrados por un usuario arrendador:
       { path: 'inmuebles', component: ListarinmueblesComponent, canActivate: [ArrendadorGuard], data: { titulo: 'Listado de inmuebles disponibles' } },
       //Crear nuevos bienes inmuebles de acuerdo a un usuario arrendador específico:
@@ -53,13 +55,13 @@ const pagesRoutes: Routes = [
       //Listado de solicitudes que le llegan al usuario arrendador:
       { path: 'visitas', component: ListadovisitasComponent, canActivate: [ArrendadorGuard], data: { titulo: 'Solicitudes de visitas' } },
       //Ver la visita solicitada a todo detalle
-      { path: 'vervisita/:idvisita', component: VervisitaComponent, data: { titulo: 'Visita solicitada' } },
+     // { path: 'vervisita/:idvisita', component: VervisitaComponent, canActivate: [ArrendadorAdminGuard], data: { titulo: 'Visita solicitada' } },
       //El usuario arrendatario puede crear una visita a partir de un inmueble publicado en la pantalla principal:
-      { path: 'crearvisita/:idinmueble', component: CrearvisitaComponent, data: { titulo: 'Crear visita' } },
+      { path: 'crearvisita/:idinmueble', component: CrearvisitaComponent,  canActivate: [ArrendatarioGuard], data: { titulo: 'Crear visita' } },
       //
       { path: 'vercontrato', component: VercontratosComponent, canActivate: [ArrendadorGuard], data: { titulo: 'Lista de contratos' } },
       //visualizar un contrato específico
-      { path: 'visualizarcontrato/:idcontrato', component: VercontratoComponent, canActivate: [ArrendadorGuard], data: { titulo: 'Contrato' } },
+      { path: 'visualizarcontrato/:idcontrato', component: VercontratoComponent, canActivate: [ArrendadorAdminGuard], data: { titulo: 'Contrato' } },
       //
       { path: 'crearcontrato/:idvisita', component: NuevoComponent, canActivate: [ArrendadorGuard], data: { titulo: 'Crear contrato' } },
       //
@@ -69,13 +71,13 @@ const pagesRoutes: Routes = [
       //
       { path: 'publicados', component: InmublespublicadosComponent, canActivate: [ArrendadorGuard], data: { titulo: 'Inmuebles pulicados' } },
       //
-      { path: 'contratoarrendatario', component: ContratoarrendatarioComponent, data: { titulo: 'Contratos' } },
+      { path: 'contratoarrendatario', component: ContratoarrendatarioComponent, canActivate: [ArrendatarioGuard], data: { titulo: 'Contratos' } },
       //
       { path: 'subirfotosinmueble/:idinmueble', component: SubirimagenesComponent, canActivate: [ArrendadorGuard], data: { titulo: 'Subir imágenes del inmueble' } },
       //
       { path: 'noautorizado', component: Page403Component, data: { titulo: 'No autorizado' } },
       //
-      { path: 'acuerdo/:idcontrato', component: AcuerdoComponent, data: { titulo: 'Estado del contrato' } },
+      { path: 'acuerdo/:idcontrato', component: AcuerdoComponent, canActivate: [ArrendatarioGuard], data: { titulo: 'Estado del contrato' } },
 
 
 
@@ -95,15 +97,15 @@ const pagesRoutes: Routes = [
 
       //SECCIÓN MENSAJES
       { path: 'mensajes', component: MensajesComponent, canActivate: [AdminGuard], data: { titulo: 'Mensajes recibidos' } },
-      { path: 'ver-mensaje/:idmensaje', component: VermensajeComponent, data: { titulo: 'Mensaje' } },
+      { path: 'ver-mensaje/:idmensaje', component: VermensajeComponent, canActivate: [AdminGuard], data: { titulo: 'Mensaje' } },
 
 
 
       //ARRENDATARIO
       //listado de solicitudes realizadas por parte del usuario arrendatario:
-      { path: 'visitas-arrendatario', component: ListavisitaarrendatarioComponent, data: { titulo: 'Visitas solicitadas' } },
+      { path: 'visitas-arrendatario', component: ListavisitaarrendatarioComponent, canActivate: [ArrendatarioGuard], data: { titulo: 'Visitas solicitadas' } },
       //obtengo una visita del arrendatario para que pueda visualizarla:
-      { path: 'ver-visitas-arrendatario/:idvisita', component: VervisitasrealizadasComponent, data: { titulo: 'Visita solicitada' } },
+      { path: 'ver-visitas-arrendatario/:idvisita', component: VervisitasrealizadasComponent, canActivate: [ArrendatarioGuard], data: { titulo: 'Visita solicitada' } },
 
 
 

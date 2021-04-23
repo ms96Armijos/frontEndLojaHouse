@@ -22,7 +22,7 @@ export class ListarinmueblesComponent implements OnInit {
   inmuebles: Inmueble[] = [];
   imagenTemporal: string;
   desde = 0;
-  contador: string [] = [];
+  contador;
 
   timer = null;
   time = 1000;
@@ -34,19 +34,20 @@ export class ListarinmueblesComponent implements OnInit {
     let now = moment(); // add this 2 of 4
     this.fechaHoy = now.format();
     console.log('hello world', now.format()); // add this 3 of 4
+
   }
 
   ngOnInit(): void {
     this.cargarInmuebles();
     this.buscarInmuebles('DISPONIBLE');
     this.cargarContratos();
+
   }
 
   cargarContratos(){
     this._contratoService.cargarContratos(this.desde)
     .subscribe( contratos => {this.contratos = contratos});
   }
-
 
 
   cargarInmuebles() {
@@ -128,9 +129,9 @@ this.timer = setTimeout(() => {
       icon: 'warning',
       buttons: [
         'Cancelar',
-        'Aceptar'
+        'Aceptar',
       ],
-      dangerMode: true,
+      dangerMode: false,
     }).then(borrar => {
       if (borrar) {
         if (inmueble.publicado === 'PUBLICO') {
@@ -142,10 +143,19 @@ this.timer = setTimeout(() => {
         }
 
         this._inmuebleService.publicarInmueble(inmueble)
-          .subscribe();
+          .subscribe(inmuebles =>{
+            if(inmuebles.publicado === 'PUBLICO'){
+              this.enviarFCM(inmuebles.nombre);
+
+            }
+          });
         this.toastr.success('Inmueble ' + estadoObtenido);
       }
     });
+  }
+
+  enviarFCM(inmueble: string){
+    this._inmuebleService.enviarNotificacionFCM(inmueble).subscribe(resp => {});
   }
 
 
@@ -163,7 +173,7 @@ this.timer = setTimeout(() => {
           'Cancelar',
           'Aceptar'
         ],
-        dangerMode: true,
+        dangerMode: false,
       }).then(borrar => {
         if (borrar) {
           if (contrato.estado === 'VIGENTE') {

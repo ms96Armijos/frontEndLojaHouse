@@ -1,6 +1,8 @@
 <div class="container m-b-5">
   <div class="row animate fadeIn">
     <div class="col-12">
+      <button (click)="regresarPagina()" style="width: 100px; height: 40px; padding: 0px; border: 0px;" class="btn btn-outline-info"><i class="fa fa-hand-o-left" style="margin-right: 8px;"></i>Regresar</button>
+
       <div class="card">
         <div class="card-body">
           <label for="busqueda" title="Filtrar visitas"><b>Filtrar visitas</b></label>
@@ -47,7 +49,7 @@
       No hay resultados de la búsqueda
   </div>
     <!-- .col -->
-    <div class="col-md-6 col-lg-6 col-xlg-4" *ngFor="let visita of visitas">
+    <div class="col-md-12 col-lg-12 col-xlg-12" *ngFor="let visita of visitas">
 
       <div class="card card-body ribbon-wrapper card mt-3">
 
@@ -61,29 +63,20 @@
         <div class="row">
           <div class="col-md-4 col-lg-3 text-center">
             <a [routerLink]="['/vervisita', visita._id]"><img [src]="visita.usuarioarrendatario.imagen | imagen"
-                class="img-circle img-responsive"></a>
+              style="width:80%; height:80%" class="img-circle img-responsive"></a>
           </div>
           <div class="col-md-8 col-lg-9">
            <a [routerLink]="['/vervisita', visita._id]"> <h5 class="box-title m-b-0"><b>{{visita.usuarioarrendatario.nombre+' '+ visita.usuarioarrendatario.apellido}}</b></h5> </a>
             <hr>
 
-            <h5><b>Descripción:</b></h5><p>{{visita.descripcion  | limitTo : "25" }}</p>
+            <h5><b>Descripción:</b></h5><p>{{visita.descripcion}}</p>
 
-            <small>Inmueble de interés: <b>{{visita.inmueble.tipo | limitTo : "4" }}</b></small>
+            <small>Inmueble de interés: <b>{{visita.inmueble.tipo}}</b></small>
             <hr>
             <div style="text-align: end;">
               <h6>Fecha solicitada para la visita: <b>{{visita.fecha |date:'dd-MM-yyyy'}}</b></h6>
             </div>
-            <hr>
-            <div><i><h6>{{visita.estado === 'ATENDIDA' ? 'YA SE HA GENERADO EL CONTRATO' : 'FALTA GENERAR EL CONTRATO DE ALQUILER'}}</h6></i></div>
 
-            <div style="text-align: right;" [hidden]="tokenPayload.usuario.rol ==='ADMINISTRADOR'">
-              <button (click)="aceptarVisita( visita )" [disabled]= "visita.estado === 'ACEPTADA'"  [hidden]="visita.estado === 'ATENDIDA'" class="btn btn-outline-primary m-l-5" ><abbr title="Aceptar visita"><i class="fa fa-check" aria-hidden="true"></i></abbr>
-              </button>
-              <button (click)="rechazarVisita( visita )" [disabled]= "visita.estado === 'RECHAZADA'"  [hidden]="visita.estado === 'ATENDIDA'" class="btn btn-outline-danger m-l-5"><abbr title="Rechazar visita"><i class="fa fa-remove" aria-hidden="true"></i></abbr></button>
-              <button [routerLink]="['/crearcontrato', visita._id]" [disabled]= "(visita.estado !== 'ACEPTADA')" [hidden]="visita.estado === 'ATENDIDA'" class="btn btn-outline-secondary m-l-5"><abbr title="Generar contrato de alquiler"><i class="fa fa-book" aria-hidden="true"></i></abbr></button>
-              <button (click)="borrarVisita( visita )" hidden="visita.inmueble.estado=='OCUPADO'" class="btn btn-danger m-l-5"><abbr title="Elimiar solicitud"><i class="fa fa-trash" aria-hidden="true"></i></abbr></button>
-            </div>
           </div>
         </div>
       </div>

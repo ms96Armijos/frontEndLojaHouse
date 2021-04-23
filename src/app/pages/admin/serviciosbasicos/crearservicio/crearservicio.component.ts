@@ -53,4 +53,8 @@ export class CrearservicioComponent implements OnInit {
 
   }
 
+  regresarPagina(){
+    window.history.back();
+  }
+
 }

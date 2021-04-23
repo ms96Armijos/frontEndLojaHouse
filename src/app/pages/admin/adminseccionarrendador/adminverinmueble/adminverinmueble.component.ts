@@ -38,4 +38,8 @@ export class AdminverinmuebleComponent implements OnInit {
     });
   }
 
+  regresarPagina(){
+    window.history.back();
+  }
+
 }

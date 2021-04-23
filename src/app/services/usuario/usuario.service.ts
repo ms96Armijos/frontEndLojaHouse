@@ -43,9 +43,9 @@ export class UsuarioService {
     }
   }
 
-
-  guardarDatosEnStorage(id: string, token: string,  menu: any) {
-    localStorage.setItem('id', id);
+//LE QUITÉ EL ID A ESTE MÉTODO
+  guardarDatosEnStorage(token: string,  menu: any) {
+    //localStorage.setItem('id', id);
     localStorage.setItem('token', token);
     localStorage.setItem('menu', JSON.stringify(menu));
     this.token = token;
@@ -56,7 +56,7 @@ export class UsuarioService {
     this.token = '';
     this.menu = [];
     localStorage.removeItem('token');
-    localStorage.removeItem('id');
+    //localStorage.removeItem('id');
     localStorage.removeItem('menu');
   }
 
@@ -82,13 +82,13 @@ export class UsuarioService {
     });
   }
 
-  //FUNCION PARA LOGUARSE EN LA APLICACION
+  //FUNCION PARA LOGUEARSE EN LA APLICACION
   login(usuario: Usuario) {
     const url = URL_SERVICIOS + '/login';
 
     return this.http.post(url, usuario).pipe(
       map((resp: any) => {
-        this.guardarDatosEnStorage(resp.id, resp.token, resp.menu);
+        this.guardarDatosEnStorage(resp.token, resp.menu);
         return true;
       }),
       catchError((err) => {
@@ -127,8 +127,10 @@ export class UsuarioService {
 
       if (usuario._id === tokenPayload.usuario._id) {
         const usuarioDB = resp.usuario;
-        this.guardarDatosEnStorage(usuarioDB._id, this.token, this.menu);
+        this.guardarDatosEnStorage(this.token, this.menu);
+
         return true;
+
       }
     }),
       catchError((err) => {
@@ -158,7 +160,7 @@ export class UsuarioService {
 
         tokenPayload.usuario.imagen = resp.usuario.imagen;
         swal('Imagen actualizada', 'Se ha actualizado su foto de perfil', 'success');
-        this.guardarDatosEnStorage(id, this.token, this.menu);
+        this.guardarDatosEnStorage(this.token, this.menu);
         window.location.href = '/perfil';
 
       })
@@ -208,7 +210,7 @@ export class UsuarioService {
     return this.http.put(url, usuario).pipe(map((resp: any) => {
       swal('Contraseña actualizada', 'Se ha actualizado su contraseña', 'success');
       const usuarioDB = resp.usuario;
-      this.guardarDatosEnStorage(usuarioDB._id, this.token, this.menu);
+      this.guardarDatosEnStorage(this.token, this.menu);
       return true;
     }),
     catchError((err) => {
@@ -239,7 +241,7 @@ export class UsuarioService {
     return this.http.get(url).pipe(map((resp: any) => resp.usuario),
     catchError((err) => {
      return swal('Lo siento...', err.error.mensaje, 'warning');
-     return throwError(err.error.mensaje);
+     //return throwError(err.error.mensaje);
     }));
 }
 

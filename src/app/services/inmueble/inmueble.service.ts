@@ -152,7 +152,10 @@ export class InmuebleService {
     url += '?token=' + this._usuarioService.token;
 
     return this.http.put(url, inmueble)
-      .pipe(map((resp: any) => resp.inmueble));
+      .pipe(map((resp: any) => {
+        resp.inmueble;
+        return resp.inmueble;
+      }));
   }
 
 
@@ -204,6 +207,12 @@ export class InmuebleService {
       .pipe(map((resp: any) => resp.inmuebles));
   }
 
+
+  enviarNotificacionFCM(inmueble: string) {
+    console.log('push')
+    let url = URL_SERVICIOS + '/enviarnotificaciones/notificacion-usuario/'+ inmueble;
+    return this.http.get(url).pipe(map((resp: any) => resp.ok));
+  }
 
 
 

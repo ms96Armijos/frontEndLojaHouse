@@ -1,6 +1,18 @@
 
+const isEmail = input => /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(input);
+$('#email-tags').tagEditor({
+  placeholder: 'Enter tags ...',
+  beforeTagSave: (field, editor, tags, tag, val) => {
 
-function validate1(val) {
+    // make sure it is a formally valid email
+    if (!isEmail(val)) {
+      console.log(`"${val}" is not a valid email`);
+      return false;
+    }
+  }
+});
+
+/*function validate1(val) {
   v1 = document.getElementById("fname");
   v2 = document.getElementById("lname");
   v3 = document.getElementById("email");
@@ -190,3 +202,4 @@ function validate1(val) {
   });
 
   });
+*/

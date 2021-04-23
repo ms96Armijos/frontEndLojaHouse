@@ -2,6 +2,7 @@
 <!-- ============================================================== -->
 <section id="wrapper">
   <div class="grid">
+    <button (click)="regresarPagina()" style="width: 100px; height: 40px; padding: 0px; border: 0px;" class="btn btn-outline-info"><i class="fa fa-hand-o-left" style="margin-right: 8px;"></i>Regresar</button>
     <div class="card">
       <div class="card-body">
         <form #formaInmueble="ngForm" (ngSubmit)="crearInmueble(formaInmueble)" class="form p-t-20">
@@ -12,10 +13,11 @@
                 <label><b>Nombre</b></label>
                 <div class="input-group">
                   <div class="input-group-addon"></div>
-                  <input [ngModel] ="inmuebles.nombre" name="nombre" type="text" class="form-control" required
+                  <input [ngModel] ="inmuebles.nombre"  name="nombre" (keyup)="limitarNombre($event, 'nombre')" type="text" class="form-control" minlength="5" maxlength="101" required
                   placeholder="Escriba un nombre para su inmueble">
                 </div>
                 <span *ngIf="formaInmueble.submitted && formaInmueble.controls['nombre'].errors" class="text-danger animated fadeIn">El nombre es obligatorio</span>
+                <div *ngIf="limiteNombre===false" class="text-danger animated fadeIn">Ha excedido el límite máximo de caracteres</div>
               </div>
             </div>
 
@@ -31,10 +33,24 @@
             </div>
 
             <div class="container">
-              <small><i>Arrástre hacia la derecha los servicios que incluye el bien inmueble</i></small>
+              <small><i>Ingrerse los servicios que incluye el bien inmueble</i></small>
               <div class="row">
-                <div class="col-md-3">
-                  <div class="drag-container">
+                <div class="col-md-6">
+
+                  <tag-input [ngModel]="garaje" theme='bootstrap' name="itemServ" placeholder="+ Servicio básico">
+                    <tag-input-dropdown
+                    [autocompleteItems]="items"
+                    [showDropdownIfEmpty]="true"
+                    [dynamicUpdate]="false">
+                  </tag-input-dropdown>
+                  </tag-input>
+
+
+
+
+
+
+                <!--  <div class="drag-container">
                     <div class="section-heading">Servicios</div>
                     <div cdkDropList #pendingList="cdkDropList" [cdkDropListData]="servicios"
                       [cdkDropListConnectedTo]="[doneList]" class="item-list" (cdkDropListDropped)="drop($event)">
@@ -44,10 +60,12 @@
                       <button (click)="cambiarPaginacion(-5)" class="btn btn-secondary btn-sm m-r-5">←</button>
                       <button (click)="cambiarPaginacion(5)" class="btn btn-secondary btn-sm">→</button>
                     </div>
-                  </div>
+                  </div>-->
+
+
                 </div>
 
-                <div class="col-md-3">
+               <!-- <div class="col-md-3">
                   <div class="drag-container">
                     <div class="section-heading">Incluye</div>
                     <div  cdkDropList #doneList="cdkDropList" [cdkDropListData]="servicioselegidos"
@@ -55,16 +73,17 @@
                       <div  class="item-box" *ngFor="let item of servicioselegidos" cdkDrag>{{item.nombre}}</div>
                     </div>
                   </div>
-                </div>
+                </div>-->
 
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="descripcion"><b>Descripción</b></label>
                     <div class="input-group">
                       <div class="input-group-addon"></div>
-                      <textarea [ngModel] ="inmuebles.descripcion" name="descripcion" type="text" required class="form-control"
+                      <textarea [ngModel] ="inmuebles.descripcion" (keyup)="limitarNombre($event, 'descripcion')" minlength="5" maxlength="201" name="descripcion" type="text" required class="form-control"
                       aria-label="With textarea"></textarea>
                     </div>
+                    <div *ngIf="limiteDescripcion===false" class="text-danger animated fadeIn">ha excedido el límite máximo de caracteres</div>
                     <span *ngIf="formaInmueble.submitted && formaInmueble.controls['descripcion'].errors" class="text-danger animated fadeIn">Escriba una descripción</span>
                   </div>
                 </div>
@@ -77,9 +96,10 @@
                 <label for="direccion"><b>Dirección</b></label>
                 <div class="input-group">
                   <div class="input-group-addon"></div>
-                  <textarea [ngModel] ="inmuebles.direccion" name="direccion" type="text" required class="form-control"
+                  <textarea [ngModel] ="inmuebles.direccion" (keyup)="limitarNombre($event, 'direccion')" name="direccion" type="text" required minlength="5" maxlength="151" class="form-control"
                   aria-label="With textarea"></textarea>
                 </div>
+                <div *ngIf="limiteDireccion===false" class="text-danger animated fadeIn">ha excedido el límite máximo de caracteres</div>
                 <span *ngIf="formaInmueble.submitted && formaInmueble.controls['direccion'].errors" class="text-danger animated fadeIn">La dirección es obligatoria</span>
               </div>
             </div>
@@ -116,15 +136,16 @@
                 <div class="input-group">
                   <div class="input-group-addon"></div>
                   <input [ngModel] ="inmuebles.codigo" name="codigo" type="text" class="form-control"
-                    placeholder="Ejemplo: 211">
+                    placeholder="Ejemplo: 19-28">
                 </div>
+                <div *ngIf="limiteNombre===false" >Code mal</div>
               </div>
             </div>
 
 
             <div class="col-md-6 mt-4">
-              <label for="garantia"><b>Si solicita un monto inicial como garantía, ingrese su valor</b></label><br>
-              <input [ngModel] ="inmuebles.garantia" name="garantia" type="number" min="1" pattern="^[0-9]+"
+              <label for="garantia"><b>¿Solicita garantía? Ingrese el valor</b></label><br>
+              <input [ngModel] ="inmuebles.garantia" name="garantia" (keypress)="restrictNumeric($event)" type="number" min="1"
                 class="form-control text-center">
             </div>
 
@@ -134,7 +155,7 @@
               <label for="codigo"><b>Precio de alquiler</b></label>
               <div class="input-group">
                 <div class="input-group-addon"></div>
-                <input [ngModel] ="inmuebles.precioalquiler" name="precioalquiler" type="text" required min="1"
+                <input [ngModel] ="inmuebles.precioalquiler" name="precioalquiler" (keypress)="restrictNumeric($event)" type="number" required min="1"
                  class="form-control text-center">
               </div>
               <span *ngIf="formaInmueble.submitted && formaInmueble.controls['precioalquiler'].errors" class="text-danger animated fadeIn">Ingrese el precio de alquiler</span>
@@ -153,7 +174,7 @@
 
           <div class="form-group text-center m-t-20">
             <div class="col-xs-12">
-              <button [disabled]="idInmuebleCreado && banderaCreadoActualizado" class="btn btn-block btn-lg btn-info btn-rounded" type="submit">
+              <button [disabled]="idInmuebleCreado && banderaCreadoActualizado" class="btn btn-block btn-lg btn-info btn-rounded" [disabled]= "!formaInmueble.valid" type="submit">
                 Guardar inmueble
               </button>
             </div>
@@ -173,6 +194,5 @@
 </section>
 <!-- ============================================================== -->
 <!-- End Wrapper -->
-
 
 

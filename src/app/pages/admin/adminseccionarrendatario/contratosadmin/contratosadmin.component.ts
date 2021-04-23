@@ -70,4 +70,9 @@ export class ContratosadminComponent implements OnInit {
     this.cargarContratosAdminArrendatario();
   }
 
+  regresarPagina(){
+    window.history.back();
+  }
+
+
 }

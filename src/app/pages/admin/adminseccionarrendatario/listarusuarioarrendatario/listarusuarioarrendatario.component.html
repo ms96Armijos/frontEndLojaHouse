@@ -3,9 +3,6 @@
     <div class="card">
       <div class="card-body">
 
-        <input #input (keyup)="buscarUsuario(input.value)" type="text" class="form-control"
-          placeholder="Buscar usuario...">
-
           <div class="row mt-3">
             <!-- Default checked -->
           <div class="custom-control custom-radio">
@@ -53,7 +50,7 @@
       No hay resultados de la búsqueda
   </div>
 
-      <div class="col-md-4" *ngFor="let usuario of usuarios">
+      <div class="col-md-6" *ngFor="let usuario of usuarios">
           <div class="ribbon-wrapper card mt-3">
             <div class="row" style="align-self: flex-end;" >
               <button (click)="desactivarUsuario( usuario )"

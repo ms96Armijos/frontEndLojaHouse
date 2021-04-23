@@ -44,6 +44,7 @@ export class AdminvisitasComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarVisitasAdminArrendador();
+    this.buscarVisitas('PENDIENTE');
   }
 
   obtenerUsuarioArrendador(id: string) {
@@ -177,6 +178,10 @@ export class AdminvisitasComponent implements OnInit {
         }
       });
 
+  }
+
+  regresarPagina(){
+    window.history.back();
   }
 
 }

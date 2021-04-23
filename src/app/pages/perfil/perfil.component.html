@@ -1,10 +1,11 @@
 <div class="row">
 
   <div class="col-lg-7">
+    <button (click)="regresarPagina()" style="width: 100px; height: 40px; padding: 0px; border: 0px;" class="btn btn-outline-info"><i class="fa fa-hand-o-left" style="margin-right: 8px;"></i>Regresar</button>
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">Usuario: <b>{{usuario.correo}}</b>, <i>{{usuario.rol}}</i></h4>
-        <form  #f="ngForm" class="form-material m-t-40" (ngSubmit)="ActualizarInformacionPerfil(f.value)">
+        <h4 class="card-title">Usuario: <b>{{correoUsuario}}</b>, <i>{{rolUsuario}}</i></h4>
+        <form [formGroup]="formularioPerfil" class="form-material m-t-40" (ngSubmit)="ActualizarInformacionPerfil()">
 
           <div class="row ">
             <div class="col-6">
@@ -14,9 +15,21 @@
                   <label for="nombre">Nombres</label>
                   <div class="input-group">
                     <div class="input-group-addon"></div>
-                    <input [ngModel]="usuario.nombre" name="nombre" type="text" required class="form-control">
+                    <input formControlName="nombre" type="text" required class="form-control" minlength="5" maxlength="80">
                   </div>
-                  <span *ngIf="f.submitted && f.controls['nombre'].errors" class="text-danger animated fadeIn">Los nombres son obligatorios</span>
+
+                  <div class="alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" >
+                    <div class="container-error-message" *ngIf="nombre.errors.required" >
+                      El nombre es requerido
+                    </div>
+                    <div class="container-error-message" *ngIf="nombre.errors.minlength">
+                      El nombre debe tener mínimo 5 caracteres
+                    </div>
+                    <div class="container-error-message" *ngIf="nombre.errors.maxlength">
+                      Excede el número de caracteres permitidos
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -25,9 +38,21 @@
                 <label for="apellido">Apellidos</label>
                 <div class="input-group">
                   <div class="input-group-addon"></div>
-                  <input [ngModel]="usuario.apellido" name="apellido" type="text" required class="form-control">
+                  <input formControlName="apellido" type="text" required class="form-control" minlength="5" maxlength="80">
                 </div>
-                <span *ngIf="f.submitted && f.controls['apellido'].errors" class="text-danger animated fadeIn">Los apellidos son obligatorios</span>
+
+                <div class="alert-danger" *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)" >
+                  <div class="container-error-message" *ngIf="apellido.errors.required" >
+                    El apellido es requerido
+                  </div>
+                  <div class="container-error-message" *ngIf="apellido.errors.minlength">
+                    El apellido debe tener mínimo 5 caracteres
+                  </div>
+                  <div class="container-error-message" *ngIf="apellido.errors.maxlength">
+                    Excede el número de caracteres permitidos
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
@@ -36,9 +61,21 @@
             <label for="cedula">Cédula</label>
             <div class="input-group">
               <div class="input-group-addon"></div>
-              <input [ngModel]="usuario.cedula" name="cedula" type="text" class="form-control">
+              <input formControlName="cedula"  type="text" class="form-control" onkeypress='return event.charCode >= 48 && event.charCode <= 57' minlength="10" maxlength="10">
             </div>
-            <span *ngIf="f.submitted && f.controls['cedula'].errors" class="text-danger animated fadeIn">El número de cédula es obligatorio</span>
+
+            <div class="alert-danger" *ngIf="cedula.invalid && (cedula.dirty || cedula.touched)" >
+              <div class="container-error-message" *ngIf="cedula.errors.required" >
+                La cédula es requerida
+              </div>
+              <div class="container-error-message" *ngIf="cedula.errors.minlength">
+                La cédula debe tener mínimo 10 caracteres
+              </div>
+              <div class="container-error-message" *ngIf="cedula.errors.maxlength">
+                Excede el número de caracteres permitidos
+              </div>
+            </div>
+
           </div>
 
 
@@ -49,9 +86,21 @@
                   <label for="movil">Celular</label>
                   <div class="input-group">
                     <div class="input-group-addon"></div>
-                    <input [ngModel]="usuario.movil" name="movil" type="text" required class="form-control">
+                    <input formControlName="movil" type="text" required class="form-control" onkeypress='return event.charCode >= 48 && event.charCode <= 57' minlength="10" maxlength="10">
                   </div>
-                  <span *ngIf="f.submitted && f.controls['movil'].errors" class="text-danger animated fadeIn">El número de celular es obligatorio</span>
+
+                  <div class="alert-danger" *ngIf="movil.invalid && (movil.dirty || movil.touched)" >
+                    <div class="container-error-message" *ngIf="movil.errors.required" >
+                      El número de celular es requerido
+                    </div>
+                    <div class="container-error-message" *ngIf="movil.errors.minlength">
+                      El número de celular debe tener mínimo 5 caracteres
+                    </div>
+                    <div class="container-error-message" *ngIf="movil.errors.maxlength">
+                      Excede el número de caracteres permitidos
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -60,21 +109,28 @@
                 <label for="convencional">Convencional</label>
                 <div class="input-group">
                   <div class="input-group-addon"></div>
-                  <input [ngModel]="usuario.convencional" name="convencional" type="text" class="form-control"
-                    placeholder="Convencional">
+                  <input formControlName="convencional" type="text" class="form-control"
+                     onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="10">
                 </div>
+
+                <div class="alert-danger" *ngIf="convencional.invalid && (convencional.dirty || convencional.touched)" >
+                  <div class="container-error-message" *ngIf="convencional.errors.maxlength">
+                    Excede el número de caracteres permitidos
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
 
-          <button type="submit" class="btn btn-block btn-lg btn-info btn-rounded">
+          <button type="submit" class="btn btn-block btn-lg btn-info btn-rounded" [disabled]="!formularioPerfil.valid">
             Actualizar información</button>
         </form>
       </div>
     </div>
   </div>
 
-  <div class="col-lg-5">
+  <div class="col-lg-5 m-t-40">
     <div class="card">
       <div class="card-body" align='center'>
 

@@ -28,6 +28,7 @@ import { PaginapublicaComponent } from './paginapublica/paginapublica.component'
 import { InmueblepublicoComponent } from './inmueblepublico/inmueblepublico.component';
 import { EnviarmensajeComponent } from './enviarmensaje/enviarmensaje.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +48,8 @@ import { EnviarmensajeComponent } from './enviarmensaje/enviarmensaje.component'
     PagesModule,
     ServiceModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

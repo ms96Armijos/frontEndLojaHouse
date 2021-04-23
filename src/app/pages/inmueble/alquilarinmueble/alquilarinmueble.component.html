@@ -1,66 +1,78 @@
-<div class="container">
-  <form #formaContrato="ngForm"  (ngSubmit)="crearContrato(formaContrato)" class="form p-t-20">
+<button (click)="regresarPagina()" style="width: 100px; height: 30px; padding: 0px; border: 0px;" class="btn btn-outline-info"><i class="fa fa-hand-o-left" style="margin-right: 8px;"></i>Regresar</button>
+<div class="card">
 
+  <div class="card-body">
 
-    <h6>Busca un arrendatario...</h6>
-    <div class="row">
-      <div class="col-4">
-        <input #input (keyup)="buscarArrendatario(input.value)" type="text" class="form-control" placeholder="Correo Electrónico">
-      </div>
+    <form #formaContrato="ngForm"  (ngSubmit)="crearContrato(formaContrato)" class="form p-t-20">
 
-      <div class="col-2">
-        <div class="row">
+      <h6>Busca un arrendatario...</h6>
+      <div class="row">
+        <div class="col-4">
+          <input #input (keyup)="buscarArrendatario(input.value)" name="nombreusuario" type="email" email class="form-control" required placeholder="Correo Electrónico">
+        </div>
+
+        <div class="col-1">
           <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalRegistrarUsuario"><abbr title="Registrar un arrendatario"><i class="fa fa-user-plus"></i></abbr></button>
+
+        </div>
+
+        <div class="col-1">
+          <div *ngIf="usuarioEncontrado===true"><i class="fa fa-check" style="color: green;"></i></div>
+          <div *ngIf="usuarioEncontrado===false"><i class="fa fa-remove" style="color: crimson;"></i></div>
+        </div>
+
+      </div>
+  <hr>
+      <div class="form-group row">
+        <div class="col-6">
+          <h6>Usuario arrendatario</h6>
+          <input id="nombreArrendatario" #nombreArrendatario value="" type="text" class="form-control" disabled  placeholder="Arrendatario seleccionado">
+        </div>
+
+
+        <div class="col-6">
+          <h6>Inmueble</h6>
+          <input [ngModel]="inmuebles.nombre" name="nombre" type="text" class="form-control"  disabled placeholder="Inmueble seleccionado">
+        </div>
+    </div>
+
+
+      <div class="form-group row">
+        <div class="col-6">
+          <h6 for="example-date-input">Fecha de inicio</h6>
+          <input ngModel name="fechainicio" class="form-control" required type="date">
+          <span *ngIf="formaContrato.submitted && formaContrato.controls['fechainicio'].errors" class="text-danger animated fadeIn">Debes seleccionar la fecha de inicio</span>
+        </div>
+
+        <div class="col-6">
+          <h6 for="example-date-input">Fecha de finalización</h6>
+          <input ngModel name="fechafin" class="form-control" required type="date">
+          <span *ngIf="formaContrato.submitted && formaContrato.controls['fechafin'].errors" class="text-danger animated fadeIn">Debes seleccionar la fecha de finalización</span>
         </div>
       </div>
-    </div>
-<hr>
-    <div class="form-group row">
-      <div class="col-6">
-        <h6>Usuario arrendatario</h6>
-        <input id="nombreArrendatario" #nombreArrendatario value="" type="text" class="form-control" disabled  placeholder="Arrendatario seleccionado">
-      </div>
 
 
-      <div class="col-6">
-        <h6>Inmueble</h6>
-        <input [ngModel]="inmuebles.nombre" name="nombre" type="text" class="form-control"  disabled placeholder="Inmueble seleccionado">
+      <div class="form-group row">
+
+        <div class="col-6">
+          <h6 for="exampleInputEmail1">Monto mensual de alquiler</h6>
+          <input [ngModel]="inmuebles.precioalquiler" name="monto"  type="number" class="form-control" required onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Monto mensual de alquiler">
+          <span *ngIf="formaContrato.submitted && formaContrato.controls['monto'].errors" class="text-danger animated fadeIn">Debes ingresar el monto mensual de alquiler</span>
+        </div>
+        <div class="col-6">
+          <h6 for="exampleInputEmail1">Garantía</h6>
+          <input [ngModel]="inmuebles.garantia" name="garantia" type="number" class="form-control" onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="Garantía">
+        </div>
+
+
       </div>
+
+      <div class="col-12 m-t-5">
+        <button type="submit" style="height: 40px; font-size: 20px; background: #17a2b8; border: 0px;" class="btn btn-primary btn-block" [disabled]= "!formaContrato.valid">Generar contrato</button>
+      </div>
+    </form>
   </div>
 
-
-    <div class="form-group row">
-      <div class="col-6">
-        <h6 for="example-date-input">Fecha de inicio</h6>
-        <input ngModel name="fechainicio" class="form-control" type="date">
-      </div>
-
-      <div class="col-6">
-        <h6 for="example-date-input">Fecha de finalización</h6>
-        <input ngModel name="fechafin" class="form-control" type="date">
-      </div>
-    </div>
-
-
-    <div class="form-group row">
-
-      <div class="col-6">
-        <h6 for="exampleInputEmail1">Monto mensual de alquiler</h6>
-        <input [ngModel]="inmuebles.precioalquiler" name="monto"  type="number" class="form-control" placeholder="Monto mensual de alquiler">
-
-      </div>
-      <div class="col-6">
-        <h6 for="exampleInputEmail1">Garantía</h6>
-        <input [ngModel]="inmuebles.garantia" name="garantia" type="number" class="form-control" placeholder="Garantía">
-      </div>
-
-
-    </div>
-
-    <div class="col-12 m-t-5">
-      <button type="submit" class="btn btn-primary btn-block">Generar contrato</button>
-    </div>
-  </form>
 
 </div>
 
@@ -71,7 +83,7 @@
 
 <form id="nuevoArrendatario" #formaRegistroArrendatario="ngForm" (ngSubmit)="registrarArrendatario(formaRegistroArrendatario)" class="form p-t-20">
 <!-- Modal -->
-<div id="modalRegistrarUsuario" class="modal fade" role="dialog">
+<div id="modalRegistrarUsuario" #myModalClose class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -87,10 +99,11 @@
             <label for="nombre">Nombres:</label>
             <div class="input-group">
               <div class="input-group-addon"></div>
-              <input ngModel name="nombre" class="form-control input-sm" id="nombre" placeholder="Nombres"  type="text" required><span class="bar"></span>
+              <input ngModel name="nombre" class="form-control input-sm" id="nombre" placeholder="Nombres"  type="text" required minlength="5" maxlength="80"><span class="bar"></span>
             </div>
             <span *ngIf="formaRegistroArrendatario.submitted && formaRegistroArrendatario.controls['nombre'].errors"
           class="text-danger animated fadeIn m-l-10">Ingrese sus nombres</span>
+
           </div>
 
 
@@ -98,7 +111,7 @@
             <label for="apellido">Apellidos:</label>
             <div class="input-group">
               <div class="input-group-addon"></div>
-              <input ngModel name="apellido" class="form-control input-sm" id="apellido" placeholder="Apellidos"  type="text" required><span class="bar"></span>
+              <input ngModel name="apellido" class="form-control input-sm" id="apellido" placeholder="Apellidos"  type="text" required minlength="5" maxlength="80"><span class="bar"></span>
             </div>
             <span *ngIf="formaRegistroArrendatario.submitted && formaRegistroArrendatario.controls['apellido'].errors"
           class="text-danger animated fadeIn m-l-10">Ingrese sus apellidos</span>
@@ -109,7 +122,7 @@
             <label for="celular">Celular:</label>
             <div class="input-group">
               <div class="input-group-addon"></div>
-              <input ngModel name="celular" class="form-control input-sm" id="celular" placeholder="Celular"  type="text" required><span class="bar"></span>
+              <input ngModel name="celular" class="form-control input-sm" id="celular" placeholder="Celular"  type="text" required minlength="10" maxlength="10"><span class="bar"></span>
             </div>
             <span *ngIf="formaRegistroArrendatario.submitted && formaRegistroArrendatario.controls['celular'].errors"
           class="text-danger animated fadeIn m-l-10">Ingrese su número de celular</span>
@@ -119,7 +132,7 @@
             <label for="email">Correo electrónico:</label>
             <div class="input-group">
               <div class="input-group-addon"></div>
-              <input ngModel name="email" class="form-control input-sm" id="email" placeholder="example@gmail.com"  type="text" required><span class="bar"></span>
+              <input ngModel name="email" class="form-control input-sm" id="email" placeholder="example@gmail.com"  type="text" required email minlength="5" maxlength="30"><span class="bar"></span>
             </div>
             <span *ngIf="formaRegistroArrendatario.submitted && formaRegistroArrendatario.controls['email'].errors"
           class="text-danger animated fadeIn m-l-10">Ingrese su correo electrónico</span>

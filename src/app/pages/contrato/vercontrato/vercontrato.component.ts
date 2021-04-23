@@ -77,31 +77,58 @@ export class VercontratoComponent implements OnInit {
       estadoObtenido = 'TERMINADO';
       swal({
         title: '¿Está seguro de realizar la siguiente acción?',
-        text: 'El contrato será: ' + estadoObtenido,
+        text: 'El contrato será ' + estadoObtenido,
         icon: 'warning',
         buttons: [
           'Cancelar',
           'Aceptar'
         ],
-        dangerMode: true,
+        dangerMode: false,
       }).then(borrar => {
         if (borrar) {
-          if (contrato.estado === 'VIGENTE') {
-            contrato.estado="TERMINADO";
+
+          if(contrato.fechafin > this.fechaHoy){
+
+            swal({
+              title: '¡¡¡Atención!!! \n El contrato finaliza el: '+ moment(contrato.fechafin).format("DD/MM/YYYY"),
+              text: 'Recuerde: El contrato será terminado antes de tiempo, ¿Desea continuar?',
+              icon: 'warning',
+              buttons: [
+                'Cancelar',
+                'Aceptar'
+              ],
+              dangerMode: false,
+            }).then(borrar => {
+              if (borrar) {
+
+
+                if (contrato.estado === 'VIGENTE') {
+                  contrato.estado="TERMINADO";
+                }
+
+                this._contratoService.cambiarEstadoDelContrato(contrato)
+                  .subscribe();
+                this.toastr.success('Contrato ' + estadoObtenido);
+
+              }
+            });
+
+
+          }else{
+
+            if (contrato.estado === 'VIGENTE') {
+              contrato.estado="TERMINADO";
+            }
+
+            this._contratoService.cambiarEstadoDelContrato(contrato)
+                  .subscribe();
+                this.toastr.success('Contrato ' + estadoObtenido);
           }
 
-            if(contrato.fechafin < this.fechaHoy){
-              this._contratoService.cambiarEstadoDelContrato(contrato)
-            .subscribe();
-          this.toastr.success('Contrato ' + estadoObtenido);
-            }else{
-              contrato.estado="VIGENTE";
-              swal(
-                'Lo siento!, el contrato no ha terminado todavía',
-                'El contrato finaliza el: '+ moment(contrato.fechafin).format("DD/MM/YYYY"),
-                'warning'
-              );
-            }
+
+
+
+
         }
       });
     }else{
@@ -121,7 +148,7 @@ export class VercontratoComponent implements OnInit {
         'Cancelar',
         'Aceptar'
       ],
-      dangerMode: true,
+      dangerMode: false,
     }).then(borrar => {
       if (borrar) {
 
@@ -150,6 +177,10 @@ export class VercontratoComponent implements OnInit {
         }
       }
     });
+}
+
+regresarPagina(){
+  window.history.back();
 }
 
 }

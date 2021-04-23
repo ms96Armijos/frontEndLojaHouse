@@ -1,10 +1,45 @@
 <div class="container m-b-5">
   <div class="row animate fadeIn">
     <div class="col-12">
+      <button (click)="regresarPagina()" style="width: 100px; height: 40px; padding: 0px; border: 0px;" class="btn btn-outline-info"><i class="fa fa-hand-o-left" style="margin-right: 8px;"></i>Regresar</button>
+
       <div class="card">
         <div class="card-body">
-          <input #input (keyup)="buscarVisitas(input.value)" type="text" class="form-control"
-            placeholder="Buscar visitas...">
+
+
+          <label for="busqueda" title="Filtrar visitas"><b>Filtrar visitas</b></label>
+            <div class="row mt-3">
+
+           <!-- Default unchecked -->
+           <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="pendiente" name="defaultExampleRadios" checked mdbInput (click)="buscarVisitas('PENDIENTE')">
+            <label class="custom-control-label" for="pendiente">Pendientes</label>
+          </div>
+
+
+
+             <!-- Default checked -->
+           <div class="custom-control custom-radio">
+             <input type="radio" class="custom-control-input" id="activados" name="defaultExampleRadios" mdbInput (click)="buscarVisitas('ACEPTADA')">
+             <label class="custom-control-label" for="activados">Aceptadas</label>
+           </div>
+
+
+           <!-- Default unchecked -->
+           <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="atendida" name="defaultExampleRadios" mdbInput (click)="buscarVisitas('ATENDIDA')">
+            <label class="custom-control-label" for="atendida">Atendidas</label>
+          </div>
+
+          <!-- Default unchecked -->
+            <div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="todos" name="defaultExampleRadios"  mdbInput (click)="buscarVisitas('')">
+              <label class="custom-control-label" for="todos">Todas</label>
+          </div>
+
+
+           </div>
+
         </div>
       </div>
     </div>
@@ -18,24 +53,27 @@
   </div>
 
     <!-- .col -->
-    <div class="col-md-6 col-lg-6 col-xlg-4" *ngFor="let visita of visitas">
+    <div class="col-md-12 col-lg-12 col-xlg-12" *ngFor="let visita of visitas">
       <div class="card card-body ribbon-wrapper card mt-3">
 
 
         <div *ngIf="visita.estado === 'ACEPTADA'"  class="ribbon ribbon-success">La visita está: <b>ACEPTADA</b></div>
         <div *ngIf="visita.estado === 'PENDIENTE'"  class="ribbon ribbon-warning">La visita está: <b>PENDIENTE</b></div>
         <div *ngIf="visita.estado === 'RECHAZADA'"  class="ribbon ribbon-danger">La visita está: <b>RECHAZADA</b></div>
+        <div *ngIf="visita.estado === 'ATENDIDA'" class="ribbon ribbon-primary">La visita está: <b>ATENDIDA</b></div>
+
+
 
         <div class="row">
           <div class="col-md-4 col-lg-3 text-center">
             <a [routerLink]="['/vervisita', visita._id]"><img [src]="visita.usuarioarrendatario.imagen | imagen"
-                class="img-circle img-responsive"></a>
+              style="width:80%; height:80%" class="img-circle img-responsive"></a>
           </div>
           <div class="col-md-8 col-lg-9">
            <a [routerLink]="['/vervisita', visita._id]"> <h5 class="box-title m-b-0"><b>{{visita.usuarioarrendatario.nombre+' '+ visita.usuarioarrendatario.apellido}}</b></h5> </a>
             <hr>
-            <h5><b>Descripción:</b></h5><p>{{visita.descripcion  | limitTo : "30" }}</p>
-            <small>Inmueble de interés: <b>{{visita.inmueble.tipo | limitTo : "4" }}</b></small>
+            <h5><b>Descripción:</b></h5><p>{{visita.descripcion}}</p>
+            <small>Inmueble de interés: <b>{{visita.inmueble.tipo}}</b></small>
             <hr>
             <div style="text-align: end;">
               <h6>Fecha solicitada para la visita: <b>{{visita.fecha |date:'dd-MM-yyyy'}}</b></h6>

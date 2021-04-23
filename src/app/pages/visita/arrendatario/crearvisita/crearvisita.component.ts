@@ -78,6 +78,11 @@ export class CrearvisitaComponent implements OnInit {
 
     //const fecha = new Date(forma.value.fecha);
 
+    if(this.tokenPayload.usuario.rol === 'ADMINISTRADOR' || this.tokenPayload.usuario.rol === 'ARRENDADOR'){
+      swal('Uppss...' + '', 'No puedes realizar esta acción', 'warning');
+      return;
+    }
+
     const visita = new Visita(forma.value.fecha, this.descripcion, Object(idinmueble), Object(arrendatario_id), 'PENDIENTE');
 
     if(!visita.fecha){

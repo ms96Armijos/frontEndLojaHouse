@@ -1,6 +1,7 @@
 <div class="container m-b-5">
   <div class="row animate fadeIn">
     <div class="col-12">
+      <button (click)="regresarPagina()" style="width: 100px; height: 40px; padding: 0px; border: 0px;" class="btn btn-outline-info"><i class="fa fa-hand-o-left" style="margin-right: 8px;"></i>Regresar</button>
       <div class="card">
         <div class="card-body">
           <input #input (keyup)="buscarInmuebles(input.value)" type="text" class="form-control"
@@ -43,6 +44,7 @@
                                     <div *ngFor="let avatar of inmueble.imagen; let i = index" class="carousel-item" [ngClass]="{'active': i===0}">
                                       <img  style="width:310px; height:310px" [src]='avatar'>
                                     </div>
+                                    <img *ngIf="inmueble.imagen.length===0" style="width:310px; height:310px" src="assets/images/notinmueble.png" class="img-responsive image">
                                   </div>
 
                                   <div>

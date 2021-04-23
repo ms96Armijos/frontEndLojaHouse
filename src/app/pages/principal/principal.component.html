@@ -50,6 +50,7 @@
     <div class="container">
       <div class="row">
 
+
       <div class="col-md-12 col-sm-12 col-lg-12">
 
         <div class="row">
@@ -125,6 +126,7 @@
                             <div *ngFor="let avatar of inmueble.imagen; let i = index" class="carousel-item" [ngClass]="{'active': i===0}">
                               <img style="width:310px; height:310px" [src]='avatar' class="img-responsive image">
                             </div>
+                            <img *ngIf="inmueble.imagen.length===0" style="width:310px; height:310px" src="assets/images/notinmueble.png" class="img-responsive image">
                           </div>
 
                           <div>

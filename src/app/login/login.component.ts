@@ -1,4 +1,5 @@
-import { NgForm } from '@angular/forms';
+import { EXPRESIONEMAIL } from './../config/config';
+import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Usuario } from './../models/usuario.model';
 import { UsuarioService } from './../services/usuario/usuario.service';
 import { Component, OnInit } from '@angular/core';
@@ -14,25 +15,50 @@ declare function inicializarPluginsSidebar();
 })
 export class LoginComponent implements OnInit {
 
+  formularioLogin: FormGroup;
+  patternEmail = EXPRESIONEMAIL;
+
+  usuario: Usuario = new Usuario();
 
   constructor( public router: Router, public _usuarioService: UsuarioService ) { }
 
   ngOnInit() {
     inicializarPluginsSidebar();
+
+    this.formularioLogin = new FormGroup({
+      correo: new FormControl('', [Validators.required, Validators.pattern(this.patternEmail), Validators.minLength(5), Validators.maxLength(30)]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(18)]),
+    });
   }
 
-  ingresar(forma: NgForm) {
-    if (forma.invalid){
-      return;
+  onResetForm(){
+    this.formularioLogin.reset();
+  }
+
+  ingresar() {
+    if (this.formularioLogin.invalid){
+      return 'Formulario inválido';
     }
 
 
-    const usuario = new Usuario(null, null, null, forma.value.correo, null, forma.value.password, null, null, null, null, null);
-    this._usuarioService.login(usuario)
+    this.usuario.correo = this.formularioLogin.value.correo;
+    this.usuario.password = this.formularioLogin.value.password;
+
+    console.log(this.usuario)
+    this._usuarioService.login(this.usuario)
     .subscribe( resp => {
+      this.onResetForm();
         window.location.href = '/dashboard';
     });
 
+  }
+
+
+  get correo(){ return this.formularioLogin.get('correo');}
+  get password(){ return this.formularioLogin.get('password');}
+
+  regresarPagina(){
+    window.history.back();
   }
 
 }

@@ -131,4 +131,8 @@ export class AdmincontratosComponent implements OnInit {
       this.toastr.success('El inmueble ' + inmueble.nombre + ' ha sido publicado');
   }
 
+  regresarPagina(){
+    window.history.back();
+  }
+
 }

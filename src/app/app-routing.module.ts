@@ -1,3 +1,5 @@
+import { LoginGuardGuard } from './services/guards/login-guard.guard';
+import { PagesComponent } from './pages/pages.component';
 import { EnviarmensajeComponent } from './enviarmensaje/enviarmensaje.component';
 import { PrincipalComponent } from './pages/principal/principal.component';
 import { LoginComponent } from './login/login.component';
@@ -20,6 +22,8 @@ const appRoutes: Routes = [
   { path: 'verinmueblepublico/:idinmueble', component: PaginapublicaComponent, data: {titulo: 'Detalle del inmueble'} },
   { path: 'ver-inmueble-publico/:idinmueble', component: InmueblepublicoComponent, data: { titulo: 'Ver inmueble' } },
   //{ path: '', redirectTo: '/principal', pathMatch: 'full'},
+
+  //{path: '', component: PagesComponent, canActivate: [LoginGuardGuard], loadChildren: './pages/pages.module#PagesModule'},
   { path: '**', component: Page404Component},
 ];
 

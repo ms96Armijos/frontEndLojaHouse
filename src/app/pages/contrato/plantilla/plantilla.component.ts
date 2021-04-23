@@ -75,4 +75,8 @@ export class PlantillaComponent implements OnInit {
     pdf.save(this.contratos.nombrecontrato + ".pdf");
   }
 
+  regresarPagina(){
+    window.history.back();
+  }
+
 }

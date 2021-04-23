@@ -26,6 +26,7 @@ export class ListausuariosComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarUsuariosAdminArrendadorArrendador();
+    //this.buscarUsuario('1');
   }
 
   cargarUsuariosAdminArrendadorArrendador() {
@@ -101,9 +102,9 @@ export class ListausuariosComponent implements OnInit {
         } else {
           usuario.estado = '1';
         }
-
         this._usuarioService.desactivarUsuario(usuario)
-          .subscribe();
+        .subscribe();
+        this.buscarUsuario(usuario.estado);
         this.toastr.success('Usuario ' + estadoObtenido);
       }
     });

@@ -148,5 +148,8 @@ export class AdmininmueblesComponent implements OnInit {
       });
 
   }
+  regresarPagina(){
+    window.history.back();
+  }
 
 }

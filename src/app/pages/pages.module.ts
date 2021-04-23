@@ -44,8 +44,13 @@ import { VervisitaComponent } from './visita/arrendador/vervisita/vervisita.comp
 import { MensajesComponent } from './mensaje/mensajes/mensajes.component';
 import { VermensajeComponent } from './mensaje/vermensaje/vermensaje.component';
 import { VercontratoComponent } from './contrato/vercontrato/vercontrato.component';
+import { TagInputModule } from 'ngx-chips';
 
 
+/*import {MatChipsModule} from '@angular/material/chips'
+
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { MatFormFieldModule, MatIconModule } from '@angular/material';*/
 
 
 @NgModule({
@@ -98,6 +103,10 @@ import { VercontratoComponent } from './contrato/vercontrato/vercontrato.compone
     ReactiveFormsModule,
     BrowserAnimationsModule,
     DragDropModule,
+    TagInputModule,
+    /*MatChipsModule,
+    MatIconModule,
+    MatFormFieldModule,*/
     ToastrModule.forRoot({
       timeOut: 2000,
       positionClass: 'toast-bottom-right',
@@ -110,6 +119,8 @@ import { VercontratoComponent } from './contrato/vercontrato/vercontrato.compone
       useClass: InterceptorService,
       multi: true
     }
-  ]
+  ],
+  /*schemas: [ CUSTOM_ELEMENTS_SCHEMA ],*/
+
 })
 export class PagesModule { }

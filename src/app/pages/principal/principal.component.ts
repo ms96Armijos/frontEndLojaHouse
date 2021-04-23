@@ -100,13 +100,16 @@ export class PrincipalComponent implements OnInit {
           precio = '200-0';
         }
 
-        console.log(precio)
+
+
+        //console.log(precio)
         this._inmuebleService.busquedaAnidadaInmuebles(tipo, ubicacion, precio)
           .subscribe(inmuebles =>  this.inmuebles = inmuebles);
       }
 
       ubicacionInmueble(ubicacion:string){
         this.location = ubicacion;
+        console.log('hols '+ubicacion)
       }
       tipoInmueble(tipo:string){
         this.type = tipo;

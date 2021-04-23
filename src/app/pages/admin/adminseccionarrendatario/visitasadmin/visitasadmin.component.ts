@@ -34,6 +34,7 @@ export class VisitasadminComponent implements OnInit {
   ngOnInit(): void {
     inicializarPluginsSidebar();
     this.cargarVisitasAdminArrendatario();
+    this.buscarVisitas('PENDIENTE');
   }
 
   cargarVisitasAdminArrendatario() {
@@ -75,6 +76,8 @@ export class VisitasadminComponent implements OnInit {
     }, this.time);
   }
 
-
+  regresarPagina(){
+    window.history.back();
+  }
 
 }

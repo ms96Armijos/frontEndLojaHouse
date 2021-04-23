@@ -1,5 +1,6 @@
+import { catchError } from 'rxjs/operators';
 import { Contrato } from './../../../models/contrato.model';
-import { MILISEGUNDOS } from './../../../config/config';
+import { EXPRESIONEMAIL, MILISEGUNDOS } from './../../../config/config';
 import { NgForm } from '@angular/forms';
 import { UsuarioService } from './../../../services/usuario/usuario.service';
 import { ToastrService } from 'ngx-toastr';
@@ -21,13 +22,18 @@ import swal from 'sweetalert';
 export class AlquilarinmuebleComponent implements OnInit {
 
   @ViewChild('nombreArrendatario') nombreArrendatario: ElementRef;
+  @ViewChild('myModalClose') modalClose;
 
   inmuebles: Inmueble = new Inmueble(null, null,null, null, null, null, null, null, null);
   usuarioArrendatario: Usuario = new Usuario(null, null, null, null, null);
+  registrarUsuarioArrendatario: Usuario = new Usuario();
+
+  email = EXPRESIONEMAIL;
+  usuarioEncontrado: boolean;
 
 
   timer = null;
-  time = 1000;
+  time = 2000;
 
 
   constructor(public _inmuebleService: InmuebleService,
@@ -64,18 +70,35 @@ export class AlquilarinmuebleComponent implements OnInit {
       return;
     }
 
-    const usuario = new Usuario(forma.value.nombre,
-      forma.value.apellido, forma.value.celular, forma.value.email, 'ARRENDATARIO',
-      null, null, null, null, '1');
+    this.registrarUsuarioArrendatario.nombre = forma.value.nombre;
+    this.registrarUsuarioArrendatario.apellido = forma.value.apellido;
+    this.registrarUsuarioArrendatario.movil = forma.value.celular;
+    this.registrarUsuarioArrendatario.correo = forma.value.email;
+    this.registrarUsuarioArrendatario.rol = 'ARRENDATARIO';
+    this.registrarUsuarioArrendatario.estado = '1';
 
-    this._usuarioService.crearUsuario(usuario)
+    /*const usuario = new Usuario(forma.value.nombre,
+      forma.value.apellido, forma.value.celular, forma.value.email, 'ARRENDATARIO',
+      null, null, null, null, '1');*/
+
+    this._usuarioService.crearUsuario(this.registrarUsuarioArrendatario)
       .subscribe();
-    referencia.setAttribute('value', usuario.nombre + ' ' + usuario.apellido);
+    referencia.setAttribute('value', this.registrarUsuarioArrendatario.nombre + ' ' + this.registrarUsuarioArrendatario.apellido);
+
+    this.modalClose.nativeElement.click();
   }
 
   buscarArrendatario(correo: string) {
+
+
+
     clearTimeout(this.timer);
     this.timer = setTimeout(() => {
+
+      if(!this.validateEmail(correo)){
+        return this.toastr.error('Debe ser un correo válido');
+       }
+
 
       const referencia = this.nombreArrendatario.nativeElement;
       referencia.setAttribute('value', '');
@@ -89,11 +112,17 @@ export class AlquilarinmuebleComponent implements OnInit {
 
       this._usuarioService.buscarArrendatario(correo)
         .subscribe(usuario => {
-
           if (usuario) {
+            this.usuarioEncontrado=true;
             this.usuarioArrendatario = usuario;
             referencia.setAttribute('value', usuario.nombre + ' ' + usuario.apellido);
-          } else {
+
+            if(referencia.getAttribute('value') === 'undefined undefined'){
+              this.usuarioEncontrado=false;
+            }
+
+          }else{
+            this.usuarioEncontrado=false;
             this.usuarioArrendatario = null;
             referencia.setAttribute('value', '');
           }
@@ -106,8 +135,14 @@ export class AlquilarinmuebleComponent implements OnInit {
       return;
     }
 
+    if(forma.value.fechainicio === '' || forma.value.fechafin === ''){
+      this.usuarioEncontrado=false;
+      this.toastr.error('Por favor seleccione la fecha de incio y finalización del contrato');
+    }
+
     const referencia = this.nombreArrendatario.nativeElement;
     if (!referencia.getAttribute('value')) {
+      this.usuarioEncontrado=false;
       this.toastr.error('El usuario arrendatario/a no existe');
       return;
     }
@@ -157,6 +192,19 @@ export class AlquilarinmuebleComponent implements OnInit {
     //}
 
   }
+  regresarPagina(){
+    window.history.back();
+  }
+
+   validateEmail(email: string) {
+
+    if( !this.email.test( email ) ) {
+      this.usuarioEncontrado=false;
+        return false;
+    } else {
+        return true;
+    }
+}
 
 
 }
