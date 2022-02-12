@@ -6,22 +6,34 @@
 
   <div class="card">
     <div class="card-body">
-      <form #formaServicio="ngForm" (ngSubmit)="crearServicio(formaServicio)" class="form p-t-20">
+      <form [formGroup]="formularioServicio" (ngSubmit)="crearServicio()" class="form p-t-20">
         <div class="row">
           <div class="col">
             <div class="form-group">
               <label><b>Nombre del servicio</b></label>
               <div class="input-group">
                 <div class="input-group-addon"></div>
-                <input [ngModel]="servicios.nombre" name="nombre" type="text" class="form-control" required>
+                <input formControlName="nombre" name="nombre" type="text" class="form-control" required minlength="5" maxlength="80">
               </div>
-              <span *ngIf="formaServicio.submitted && formaServicio.controls['nombre'].errors" class="text-danger animated fadeIn">El nombre del servicio es obligatorio</span>
+
+              <div class="alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" >
+                <div class="container-error-message" *ngIf="nombre.errors.required" >
+                  El nombre del servicio es requerido
+                </div>
+                <div class="container-error-message" *ngIf="nombre.errors.minlength">
+                  El correo debe tener mínimo 5 caracteres
+                </div>
+                <div class="container-error-message" *ngIf="nombre.errors.maxlength">
+                  El correo debe tener máximo 80 caracteres
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
         <div class="form-group text-center m-t-20">
           <div class="col-xs-12">
-            <button class="btn btn-block btn-lg btn-info btn-rounded" type="submit">
+            <button class="btn btn-block btn-lg btn-info btn-rounded" type="submit" [disabled]="!formularioServicio.valid">
               Guardar servicio
             </button>
           </div>

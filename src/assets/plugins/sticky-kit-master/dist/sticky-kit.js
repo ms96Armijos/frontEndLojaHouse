@@ -4,6 +4,8 @@
 @license Sticky-kit v1.1.3 | MIT | Leaf Corcoran 2015 | http://leafo.net
  */
 
+function importarSCCC () {
+
 (function() {
   var $, win;
 
@@ -75,7 +77,7 @@
         last_scroll_height = doc.height();
         border_top = parseInt(parent.css("border-top-width"), 10);
         padding_top = parseInt(parent.css("padding-top"), 10);
-        padding_bottom = parseInt(parent.css("padding-bottom"), 10);
+        //padding_bottom = parseInt(parent.css("padding-bottom"), 10);
         parent_top = parent.offset().top + border_top + padding_top;
         parent_height = parent.height();
         if (fixed) {
@@ -263,3 +265,4 @@
   };
 
 }).call(this);
+}

@@ -66,11 +66,16 @@
 
         <div class="row">
           <div class="col-md-4 col-lg-3 text-center">
-            <a [routerLink]="['/vervisita', visita._id]"><img [src]="visita.usuarioarrendatario.imagen | imagen"
-              style="width:80%; height:80%" class="img-circle img-responsive"></a>
+            <img *ngIf="visita.usuarioarrendatario.imagen.length===0" style="width:80%; height:80%" src="assets/images/users/imgnotfound.jpg" class="img-responsive image">
+           <div *ngFor="let imgvisita of visita.usuarioarrendatario.imagen">
+            <img [src]="imgvisita.url | imagen"
+              style="width:80%; height:80%" class="img-circle img-responsive">
+           </div>
+
+
           </div>
           <div class="col-md-8 col-lg-9">
-           <a [routerLink]="['/vervisita', visita._id]"> <h5 class="box-title m-b-0"><b>{{visita.usuarioarrendatario.nombre+' '+ visita.usuarioarrendatario.apellido}}</b></h5> </a>
+           <h5 class="box-title m-b-0"><b>{{visita.usuarioarrendatario.nombre+' '+ visita.usuarioarrendatario.apellido}}</b></h5>
             <hr>
             <h5><b>Descripción:</b></h5><p>{{visita.descripcion}}</p>
             <small>Inmueble de interés: <b>{{visita.inmueble.tipo}}</b></small>

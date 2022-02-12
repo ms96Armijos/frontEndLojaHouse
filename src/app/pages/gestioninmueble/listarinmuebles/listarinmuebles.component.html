@@ -1,4 +1,5 @@
-  <div class="row animate fadeIn">
+
+ <div class="row animate fadeIn">
     <div class="col-12">
       <div class="card">
         <div class="card-body">
@@ -41,7 +42,8 @@
                       <div class="carousel slide" data-ride="carousel" id="{{inmueble._id}}">
                           <div class="carousel-inner" role="listbox">
                             <div *ngFor="let avatar of inmueble.imagen; let i = index" class="carousel-item" [ngClass]="{'active': i===0}">
-                              <img *ngIf="avatar.length>0"  style="width:310px; height:310px" [src]='avatar' class="img-responsive image">
+
+                              <img  style="width:310px; height:310px" [src]="avatar.url" class="img-responsive image">
                             </div>
                           </div>
                           <img *ngIf="inmueble.imagen.length===0" style="width:310px; height:310px" src="assets/images/notinmueble.png" class="img-responsive image">
@@ -92,7 +94,7 @@
                           </div>
 
                             <div class="col-12">
-                            <button (click)="borrarInmueble(inmueble)" class="btn btn-block btn-danger"
+                            <button (click)="borrarInmuebleArrendador(inmueble)" class="btn btn-block btn-danger"
                             [disabled]="inmueble.estado==='OCUPADO'"><abbr
                                     title="Eliminar inmueble"><i class="fa fa-trash"></i></abbr></button></div>
                       </div>
@@ -109,8 +111,8 @@
       </div>
     </div>
   </div>
-  <button (click)="cambiarPaginacion(-5)" class="btn btn-circle btn-lg btn-success mr-2"><</button>
-  <button (click)="cambiarPaginacion(5)" class="btn btn-circle btn-lg btn-success">></button>
+  <button (click)="cambiarPaginacion(-6)" class="btn btn-circle btn-lg btn-success mr-2"><</button>
+  <button (click)="cambiarPaginacion(6)" class="btn btn-circle btn-lg btn-success">></button>
 
 
 <!---<div *ngFor="let user of inmuebles" >
@@ -118,5 +120,6 @@
     <img src="{{avatar}}" alt="">
   </div>
 </div>-->
+
 
 

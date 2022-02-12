@@ -1,3 +1,22 @@
+<button (click)="regresarPagina()" style="width: 100px; height: 40px; padding: 0px; border: 0px;" class="btn btn-outline-info"><i class="fa fa-hand-o-left" style="margin-right: 8px;"></i>Regresar</button>
+
+<div class="card">
+  <div class="card-body">
+  <div style="margin: 25px;">
+    <h1>Imágenes del inmueble</h1>
+  </div>
+
+<div class="row">
+  <div class="col-md-3" *ngFor="let item of imagenesInmueble">
+   <div class="col">
+    <img [src]="item.url" class="w150" alt="">
+    <button (click)="eliminarImagen(item)" class="btn btn-danger">Eliminar</button>
+   </div>
+  </div>
+</div>
+
+
+
 <div class="container fileUploadWrapper">
   <form [formGroup]="form">
       <div class="row">
@@ -28,7 +47,6 @@
               </div>
                 <p class="message">{{msg}}</p>
           </div>
-          <span style="margin-left: 16px;"><b>Recuerde</b>:</span><div style="font-size: 12px; margin-bottom: 15px; margin-left: 16px;">Las imágenes que suba ahora reemplazarán las que contiene el inmueble actualmente</div>
             </div>
             <div class="row">
                 <button (click)="actualizar()" class="btn btn-block btn-lg btn-info btn-rounded">Guardar</button>
@@ -36,7 +54,13 @@
   </form>
 </div>
 
+
 <hr>
+
+</div>
+</div>
+
+
 
 <!-- <div *ngFor="let user of inmuebleObtenido" >
   <div *ngFor="let avatar of user.imagen" >

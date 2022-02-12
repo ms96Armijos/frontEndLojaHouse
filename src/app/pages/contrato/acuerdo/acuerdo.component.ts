@@ -19,7 +19,7 @@ export class AcuerdoComponent implements OnInit {
 
     activatedRoute.params.subscribe(parametros => {
       this.idContrato = parametros['idcontrato'];
-      console.log(this.idContrato);
+      //console.log(this.idContrato);
     });
 
   }
@@ -67,6 +67,9 @@ export class AcuerdoComponent implements OnInit {
     }else{
       this.toastr.warning('Ya está ' + contrato.acuerdo + ' el contrato');
     }
+  }
+  regresarPagina(){
+    window.history.back();
   }
 
 }

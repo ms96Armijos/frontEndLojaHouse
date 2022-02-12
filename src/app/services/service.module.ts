@@ -20,7 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     ServiciosbasicosService,
     ContratoService,
     VisitaService,
-    EnviarmensajeService
+    EnviarmensajeService,
   ],
 })
 export class ServiceModule {}

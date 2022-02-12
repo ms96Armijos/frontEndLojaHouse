@@ -42,7 +42,7 @@
                               <div class="carousel slide" data-ride="carousel" id="{{inmueble._id}}">
                                   <div class="carousel-inner" role="listbox">
                                     <div *ngFor="let avatar of inmueble.imagen; let i = index" class="carousel-item" [ngClass]="{'active': i===0}">
-                                      <img  style="width:310px; height:310px" [src]='avatar'>
+                                      <img  style="width:310px; height:310px" [src]='avatar.url'>
                                     </div>
                                     <img *ngIf="inmueble.imagen.length===0" style="width:310px; height:310px" src="assets/images/notinmueble.png" class="img-responsive image">
                                   </div>

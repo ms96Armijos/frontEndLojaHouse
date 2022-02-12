@@ -18,7 +18,7 @@ export class ArrendadorGuard implements CanActivate {
     const tokenPayload = decode(token);
 
     if (this._usuarioService.estaLogueado() && tokenPayload.usuario.rol === 'ARRENDADOR') {
-      console.log(tokenPayload.usuario.rol)
+      //console.log(tokenPayload.usuario.rol)
       return true;
     }else{
       this.router.navigate(['/noautorizado']);

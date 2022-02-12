@@ -7,8 +7,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import swal from 'sweetalert';
 
-declare function inicializarPluginsSidebar();
-
 
 @Component({
   selector: 'app-listadovisitas',
@@ -20,15 +18,14 @@ export class ListadovisitasComponent implements OnInit {
   visitas: Visita[] = [];
   desde = 0;
 
-  timer = null;
-  time = 1000;
+  //timer = null;
+  //time = 1000;
 
 
   constructor(public _serviceVisita: VisitaService,
     public toastr: ToastrService, public router: Router ) { }
 
   ngOnInit(): void {
-    inicializarPluginsSidebar();
     this.cargarVisitas();
 
     this.buscarVisitas('PENDIENTE');
@@ -38,7 +35,11 @@ export class ListadovisitasComponent implements OnInit {
 
   cargarVisitas() {
     this._serviceVisita.cargarVisitas(this.desde)
-      .subscribe(visita => this.visitas = visita);
+      .subscribe(visita => {
+        this.visitas = visita
+      });
+
+
   }
 
 
@@ -58,18 +59,18 @@ export class ListadovisitasComponent implements OnInit {
   }
 
   buscarVisitas(termino: string) {
-    clearTimeout(this.timer);
-    this.timer = setTimeout(() => {
+    //clearTimeout(this.timer);
+    //this.timer = setTimeout(() => {
     if (termino.length <= 0) {
       this.cargarVisitas();
       return;
     }
     this._serviceVisita.buscarVisitas(termino)
       .subscribe((visitas: Visita[]) => {
-        console.log(termino);
+        //console.log(termino);
         this.visitas = visitas;
       });
-    }, this.time);
+    //}, this.time);
   }
 
   aceptarVisita(visita: Visita) {
@@ -86,7 +87,7 @@ export class ListadovisitasComponent implements OnInit {
           'Cancelar',
           'Aceptar'
         ],
-        dangerMode: true,
+        dangerMode: false,
       }).then(borrar => {
         if (borrar) {
           if (visita.estado === 'PENDIENTE' || visita.estado === 'RECHAZADA') {

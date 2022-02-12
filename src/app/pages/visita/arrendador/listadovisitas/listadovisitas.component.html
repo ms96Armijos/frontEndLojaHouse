@@ -66,8 +66,11 @@
 
         <div class="row">
           <div class="col-md-4 col-lg-3 text-center">
-            <img [src]="visita.usuarioarrendatario.imagen | imagen"
+            <img *ngIf="visita.usuarioarrendatario.imagen.length===0" style="width:80%; height:80%" src="assets/images/users/imgnotfound.jpg" class="img-responsive image">
+            <div *ngFor="let imgvisita of visita.usuarioarrendatario.imagen" >
+              <img [src]="imgvisita.url"
               style="width:80%; height:80%" class="img-circle img-responsive">
+            </div>
           </div>
           <div class="col-md-8 col-lg-9">
             <a>
@@ -84,8 +87,6 @@
               <h6>Fecha solicitada para la visita: <b>{{visita.fecha |date:'dd-MM-yyyy'}}</b></h6>
             </div>
             <hr>
-
-
 
             <div [hidden]="visita.estado === 'ATENDIDA'">
               <div style="text-align: right;" >
@@ -107,11 +108,6 @@
                   class="btn btn-outline-secondary m-l-5"><abbr title="Alquilar inmueble"><i class="fa fa-handshake-o"
                       aria-hidden="true"></i></abbr></button>
 
-
-               <!--  <button
-                  class="btn btn-outline-primary m-l-5"><a [routerLink]="['/vervisita', visita._id]"><abbr title="Ver visita"><i class="fa fa-eye"
-                    aria-hidden="true"></i></abbr></a>
-                </button>-->
 
                 <button (click)="borrarVisita( visita )" hidden="visita.inmueble.estado=='OCUPADO'" [disabled]="visita.inmueble.estado=='OCUPADO'" class="btn btn-danger m-l-5"><abbr title="Elimiar solicitud"><i
                       class="fa fa-trash" aria-hidden="true"></i></abbr></button>

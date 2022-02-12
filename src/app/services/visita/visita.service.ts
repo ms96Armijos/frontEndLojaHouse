@@ -55,6 +55,16 @@ export class VisitaService {
     );
   }
 
+//OBTENER LAS SOLICITUDES PENDIENTES PARA EL DASHBOARD
+  obtenerSolicitudVisitasPendientes() {
+    let url = URL_SERVICIOS + '/visita/obtenervisitas-contador';
+    url += '?token=' + this._usuarioService.token;
+    return this.http.get(url).pipe(
+      map((resp: any) => {
+        return resp.total;
+      })
+    );
+  }
 
 
 

@@ -15,7 +15,7 @@
       <div class="card">
         <div class="card-body">
           <h3 class="card-title">Contratos registrados (<small>{{_contratoService.totalContratos}}</small>)</h3>
-          <table class="table table-hover" style="width:100%">
+          <table class="table table-hover table-responsive-xl" style="width:100%; overflow-x: auto;">
             <thead>
               <tr>
                 <th style="text-align: center;"><b>Nombre</b></th>
@@ -36,10 +36,12 @@
                 <td>{{contrato.nombrecontrato}}</td>
                 <td style="text-align: center;">{{contrato.fechainicio|date:'dd-MM-yyyy'}}</td>
                 <td style="text-align: center;">{{contrato.fechafin|date:'dd-MM-yyyy'}}</td>
-                <td style="text-align: center;">{{contrato.tiempocontrato}}</td>
+                 <td style="text-align: center;">{{contrato.tiempocontrato}}</td>
                 <td style="text-align: center;">
-                  <div *ngIf="contrato.estado !== 'TERMINADO'" >{{contrato.fechafin>fechaHoy? contrato.estado: 'HA TERMINADO'}}</div>
-                  <div *ngIf="contrato.estado === 'TERMINADO'" >{{fechaHoy>contrato.fechafin? contrato.estado: 'HA TERMINADO'}}</div>
+                  <div></div>
+                  <div *ngIf="contrato.estado === 'BORRADOR'">PENDIENTE DE ACEPTAR</div>
+                  <div *ngIf="contrato.estado !== 'TERMINADO'" ><div style="font-size: 14px;">{{contrato.fechafin>fechaHoy? contrato.estado: 'PLAZO FINALIZADO(habilite el inmueble)'}}</div></div>
+                  <div *ngIf="contrato.estado === 'TERMINADO'" ><div style="font-size: 14px;">{{fechaHoy>contrato.fechafin? 'ESTÁ '+contrato.estado: 'PLAZO FINALIZADO(habilite el inmueble)'}}</div></div>
               </td>
 
 

@@ -23,7 +23,7 @@ export class LoginGuardGuard implements CanActivate {
       const tokenPayload = decode(token);
 
       if (this._usuarioService.estaLogueado()) {
-        console.log(tokenPayload.usuario.rol);
+        //console.log(tokenPayload.usuario.rol);
         return true;
       }else{
         this.router.navigate(['/login']);

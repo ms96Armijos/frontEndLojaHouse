@@ -1,4 +1,3 @@
-import { BARRIOSDELOJA, CIUDADES, PROVINCIAS, EXPRESIONCODIGOCASA } from './../../../config/config';
 import { ServiciosbasicosService } from './../../../services/serviciosbasicos/serviciosbasicos.service';
 import { NgForm, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -10,7 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import decode from 'jwt-decode';
 
-
+declare const require;
 
 
 @Component({
@@ -21,7 +20,6 @@ import decode from 'jwt-decode';
 export class CrearinmuebleComponent implements OnInit {
 
 
-
   public items = [];
   public itemsFinales = [];
   public garaje = [{display: 'garaje', value: 1}];
@@ -29,11 +27,13 @@ export class CrearinmuebleComponent implements OnInit {
 
   contador;
 
-  codeCasa = new RegExp(EXPRESIONCODIGOCASA);
   limiteNombre: boolean;
   vacioNombre: boolean;
   limiteDescripcion: boolean;
   limiteDireccion: boolean;
+
+  timer = null;
+  time = 1000;
 
 
   /**Logica normal */
@@ -42,6 +42,7 @@ export class CrearinmuebleComponent implements OnInit {
    tokenPayload = decode(this.token);
 
    idInmuebleCreado: string;
+   inmuebleCreado = false;
    banderaCreadoActualizado = false;
 
 
@@ -51,35 +52,25 @@ export class CrearinmuebleComponent implements OnInit {
 
 
   //ARREGLO DE CIUDADES
-    ciudades = CIUDADES;
+    ciudades;
+    ciudades2 = [];
   //ARREGLO DE PROVINCIAS
-    provincias = PROVINCIAS;
+    provincias = [];
   //ARREGLO DE BARRIOS
 
-    barrios: any = BARRIOSDELOJA;
+    barrios: any = [];
+    barrios2: any = require('../../../../assets/paises/loja.json');
 
-    ciudadSeleccionada: string = "Loja";
-    provinciaSeleccionada: string = "Loja";
-    barrioSeleccionado: string = "Gran Colombia";
+    ciudadSeleccionada: string;
+    provinciaSeleccionada: string;
+    barrioSeleccionado: string;
 
   desde = 0;
   servicios = [];
 
- /* servicioselegidos = [];
-  nuevservicios = [];*/
 
-  /*drop(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
-    }
-  }*/
-
-  constructor( public _inmuebleService: InmuebleService,
+  constructor(
+    public _inmuebleService: InmuebleService,
                public _usuarioService: UsuarioService,
                public router: Router,
                public toastr: ToastrService,
@@ -92,13 +83,15 @@ export class CrearinmuebleComponent implements OnInit {
         if (id !== 'nuevo'){
           this.obtenerInmueble(id);
           this.idInmuebleCreado = id;
+          this.inmuebleCreado = true;
           //this.banderaCrearInmuieble = true;
         }
       });
+
+
     }
 
   ngOnInit(): void {
-
     this._basicosService.cargarServicios()
     .subscribe(servicios => {
       this.servicios = servicios;
@@ -106,10 +99,24 @@ export class CrearinmuebleComponent implements OnInit {
       for (let i = 0; i < servicios.length; i++) {
         this.items.push({display: servicios[i]['nombre'], value: (i+20)});
       }
-      console.log(this.items);
+      //console.log(this.items);
     });
 
+    for (let i = 0; i < this.barrios2.paises.length; i++) {
+      this.provincias.push(this.barrios2.paises[i].provincia);
+      this.ciudades2.push(this.barrios2.paises[i].ciudad);
+     /* for (let a = 0; a < this.barrios2.paises[i].barrio.length; a++) {
+        this.barrios.push(this.barrios2.paises[i].barrio[a].nombre)
+      }*/
+
+    }
+
+
+
   }
+
+
+
 
   obtenerInmueble(id: string){
     this._inmuebleService.obtenerInmueble( id )
@@ -119,22 +126,48 @@ export class CrearinmuebleComponent implements OnInit {
       for (let i = 0; i < inmueble.servicio.length; i++) {
         this.garaje.push({display: inmueble.servicio[i], value: (i+2)});
       }
-      console.log(this.inmuebles);
+      //console.log(this.inmuebles);
+
     });
   }
 
-
-
-
-  seleccionarCiudad(ciudad: string){
-    this.ciudadSeleccionada = ciudad;
+  seleccionarCiudad(event: any){
+    if(event.target.value.length > 0){
+      this.ciudadSeleccionada = event.target.value;
+    }
   }
 
-  seleccionarProvincia(provincia: string){
+
+
+  seleccionarProvincia(i: number, provincia: string){
     this.provinciaSeleccionada = provincia;
+
+    for (let indice = 0; indice < this.ciudades2.length; indice++) {
+
+      if(indice === i){
+        this.ciudades =""
+        this.ciudades = this.ciudades2[indice]
+        this.ciudadSeleccionada = this.ciudades2[indice]
+
+
+
+        this.barrios= [""]
+        for (let l = 0; l < this.barrios2.paises.length; l++) {
+          for (let a = 0; a < this.barrios2.paises[l].barrio.length; a++) {
+            if(this.barrios2.paises[l].code === i.toString()){
+              this.barrios.push(this.barrios2.paises[l].barrio[a].nombre)
+            }
+
+          }
+
+        }
+       }
+    }
   }
   seleccionarBarrio(barrio: string){
-    this.barrioSeleccionado = barrio;
+    if(barrio.length > 0){
+      this.barrioSeleccionado = barrio;
+    }
   }
 
   crearInmueble(forma: NgForm) {
@@ -145,18 +178,13 @@ export class CrearinmuebleComponent implements OnInit {
 
     let idArrendador = this.tokenPayload.usuario._id;
 
-    /*for (let serv of this.servicioselegidos) {
-      //console.log(serv.nombre); // 1, "string", false
-      this.nuevservicios.push(serv.nombre);
-    }*/
-
 
     for (let i = 0; i < forma.value.itemServ.length; i++) {
       this.itemsFinales.push(forma.value.itemServ[i]['display']);
 
     }
 
-    console.log(this.itemsFinales);
+    //console.log(this.itemsFinales);
 
     this.inmuebles.nombre = forma.value.nombre;
     this.inmuebles.descripcion = forma.value.descripcion;
@@ -180,36 +208,16 @@ export class CrearinmuebleComponent implements OnInit {
     this._inmuebleService.crearInmueble(this.inmuebles)
       .subscribe(resp => {
         this.idInmuebleCreado = resp._id;
+        this.inmuebleCreado = true;
         this.banderaCreadoActualizado = true;
-
-       /* if(!this.banderaCrearInmuieble){
-
-        }*/
-        //this.router.navigate(['/inmuebles']);
+        clearTimeout(this.timer);
+      this.timer = setTimeout(() => {
+        this.agregarImagenesAlInmuebleCreado()
+      }, this.time);
       });
+
   }
 
-
-
-  /*cambiarPaginacion(valor: number) {
-    const desde = this.desde + valor;
-
-    if (desde >= this._basicosService.totalServicios) {
-      this.toastr.error('Solo existen ' + this._basicosService.totalServicios + ' items', 'Ya no se puede avanzar más');
-      return;
-    }
-    if (desde < 0) {
-      this.toastr.error(this.desde + ' items para retroceder', 'Ya no se puede retroceder más');
-      return;
-    }
-    this.desde += valor;
-    this.cargarServicios();
-  }*/
-
-  /*cargarServicios() {
-    this._basicosService.cargarServicios(this.desde)
-      .subscribe(servicios => this.servicios = servicios);
-  }*/
 
   agregarImagenesAlInmuebleCreado(){
     this.router.navigate(['/subirfotosinmueble', this.idInmuebleCreado]);
@@ -224,61 +232,50 @@ export class CrearinmuebleComponent implements OnInit {
     switch(texto){
       case 'nombre':
         this.contador = event.target.value.length
-      if(this.contador >= 0 && this.contador<=100){
+      if(this.contador >= 0 && this.contador<=300){
         this.limiteNombre = true;
       }else{
         this.limiteNombre = false;
       }
-      if(this.contador === 100){
+      if(this.contador === 300){
         return false;
       }
       if(this.contador === 0){
         return false;
       }
-      console.log(this.contador)
+      //console.log(this.contador)
         break;
 
         /**CASE DESCRIPCIÓN */
         case 'descripcion':
         this.contador = event.target.value.length
-      if(this.contador > 0 && this.contador<=200){
+      if(this.contador > 0 && this.contador<=500){
         this.limiteDescripcion = true;
       }else{
         this.limiteDescripcion = false;
       }
-      if(this.contador === 200){
+      if(this.contador === 500){
         return false;
       }
-      console.log(this.contador)
+      //console.log(this.contador)
         break;
 
 
       /**CASE DESCRIPCIÓN */
       case 'direccion':
         this.contador = event.target.value.length
-      if(this.contador > 0 && this.contador<=150){
+      if(this.contador > 0 && this.contador<=400){
         this.limiteDireccion = true;
       }else{
         this.limiteDireccion = false;
       }
-      if(this.contador === 150){
+      if(this.contador === 400){
         return false;
       }
-      console.log(this.contador)
+      //console.log(this.contador)
         break;
 
       }
-
-      /*this.contador = event.target.value.length
-      if(this.contador > 0 && this.contador<=100){
-        this.limiteNombre = true;
-      }else{
-        this.limiteNombre = false;
-      }
-      if(this.contador === 100){
-        return false;
-      }
-      console.log(this.contador)*/
    }
 
   public restrictNumeric(e) {

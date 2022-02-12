@@ -1,15 +1,12 @@
-import { LoginGuardGuard } from './services/guards/login-guard.guard';
-import { PagesComponent } from './pages/pages.component';
-import { EnviarmensajeComponent } from './enviarmensaje/enviarmensaje.component';
+import { LoginComponent } from './pages/login/iniciarsesion/login.component';
 import { PrincipalComponent } from './pages/principal/principal.component';
-import { LoginComponent } from './login/login.component';
-import { RegistroComponent } from './login/registro/registro.component';
-import { ReseteopasswordComponent } from './login/reseteopassword/reseteopassword.component';
-import { PaginapublicaComponent } from './paginapublica/paginapublica.component';
-import { InmueblepublicoComponent } from './inmueblepublico/inmueblepublico.component';
+import { RegistroComponent } from './pages/login/registro/registro.component';
+import { ReseteopasswordComponent } from './pages/login/reseteopassword/reseteopassword.component';
+import { InmueblepublicoComponent } from './pages/inmueblepublico/inmueblepublico.component';
 import { Page404Component } from './shared/page404/page404.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { EnviarmensajeComponent } from './pages/enviarmensaje/enviarmensaje.component';
 
 
 const appRoutes: Routes = [
@@ -19,7 +16,6 @@ const appRoutes: Routes = [
   { path: 'registro', component: RegistroComponent, data: {titulo: 'Registro de usuario'}},
   { path: 'reseteopassword', component: ReseteopasswordComponent, data: {titulo: 'Reseteo Contraseña'} },
   { path: 'enviarmensaje', component: EnviarmensajeComponent, data: {titulo: 'Enviar mensaje'} },
-  { path: 'verinmueblepublico/:idinmueble', component: PaginapublicaComponent, data: {titulo: 'Detalle del inmueble'} },
   { path: 'ver-inmueble-publico/:idinmueble', component: InmueblepublicoComponent, data: { titulo: 'Ver inmueble' } },
   //{ path: '', redirectTo: '/principal', pathMatch: 'full'},
 

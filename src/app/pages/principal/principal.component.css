@@ -175,6 +175,13 @@ html {
 }
 
 
+.refresh{
+  height:40px;
+  width: 150px;
+  color: rgb(8, 157, 226);
+  padding: 5px;
+}
+
 
 .search {
     margin-top: auto;

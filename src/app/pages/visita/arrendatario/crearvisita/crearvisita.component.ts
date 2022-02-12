@@ -9,6 +9,7 @@ import { Inmueble } from './../../../../models/inmueble.model';
 import { Component, OnInit } from '@angular/core';
 import decode from 'jwt-decode';
 import swal from 'sweetalert';
+declare function inicializarPluginsSidebar();
 
 @Component({
   selector: 'app-crearvisita',
@@ -46,24 +47,29 @@ export class CrearvisitaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    inicializarPluginsSidebar();
 
   }
 
   obtenerInmueble(id: string) {
     this._inmuebleService.obtenerInmueble(id)
       .subscribe(inmueble => {
+
         this.inmuebles = inmueble;
         this.descripcion = 'Hola, estoy interesado en su inmueble '+ this.inmuebles.nombre +', y me gustaría estar en contacto con usted para poder llegar a un acuerdo. Muchas gracias por su tiempo, hasta luego.';
-        console.log(this.inmuebles);
+        //console.log(this.inmuebles);
       });
   }
 
   obtenerArrendatario() {
-    this._usuarioService.obtenerUsuario(localStorage.getItem(this.tokenPayload.usuario._id))
+    if(!this.tokenPayload.usuario._id){
+      this._usuarioService.obtenerUsuario(localStorage.getItem(this.tokenPayload.usuario._id))
       .subscribe(usuarios => {
         this.usuarios = usuarios;
-        console.log("User: "+this.usuarios);
+        //console.log("User: "+this.usuarios);
       });
+    }
+
   }
 
   crearVisita(forma: NgForm) {

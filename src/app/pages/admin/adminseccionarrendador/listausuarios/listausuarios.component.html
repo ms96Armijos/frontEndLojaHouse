@@ -73,10 +73,18 @@
 
 
               <div class="product-1 align-items-center p-2 text-center">
-                  <div class="image-container"><img class="xyz rounded" [src]="usuario.imagen | imagen" width="200" height="200"><img class="xyz-replacement rounded" [src]="usuario.imagen | imagen" width="200" height="200"></div><br>
+
+                <div class="image-container"><img class="xyz rounded"  *ngIf="usuario.imagen.length===0" width="200" height="200" src="assets/images/users/imgnotfound.jpg"><img class="xyz-replacement rounded" src="assets/images/users/imgnotfound.jpg" width="200" height="200"></div>
+                <div *ngFor="let imgusuario of usuario.imagen">
+                  <div class="image-container"><img class="xyz rounded" [src]="imgusuario.url | imagen" width="200" height="200"><img class="xyz-replacement rounded" [src]="imgusuario.url | imagen" width="200" height="200"></div><br>
+
+                </div>
+
+
+
                   <h6>{{usuario.nombre}} {{usuario.apellido}}</h6>
-                  <div class="mt-3 info"> <span class="text1 d-block">Celular: {{usuario.movil}}</span>
-                    <span class="text1">Telf.: {{usuario.convencional}}</span> </div>
+                  <div class="mt-3 info"> <span class="text1 d-block">Celular: <a href="tel:{{usuario.movil}}">{{usuario.movil}}</a></span>
+                    <span class="text1">Telf.: <a href="tel:{{usuario.convencional}}">{{usuario.convencional}}</a></span> </div>
                   <div class="cost mt-3 text-dark"> <span>{{usuario.correo}}</span>
                     <div class=" star mt-3 align-items-center"> </div>
                   </div>

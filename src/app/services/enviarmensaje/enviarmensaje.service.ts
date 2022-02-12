@@ -54,6 +54,16 @@ export class EnviarmensajeService {
     );
   }
 
+  cargarMensajesNoLeidos() {
+    let url = URL_SERVICIOS + '/mensaje/obtenermensajes-contador';
+    url += '?token=' + this._usuarioService.token;
+    return this.http.get(url).pipe(
+      map((resp: any) => {
+        return resp.total;
+      })
+    );
+  }
+
   obtenerMensaje(id: string) {
     let url = URL_SERVICIOS + '/mensaje/obtenermensaje/' + id;
     url += '?token=' + this._usuarioService.token;

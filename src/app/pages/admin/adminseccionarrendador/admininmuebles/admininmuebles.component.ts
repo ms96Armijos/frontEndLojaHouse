@@ -33,7 +33,7 @@ export class AdmininmueblesComponent implements OnInit {
 
     activatedRoute.params.subscribe(parametros => {
       this.idUsuario = parametros['idusuario'];
-      console.log(this.idUsuario)
+      //console.log(this.idUsuario)
       //this.obtenerVisita(id);
       //this.obtenerUsuarioArrendador(this.tokenPayload.usuario._id);
       let now = moment(); // add this 2 of 4
@@ -52,7 +52,8 @@ export class AdmininmueblesComponent implements OnInit {
   cargarInmueblesAdminArrendador() {
     this._inmuebleService.cargarInmueblesAdminArrendador(this.desde, this.idUsuario)
       .subscribe(inmuebles => {this.inmuebles = inmuebles
-      console.log(inmuebles)});
+      //console.log(inmuebles)
+    });
 
   }
 
@@ -77,7 +78,7 @@ export class AdmininmueblesComponent implements OnInit {
 
     clearTimeout(this.timer);
     this.timer = setTimeout(() => {
-      console.log(termino);
+      //console.log(termino);
 
     if (termino.length <= 0) {
       this.cargarInmueblesAdminArrendador();
@@ -138,9 +139,7 @@ export class AdmininmueblesComponent implements OnInit {
     })
       .then(borrar => {
         if (borrar) {
-          inmueble.estado = 'ELIMINADO';
-          inmueble.publicado = 'PRIVADO';
-          this._inmuebleService.borrarInmuebleDesdeElAdministrador(inmueble)
+          this._inmuebleService.borrarInmuebleArrendador(inmueble._id)
             .subscribe(borrado => {
               this.cargarInmueblesAdminArrendador();
             });

@@ -1,7 +1,9 @@
+import { VerPasswordDirective } from './directive/ver-password.directive';
+import { LoginComponent } from './pages/login/iniciarsesion/login.component';
 import { PipesModule } from './pipes/pipes.module';
-import { CambiopasswordComponent } from './login/cambiopassword/cambiopassword.component';
-import { RegistroComponent } from './login/registro/registro.component';
-import { ReseteopasswordComponent } from './login/reseteopassword/reseteopassword.component';
+import { CambiopasswordComponent } from './pages/login/cambiopassword/cambiopassword.component';
+import { RegistroComponent } from './pages/login/registro/registro.component';
+import { ReseteopasswordComponent } from './pages/login/reseteopassword/reseteopassword.component';
 
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -19,14 +21,11 @@ import { ServiceModule } from "./services//service.module";
 
 //COMPONENTES
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { VerPasswordDirective } from './login/ver-password.directive';
 
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { PaginapublicaComponent } from './paginapublica/paginapublica.component';
-import { InmueblepublicoComponent } from './inmueblepublico/inmueblepublico.component';
-import { EnviarmensajeComponent } from './enviarmensaje/enviarmensaje.component';
+import { InmueblepublicoComponent } from './pages/inmueblepublico/inmueblepublico.component';
+import { EnviarmensajeComponent } from './pages/enviarmensaje/enviarmensaje.component';
 
 
 @NgModule({
@@ -37,7 +36,6 @@ import { EnviarmensajeComponent } from './enviarmensaje/enviarmensaje.component'
     RegistroComponent,
     VerPasswordDirective,
     CambiopasswordComponent,
-    PaginapublicaComponent,
     InmueblepublicoComponent,
     EnviarmensajeComponent
   ],

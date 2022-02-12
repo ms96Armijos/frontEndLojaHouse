@@ -47,7 +47,6 @@ export class VercontratosComponent implements OnInit {
 
     clearTimeout(this.timer);
     this.timer = setTimeout(() => {
-      console.log(termino);
 
     if ( termino.length <= 0 ){
       this.cargarContratos();

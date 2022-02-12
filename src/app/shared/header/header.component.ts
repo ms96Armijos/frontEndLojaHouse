@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import decode from 'jwt-decode';
 
 declare function inicializarPluginsSidebar();
+declare function importarSCCC();
 
 @Component({
   selector: 'app-header',
@@ -13,11 +14,13 @@ declare function inicializarPluginsSidebar();
 export class HeaderComponent implements OnInit {
 
   usuario: Usuario = new Usuario(null, null, null, null, null);
+  fotoPerfil = '';
 
   constructor(public _usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
     inicializarPluginsSidebar();
+    importarSCCC();
 
     const token = localStorage.getItem('token');
     const tokenPayload = decode(token);
@@ -31,6 +34,10 @@ export class HeaderComponent implements OnInit {
     .subscribe( usuarioObtenido => {
 
       this.usuario = usuarioObtenido;
+
+      for (let i = 0; i < usuarioObtenido['imagen'].length; i++) {
+        this.fotoPerfil = usuarioObtenido['imagen'][i]['url']
+      }
      //console.log('visita: '+this.visitas.inmueble.nombre );
     });
   }

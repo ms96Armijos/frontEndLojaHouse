@@ -26,7 +26,7 @@ export class ContratosadminComponent implements OnInit {
 
       activatedRoute.params.subscribe(parametros => {
         this.idUsuario = parametros['idusuario'];
-        console.log(this.idUsuario);
+        //console.log(this.idUsuario);
       });
 
     }
@@ -44,7 +44,7 @@ export class ContratosadminComponent implements OnInit {
 
     clearTimeout(this.timer);
     this.timer = setTimeout(() => {
-      console.log(termino);
+      //console.log(termino);
 
     if ( termino.length <= 0 ){
       this.cargarContratosAdminArrendatario();

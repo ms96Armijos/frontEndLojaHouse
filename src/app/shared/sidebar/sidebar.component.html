@@ -5,7 +5,7 @@
       <div class="user-profile" style="background: rgb(72, 126, 157)">
           <!-- User profile image -->
           <div class="profile-img">
-            <img [src]="usuario.imagen | imagen" alt="user" />
+            <img [src]="fotoPerfil | imagen" alt="user" />
           </div>
           <!-- User profile text-->
           <div class="profile-text">
@@ -29,8 +29,8 @@
                     <a routerLinkActive="active" [routerLink]="[submenu.url]">{{submenu.titulo}}</a></li>
                 </ul>
               </li>
-
           </ul>
+
       </nav>
       <!-- End Sidebar navigation -->
   </div>

@@ -1,3 +1,4 @@
+import { DashboardComponent } from './dashboard/dasharrendador/dashboard.component';
 import { AdmininmueblesComponent } from './admin/adminseccionarrendador/admininmuebles/admininmuebles.component';
 import { CrearservicioComponent } from './admin/serviciosbasicos/crearservicio/crearservicio.component';
 import { InterceptorService } from './../interceptors/interceptor.service';
@@ -7,12 +8,10 @@ import { PAGES_ROUTES } from './pages.routes';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from './../shared/shared.module';
 import { VerusuariosComponent } from './admin/verusuarios/verusuarios.component';
-import { InmuebleComponent } from './inmueble/inmueble.component';
 import { ServiciosbasicosComponent } from './admin/serviciosbasicos/serviciosbasicos.component';
 import { PagesComponent } from './pages.component';
 import { NgModule } from '@angular/core';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { PerfilComponent } from './perfil/perfil.component';
+import { PerfilComponent } from './login/perfil/perfil.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -27,8 +26,7 @@ import { ListavisitaarrendatarioComponent } from './visita/arrendatario/listavis
 import { VercontratosComponent } from './contrato/vercontratos/vercontratos.component';
 import { PlantillaComponent } from './contrato/plantilla/plantilla.component';
 import { NuevoComponent } from './contrato/nuevo/nuevo.component';
-import { AlquilarinmuebleComponent } from './inmueble/alquilarinmueble/alquilarinmueble.component';
-import { InmublespublicadosComponent } from './inmueble/inmublespublicados/inmublespublicados.component';
+import { InmublespublicadosComponent } from './gestioninmueble/inmublespublicados/inmublespublicados.component';
 import { ContratoarrendatarioComponent } from './contrato/contratoarrendatario/contratoarrendatario.component';
 import { SubirimagenesComponent } from './gestioninmueble/subirimagenes/subirimagenes.component';
 import { SubirimagenesDirective } from './gestioninmueble/subirimagenes/subirimagenes.directive';
@@ -41,10 +39,13 @@ import { ListarusuarioarrendatarioComponent } from './admin/adminseccionarrendat
 import { AdminverinmuebleComponent } from './admin/adminseccionarrendador/adminverinmueble/adminverinmueble.component';
 import { AcuerdoComponent } from './contrato/acuerdo/acuerdo.component';
 import { VervisitaComponent } from './visita/arrendador/vervisita/vervisita.component';
-import { MensajesComponent } from './mensaje/mensajes/mensajes.component';
-import { VermensajeComponent } from './mensaje/vermensaje/vermensaje.component';
+import { MensajesComponent } from './admin/mensaje/mensajes/mensajes.component';
+import { VermensajeComponent } from './admin/mensaje/vermensaje/vermensaje.component';
 import { VercontratoComponent } from './contrato/vercontrato/vercontrato.component';
 import { TagInputModule } from 'ngx-chips';
+import { DasharrendatarioComponent } from './dashboard/dasharrendatario/dasharrendatario.component';
+import { DashadminComponent } from './dashboard/dashadmin/dashadmin.component';
+import { AlquilarinmuebleComponent } from './gestioninmueble/alquilarinmueble/alquilarinmueble.component';
 
 
 /*import {MatChipsModule} from '@angular/material/chips'
@@ -58,7 +59,6 @@ import { MatFormFieldModule, MatIconModule } from '@angular/material';*/
     PagesComponent,
     DashboardComponent,
     ServiciosbasicosComponent,
-    InmuebleComponent,
     VerusuariosComponent,
     PerfilComponent,
     CrearinmuebleComponent,
@@ -90,6 +90,8 @@ import { MatFormFieldModule, MatIconModule } from '@angular/material';*/
     MensajesComponent,
     VermensajeComponent,
     VercontratoComponent,
+    DasharrendatarioComponent,
+    DashadminComponent,
   ],
   exports: [
     DashboardComponent,

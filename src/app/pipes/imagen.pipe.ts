@@ -8,11 +8,11 @@ export class ImagenPipe implements PipeTransform {
 
   transform(img: string, tipo: string = 'usuario'): any {
 
-    let url = URL_SERVICIOS + '/img';
+    let url = 'https://image.freepik.com/vector-gratis/perfil-avatar-hombre-icono-redondo_24640-14044.jpg';
 
     //SI NO LLEGA UNA IMAGEN, ASIGNO UNA IMAGEN POR DEFECTO
     if ( !img ) {
-      return url + '/usuarios/xxx';
+      return url;
     }
 
     //SI LLEGA UNA IMAGEN DE GOOGLE QUE LA DEVUELVA COMO LLEGA
@@ -22,12 +22,12 @@ export class ImagenPipe implements PipeTransform {
 
     switch ( tipo ) {
       case 'usuario':
-      url += '/usuarios/' + img;
+      url = img;
       break;
       default:
-        console.log('Tipo de usaurio no existe');
-        url += '/usuarios/xxx';
+        url;
      }
+
 
     return url;
   }

@@ -1,8 +1,10 @@
+import { Inmueble } from './../../models/inmueble.model';
 import { URL_SERVICIOS } from './../../config/config';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import swal from 'sweetalert';
 
 @Injectable({
   providedIn: 'root'
@@ -26,19 +28,62 @@ export class SubirfotoinmuebleService {
         formData.append('imagen', arr[0][i]);
       });
 
-      return this.http.put('http://localhost:3000/fotosinmueble/actualizar/fotos/inmueble/' + id, formData, {
+      return this.http.put(URL_SERVICIOS+'/fotosinmueble/actualizar/fotos/inmueble/' + id, formData, {
         reportProgress: true,
         observe: 'events'
       }).pipe(
         catchError(this.errorMgmt)
       );
+
     }
   }
 
   obtenerInmueble(id: string) {
     //const url = URL_SERVICIOS + '/fotosinmueble/5f78ed876b1e7207f8230ada';
-    return this.http.get('http://localhost:3000/fotosinmueble/' + id).pipe(map((resp: any) => resp.inmueble));
+    return this.http.get(URL_SERVICIOS+'/fotosinmueble/' + id).pipe(map((resp: any) => resp.inmueble));
   }
+
+  obtenerImagenes(id: string) {
+    //const url = URL_SERVICIOS + '/fotosinmueble/5f78ed876b1e7207f8230ada';
+    return this.http.get(URL_SERVICIOS+'/fotosinmueble/photo/inmueble/' + id).pipe(map((resp: any) => resp.image));
+  }
+
+
+
+
+  actualizarPathImagen(id: string, removeid: string) {
+    let url = URL_SERVICIOS + '/fotosinmueble/photo-update/'+id+'/'+removeid+'/inmueble';
+
+    return this.http.put(url, id).pipe(
+      map((resp: any) => {
+        return resp.inmueble;
+      })
+    );
+  }
+
+  eliminarImagen(id: string) {
+    let url = URL_SERVICIOS + '/fotosinmueble/photo/' + id;
+
+    return this.http.delete(url).pipe(
+      map((resp: any) => {
+        swal(
+          'Imagen eliminada',
+          'Se ha eliminado la imágen',
+          'success'
+        );
+        return resp.image;
+      }),
+      catchError((err) => {
+        swal(
+          'Uppss...' + err.error.mensaje,
+          ' No se ha podido eliminar la imágen',
+          'error'
+        );
+        return throwError(err.error.mensaje);
+      })
+    );
+  }
+
 
   errorMgmt(error: HttpErrorResponse) {
     let errorMessage = '';

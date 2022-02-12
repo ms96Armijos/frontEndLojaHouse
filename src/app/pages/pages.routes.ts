@@ -1,8 +1,11 @@
+import { DashadminComponent } from './dashboard/dashadmin/dashadmin.component';
+import { DasharrendatarioComponent } from './dashboard/dasharrendatario/dasharrendatario.component';
+import { DashboardComponent } from './dashboard/dasharrendador/dashboard.component';
 import { ArrendatarioGuard } from './../services/guards/arrendatario.guard';
 import { ArrendadorAdminGuard } from './../services/guards/arrendador.admin.guard';
 import { VercontratoComponent } from './contrato/vercontrato/vercontrato.component';
-import { VermensajeComponent } from './mensaje/vermensaje/vermensaje.component';
-import { MensajesComponent } from './mensaje/mensajes/mensajes.component';
+import { VermensajeComponent } from './admin/mensaje/vermensaje/vermensaje.component';
+import { MensajesComponent } from './admin/mensaje/mensajes/mensajes.component';
 import { ArrendadorGuard } from './../services/guards/arrendador.guard';
 import { VervisitaComponent } from './visita/arrendador/vervisita/vervisita.component';
 import { AcuerdoComponent } from './contrato/acuerdo/acuerdo.component';
@@ -18,7 +21,6 @@ import { SubirimagenesComponent } from './gestioninmueble/subirimagenes/subirima
 import { Page403Component } from './../shared/page403/page403.component';
 import { AdminGuard } from './../services/guards/admin.guard';
 import { ContratoarrendatarioComponent } from './contrato/contratoarrendatario/contratoarrendatario.component';
-import { AlquilarinmuebleComponent } from './inmueble/alquilarinmueble/alquilarinmueble.component';
 import { PlantillaComponent } from './contrato/plantilla/plantilla.component';
 import { NuevoComponent } from './contrato/nuevo/nuevo.component';
 import { VercontratosComponent } from './contrato/vercontratos/vercontratos.component';
@@ -29,14 +31,14 @@ import { ListadovisitasComponent } from './visita/arrendador/listadovisitas/list
 import { CrearservicioComponent } from './admin/serviciosbasicos/crearservicio/crearservicio.component';
 import { CrearinmuebleComponent } from './gestioninmueble/crearinmueble/crearinmueble.component';
 import { ListarinmueblesComponent } from './gestioninmueble/listarinmuebles/listarinmuebles.component';
-import { CambiopasswordComponent } from './../login/cambiopassword/cambiopassword.component';
-import { PerfilComponent } from './perfil/perfil.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { CambiopasswordComponent } from './login/cambiopassword/cambiopassword.component';
+import { PerfilComponent } from './login/perfil/perfil.component';
 import { PagesComponent } from './../pages/pages.component';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginGuardGuard } from '../services/service.index';
 import { ServiciosbasicosComponent } from './admin/serviciosbasicos/serviciosbasicos.component';
-import { InmublespublicadosComponent } from './inmueble/inmublespublicados/inmublespublicados.component';
+import { InmublespublicadosComponent } from './gestioninmueble/inmublespublicados/inmublespublicados.component';
+import { AlquilarinmuebleComponent } from './gestioninmueble/alquilarinmueble/alquilarinmueble.component';
 
 
 
@@ -47,7 +49,9 @@ const pagesRoutes: Routes = [
     canActivate: [LoginGuardGuard],
     children: [
       //
-      { path: 'dashboard', component: DashboardComponent, data: { titulo: 'ARRENDADOR'}},
+      { path: 'dashboard', component: DashboardComponent, canActivate: [ArrendadorGuard], data: { titulo: 'ARRENDADOR'}},
+      { path: 'dasharrendatario', component: DasharrendatarioComponent, canActivate: [ArrendatarioGuard], data: { titulo: 'ARRENDATARIO'}},
+      { path: 'dashadmin', component: DashadminComponent, canActivate: [AdminGuard], data: { titulo: 'ADMINISTRADOR'}},
       //Listado de los bienes inmuebles registrados por un usuario arrendador:
       { path: 'inmuebles', component: ListarinmueblesComponent, canActivate: [ArrendadorGuard], data: { titulo: 'Listado de inmuebles disponibles' } },
       //Crear nuevos bienes inmuebles de acuerdo a un usuario arrendador específico:
@@ -118,6 +122,9 @@ const pagesRoutes: Routes = [
       //{ path: 'usuarios', component: VerusuariosComponent, canActivate: [AdminGuard], data: { titulo: 'Lista de usuarios' } },
       { path: 'servicios', component: ServiciosbasicosComponent, canActivate: [AdminGuard], data: { titulo: 'Lista de servicios básicos' } },
       { path: 'crearservicio/:idservicio', component: CrearservicioComponent, canActivate: [AdminGuard], data: { titulo: 'Crear servicio' } },
+
+
+
       { path: '', redirectTo: '/principal', pathMatch: 'full' },
     ]
   }

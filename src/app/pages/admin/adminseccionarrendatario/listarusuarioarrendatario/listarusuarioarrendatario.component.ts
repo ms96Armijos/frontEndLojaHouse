@@ -61,9 +61,8 @@ export class ListarusuarioarrendatarioComponent implements OnInit {
 
     clearTimeout(this.timer);
     this.timer = setTimeout(() => {
-      console.log(termino);
 
-    if (termino.length <= 0) {
+    if (termino.length <= 0 ) {
       this.cargarUsuariosAdminArrendadorArrendatario();
       return;
     }
@@ -73,6 +72,7 @@ export class ListarusuarioarrendatarioComponent implements OnInit {
     this._usuarioService.adminBuscarArrendatarios(termino, this.desde)
       .subscribe((usuarios: Usuario[]) => {
         this.usuarios = usuarios;
+        console.log(usuarios)
         this.cargando = false;
       });
     }, this.time);

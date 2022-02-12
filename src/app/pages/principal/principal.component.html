@@ -2,7 +2,16 @@
 
 			<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-          <a href="/#/dashboard" class="navbar-brand">LojaHouse</a>
+          <a *ngIf="usuario.rol === 'ARRENDADOR'" href="/#/dashboard" class="navbar-brand"><img src="assets/images/lhb.png" alt="homepage" class="light-logo" />
+            <img src="assets/images/lhtextow.png" class="light-logo" alt="homepage" /></a>
+
+          <a *ngIf="usuario.rol === 'ARRENDATARIO'"  href="/#/dasharrendatario" class="navbar-brand"><img src="assets/images/lhb.png" alt="homepage" class="light-logo" />
+              <img src="assets/images/lhtextow.png" class="light-logo" alt="homepage" /></a>
+
+          <a *ngIf="usuario.rol === 'ADMINISTRADOR'"  href="/#/dashadmin" class="navbar-brand"><img src="assets/images/lhb.png" alt="homepage" class="light-logo" />
+                <img src="assets/images/lhtextow.png" class="light-logo" alt="homepage" /></a>
+
+
 
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -11,31 +20,42 @@
           <div class="collapse navbar-collapse" id="navbarNav">
 
               <ul class="navbar-nav ml-auto">
-                      <li class="nav-item dropdown"  *ngIf="estaLogueado" >
-                      <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="#" id="navbarDropdown" role="button"
-                          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Inicio
-                      </a>
-                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <a class="dropdown-item" href="/#/dashboard">Inicio</a>
-                          <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" href="/#/enviarmensaje">Contáctanos</a>
-                          <div class="dropdown-divider"></div>
-                          <a (click)="_usuarioService.logout()" class="dropdown-item pointer" >Salir</a>
-                      </div>
-                  </li>
+
+
+                <li class="nav-item" *ngIf="estaLogueado && rol === 'ARRENDADOR'"  >
+                  <a class="nav-link" href="/#/dashboard" *ngIf="estaLogueado">Mi Perfil</a>
+              </li>
+
+              <li class="nav-item" *ngIf="estaLogueado && rol === 'ARRENDATARIO'"  >
+                <a class="nav-link" href="/#/dasharrendatario" *ngIf="estaLogueado">Mi Perfil</a>
+            </li>
+
+            <li class="nav-item" *ngIf="estaLogueado && rol === 'ADMINISTRADOR'"  >
+              <a class="nav-link" href="/#/dashadmin" *ngIf="estaLogueado">Mi Perfil</a>
+          </li>
+
+              <li class="nav-item" *ngIf="estaLogueado" >
+                <a class="nav-link" href="/#/enviarmensaje" *ngIf="estaLogueado">Contáctanos</a>
+            </li>
+
+            <li class="nav-item" *ngIf="estaLogueado" >
+              <a (click)="_usuarioService.logout()" class="nav-link pointer" *ngIf="estaLogueado">Salir</a>
+          </li>
+
+
+
 
                    <li class="nav-item active" *ngIf="!estaLogueado" >
                       <a class="nav-link" href="/#/login">Iniciar Sesión <span class="sr-only">(current)</span></a>
                   </li>
-
+                  <li class="nav-item" *ngIf="!estaLogueado">
+                    <a class="nav-link" href="/#/registro">Registrarse</a>
+                </li>
                   <li class="nav-item" *ngIf="!estaLogueado" >
                     <a class="nav-link" href="/#/enviarmensaje">Contáctanos</a>
                 </li>
 
-                  <li class="nav-item" *ngIf="!estaLogueado">
-                      <a class="nav-link" href="/#/registro">Registrarse</a>
-                  </li>
+
               </ul>
           </div>
       </div>
@@ -48,11 +68,14 @@
   <div class="container-fluid mt-5 mb-5 mx-auto">
 
     <div class="container">
+      <input #input (keyup)="buscarInmuebles(input.value)" type="text" class="form-control"
+      placeholder="Buscar por tipo de inmueble y dirección">
+      <br>
+      <br>
       <div class="row">
 
 
-      <div class="col-md-12 col-sm-12 col-lg-12">
-
+        <div class="col-md-12 col-sm-12 col-lg-12" style="margin-top: 20px;">
         <div class="row">
 
           <div class="col-md-6 col-sm-6 col-lg-3">
@@ -60,42 +83,50 @@
           <div class="col-md-6 col-sm-6 col-lg-3">
 
           <div class="selectWrapper">
-            <select class="selectBox">
-            <option *ngFor="let tipo of tipos" (click)="tipoInmueble(tipo)">{{tipo}}</option>
+            <select class="selectBox" (change)="tipoInmueble($event.target.value)">
+            <option *ngFor="let tipo of tipos" value={{tipo}}>{{tipo}}</option>
           </select>
           </div>
         </div>
+      </div>
+
+
+      <div class="col-md-6 col-sm-6 col-lg-3">
+        <div style="margin-left: 16px; color: white; font-size: 15px;"><b>Ubicación</b></div>
+        <div class="col-md-6 col-sm-6 col-lg-3">
+          <div class="selectWrapper">
+            <select class="selectBox" (change)="ubicacionInmueble($event.target.value)">
+            <option *ngFor="let ubicacion of barrios" value={{ubicacion}}>{{ubicacion}}</option>
+          </select>
+          </div>
+      </div>
       </div>
 
         <div class="col-md-6 col-sm-6 col-lg-3">
           <div style="margin-left: 16px; color: white; font-size: 15px;"><b>Precio</b></div>
           <div class="col-md-6 col-sm-6 col-lg-3">
             <div class="selectWrapper">
-              <select class="selectBox">
-              <option *ngFor="let precio of precios" (click)="precioInmueble(precio)">{{precio}}</option>
+              <select class="selectBox" (change)="precioInmueble($event.target.value)">
+              <option [value]="precio" *ngFor="let precio of precios" value={{precio}}>{{precio}}</option>
             </select>
             </div>
         </div>
         </div>
 
 
-        <div class="col-md-6 col-sm-6 col-lg-3">
-        <div style="margin-left: 16px; color: white; font-size: 15px;"><b>Ubicación</b></div>
-        <div class="col-md-6 col-sm-6 col-lg-3">
-          <div class="selectWrapper">
-            <select class="selectBox">
-            <option *ngFor="let ubicacion of ubicaciones" (click)="ubicacionInmueble(ubicacion)">{{ubicacion}}</option>
-          </select>
-          </div>
-      </div>
-      </div>
+
 
       <div class="col-md-6 col-sm-6 col-lg-3">
         <div style="margin-left: 16px; color: white; font-size: 15px;"><b>Buscar</b></div>
         <div class="col-md-6 col-sm-6 col-lg-3">
-          <div class="icon buscar" (click)="cadena()"><i class="fa fa-search fa-2x"></i></div>
+          <div class="row" style="float: inline-start;">
+            <div class="col-md-6 col-sm-6 col-lg-3">
+              <button (click)="cadena()" class="icon buscar" class="btn btn-secondary"><i class="fa fa-search fa-2x" style="color: black;"></i></button>
+            </div>
+
+          </div>
         </div>
-        </div>
+      </div>
 
 
       </div>
@@ -110,12 +141,21 @@
 
   <div class="container">
     <div class="row-12">
-
+      <div align="center" class="alert alert-info" *ngIf="inmuebles.length === 0" >
+        <div class="col">
+         <h2> No hay resultados de la búsqueda</h2>
+        </div>
+        <br>
+        <div class="col">
+          <div class="icon refresh" (click)="cargarInmuebles()"><i class="fa fa-refresh fa-3x"> Refrescar</i></div>
+        </div>
+        <br>
+        <br>
+        <br>
+      </div>
       <div class="col-12">
           <div class="row g-2">
-        <div class="alert alert-info" *ngIf="inmuebles.length === 0" >
-          No hay resultados de la búsqueda
-        </div>
+
 
               <div class="col-md-4 mt-2" *ngFor="let inmueble of inmuebles">
                   <div class="product py-4">
@@ -124,7 +164,7 @@
                       <div class="carousel slide" data-ride="carousel" id="{{inmueble._id}}">
                           <div class="carousel-inner" role="listbox">
                             <div *ngFor="let avatar of inmueble.imagen; let i = index" class="carousel-item" [ngClass]="{'active': i===0}">
-                              <img style="width:310px; height:310px" [src]='avatar' class="img-responsive image">
+                              <img style="width:310px; height:310px" [src]='avatar.url' class="img-responsive image">
                             </div>
                             <img *ngIf="inmueble.imagen.length===0" style="width:310px; height:310px" src="assets/images/notinmueble.png" class="img-responsive image">
                           </div>

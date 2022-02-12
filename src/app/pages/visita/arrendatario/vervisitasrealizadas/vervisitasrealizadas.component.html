@@ -5,8 +5,8 @@
       <div class="row">
           <div class="col d-flex flex-lg-row flex-column align-items-center justify-content-center">
                    <!-- bbb_deals -->
-      <div class="bbb_deals">
-
+                   <div class="bbb_deals">
+        <button (click)="regresarPagina()" style="width: 100px; height: 30px; padding: 0px; border: 0px;" class="btn btn-outline-info"><i class="fa fa-hand-o-left" style="margin-right: 8px;"></i>Regresar</button>
         <div class="bbb_deals_slider_container">
           <!-- bbb_deals Item -->
           <div class=" bbb_deals_item">
@@ -18,7 +18,7 @@
                 <div class="carousel-inner" role="listbox">
                   <div *ngFor="let avatar of visitas.inmueble.imagen; let i = index" class="carousel-item"
                     [ngClass]="{'active': i===0}">
-                    <img style="width:310px; height:310px" [src]='avatar' class="img-responsive image">
+                    <img style="width:310px; height:310px" [src]='avatar.url' class="img-responsive image">
                   </div>
                 </div>
 

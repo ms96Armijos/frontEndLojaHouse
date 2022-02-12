@@ -70,8 +70,6 @@ export class ListavisitaarrendatarioComponent implements OnInit {
 
 
   borrarVisita(visita: Visita){
-
-
       swal({
         title: '¿Está seguro de realizar la siguiente acción?',
         text: 'La visita será: ELIMINADA',
@@ -83,15 +81,18 @@ export class ListavisitaarrendatarioComponent implements OnInit {
         dangerMode: true,
       }).then(borrar => {
         if (borrar) {
-          visita.estado ='ELIMINADA'
 
-          this._visitaArrendatarioService.eliminarVisita(visita)
+          this._visitaArrendatarioService.eliminarVisita(visita._id)
             .subscribe(borrados => {
               this.cargarSolicitudesArrendatario();
             });
           //this.toastr.success('Visita ELIMINADA satisfactoriamente');
         }
       });
+  }
+
+  regresarPagina(){
+    window.history.back();
   }
 
 }

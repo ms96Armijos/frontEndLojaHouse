@@ -41,4 +41,7 @@ export class VervisitasrealizadasComponent implements OnInit {
     });
 
   }
+  regresarPagina(){
+    window.history.back();
+  }
 }

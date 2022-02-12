@@ -21,8 +21,8 @@ export class VercontratoComponent implements OnInit {
   contrato: Contrato = new Contrato(null, null, null, null);
   inmueble: Inmueble = new Inmueble(null, null, null, null, null, null, null, null, null);
 
-  timer = null;
-  time = 1000;
+  //timer = null;
+  //time = 1000;
   fechaHoy;
 
   constructor(public _contratoService: ContratoService,

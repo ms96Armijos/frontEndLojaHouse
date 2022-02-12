@@ -14,6 +14,8 @@ export class ContratoarrendatarioComponent implements OnInit {
   contratos: Contrato[] = [];
   desde = 0;
   //urlActual;
+  timer = null;
+  time = 1000;
 
   constructor( public _contratoService: ContratoService, public toastr: ToastrService, public router: Router ) { }
 
@@ -45,15 +47,16 @@ export class ContratoarrendatarioComponent implements OnInit {
 
   buscarContratos(termino: string) {
 
-
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
     if (termino.length <= 0) {
       this.cargarContratos();
       return;
     }
-    console.log(termino)
+    //console.log(termino)
     this._contratoService.buscarContratosArrendatario(termino)
       .subscribe(contratosarrendatario => this.contratos = contratosarrendatario);
-
+    }, this.time);
   }
 
   cambiarPaginacion(valor: number) {

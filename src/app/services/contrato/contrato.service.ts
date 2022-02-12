@@ -45,8 +45,17 @@ export class ContratoService {
       map((resp: any) => {
         this.totalContratos = resp.total;
         this.contrato = resp.contratos;
-        console.log(this.contrato)
         return resp.contratos;
+      })
+    );
+  }
+//PARA CARGAR CONTRATOS PENDIENTES Y MOSTRAR LA CANTIDAD EN EL DASHBOARD
+  cargarContratosPendientesDeAceptar() {
+    let url = URL_SERVICIOS + '/contrato/obtenercontratos-contador';
+    url += '?token=' + this._usuarioService.token;
+    return this.http.get(url).pipe(
+      map((resp: any) => {
+        return resp.total;
       })
     );
   }

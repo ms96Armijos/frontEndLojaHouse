@@ -11,6 +11,7 @@ import { Visita } from './../../../models/visita.model';
 import { Component, OnInit } from '@angular/core';
 import decode from 'jwt-decode';
 import swal from 'sweetalert';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-nuevo',
@@ -24,7 +25,9 @@ export class NuevoComponent implements OnInit {
 
   visitas: Visita = new Visita(null, null, null, null, null);
   usuarioarrendador: Usuario = new Usuario(null, null, null, null, null);
-
+  now = moment();
+  fechaHoy;
+  fechaDentroDeUnMes;
 
   constructor(public _usuarioService: UsuarioService,
     public toastr: ToastrService,
@@ -41,6 +44,8 @@ export class NuevoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.fechaHoy = this.now.format('YYYY-MM-DD');
+    this.fechaDentroDeUnMes = this.now.add(1, 'months').format('YYYY-MM-DD');
   }
 
   obtenerVisita(id: string) {
@@ -63,6 +68,7 @@ export class NuevoComponent implements OnInit {
 
   crearContrato(forma: NgForm) {
     if (forma.invalid) {
+      this.toastr.warning('Por favor complete los campos del formulario', '¡Lo siento!');
       return;
     }
 
@@ -86,7 +92,11 @@ export class NuevoComponent implements OnInit {
 
       console.log(forma.value.fechainicio);
 
-
+      if(!this.visitas.usuarioarrendatario.cedula){
+        this.toastr.error('Por favor solicite a '+ this.visitas.usuarioarrendatario.nombre+' que ingrese su número de cédula', '¡Lo siento!');
+        return;
+      }
+      console.log(this.visitas.usuarioarrendatario.cedula);
 
       swal({
         title: '¿Está seguro de crear el contrato?',
@@ -96,9 +106,12 @@ export class NuevoComponent implements OnInit {
           'Cancelar',
           'Continuar'
         ],
-        dangerMode: true,
+        dangerMode: false,
       })
         .then(crearContratoAlquiler => {
+
+
+
          if(this.visitas.estado === 'ACEPTADA'){
             if (crearContratoAlquiler) {
               this._contratoService.crearContrato(contrato)

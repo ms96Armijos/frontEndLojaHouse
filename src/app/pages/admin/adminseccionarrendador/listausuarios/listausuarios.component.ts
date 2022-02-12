@@ -59,7 +59,6 @@ export class ListausuariosComponent implements OnInit {
 
     clearTimeout(this.timer);
     this.timer = setTimeout(() => {
-      console.log(termino);
 
     if (termino.length <= 0) {
       this.cargarUsuariosAdminArrendadorArrendador();
@@ -70,6 +69,7 @@ export class ListausuariosComponent implements OnInit {
 
     this._usuarioService.adminBuscarArrendadores(termino, this.desde)
       .subscribe((usuarios: Usuario[]) => {
+
         this.usuarios = usuarios;
         this.cargando = false;
       });
@@ -88,7 +88,7 @@ export class ListausuariosComponent implements OnInit {
 
     swal({
       title: '¿Está seguro de realizar la siguiente acción?',
-      text: 'El usuario será: ' + estadoObtenido,
+      text: 'El usuario será: ' + estadoObtenido + ' \nSe notificará al correo del usuario',
       icon: 'warning',
       buttons: [
         'Cancelar',

@@ -30,6 +30,7 @@ export class InmuebleService {
     );
   }
 
+
   obtenerInmueble(id: string) {
     let url = URL_SERVICIOS + '/inmueble/obtenerinmueble/' + id;
     url += '?token=' + this._usuarioService.token;
@@ -43,15 +44,17 @@ export class InmuebleService {
   }
 
 
-  borrarInmueble(inmueble: Inmueble) {
-    let url = URL_SERVICIOS + '/inmueble/eliminarinmueble/' + inmueble._id;
+
+  borrarInmuebleArrendador(id: string) {
+    let url = URL_SERVICIOS + '/inmueble/eliminarinmueble/' + id;
     url += '?token=' + this._usuarioService.token;
 
-    return this.http.put(url, inmueble).pipe(
+
+    return this.http.delete(url).pipe(
       map((resp: any) => {
         swal(
           'Inmueble eliminado',
-          'Se ha eliminado el bien inmueble',
+          'Se ha eliminado el inmueble',
           'success'
         );
         return true;
@@ -59,7 +62,7 @@ export class InmuebleService {
       catchError((err) => {
         swal(
           'Uppss...' + err.error.mensaje,
-          ' No se ha podido eliminar el inmuebele',
+          ' No se ha podido eliminar el inmueble',
           'error'
         );
         return throwError(err.error.mensaje);
@@ -67,29 +70,6 @@ export class InmuebleService {
     );
   }
 
-  borrarInmuebleDesdeElAdministrador(inmueble: Inmueble) {
-    let url = URL_SERVICIOS + '/inmueble/eliminar-inmueble/admin/' + inmueble._id;
-    url += '?token=' + this._usuarioService.token;
-
-    return this.http.put(url, inmueble).pipe(
-      map((resp: any) => {
-        swal(
-          'Inmueble eliminado',
-          'Se ha eliminado el bien inmueble',
-          'success'
-        );
-        return true;
-      }),
-      catchError((err) => {
-        swal(
-          'Uppss...' + err.error.mensaje,
-          ' No se ha podido eliminar el inmuebele',
-          'error'
-        );
-        return throwError(err.error.mensaje);
-      })
-    );
-  }
 
   crearInmueble(inmueble: Inmueble) {
     let url = URL_SERVICIOS + '/inmueble';
@@ -140,11 +120,20 @@ export class InmuebleService {
       .pipe(map((resp: any) => resp.inmuebles));
   }
 
+  buscarInmueblesPaginaPrincipal(termino: string) {
+    let url = URL_SERVICIOS + '/inmueble/buscar/' + termino;
+    return this.http.get(url)
+      .pipe(map((resp: any) => resp.inmuebles));
+  }
+
   busquedaAnidadaInmuebles(tipo: string, ubicacion: string, precio: String) {
+
     let url = URL_SERVICIOS + '/busqueda/coleccion/inmuebles/' + tipo + '/' + ubicacion +'/' + precio;
     console.log(url)
     return this.http.get(url)
-      .pipe(map((resp: any) => resp.inmuebles));
+      .pipe(map((resp: any) =>
+        resp.inmuebles
+     ));
   }
 
   publicarInmueble(inmueble: Inmueble) {
@@ -208,9 +197,10 @@ export class InmuebleService {
   }
 
 
-  enviarNotificacionFCM(inmueble: string) {
-    console.log('push')
-    let url = URL_SERVICIOS + '/enviarnotificaciones/notificacion-usuario/'+ inmueble;
+  enviarNotificacionFCM(idInmueble: string) {
+    console.log('push'+ idInmueble)
+    let url = URL_SERVICIOS + '/enviarnotificaciones/notificacion-usuario/'+ idInmueble;
+    url += '?token=' + this._usuarioService.token;
     return this.http.get(url).pipe(map((resp: any) => resp.ok));
   }
 

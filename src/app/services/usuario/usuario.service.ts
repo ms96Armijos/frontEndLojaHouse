@@ -89,7 +89,7 @@ export class UsuarioService {
     return this.http.post(url, usuario).pipe(
       map((resp: any) => {
         this.guardarDatosEnStorage(resp.token, resp.menu);
-        return true;
+        return resp.token;
       }),
       catchError((err) => {
         swal('Lo siento...', ' ' + err.error.mensaje, 'error');
@@ -174,7 +174,7 @@ export class UsuarioService {
   obtenerUsuario(id: string) {
     let url = URL_SERVICIOS + '/usuario/obtenerusuario/' + id;
     url += '?token=' + this.token;
-    console.log(url)
+    //console.log(url)
     return this.http.get(url).pipe(map((resp: any) => resp.usuario));
   }
 
@@ -253,6 +253,13 @@ cargarUsuariosAdminArrendadorArrendatario(desde: number = 0, rol: string) {
   return this.http.get(url);
 }
 
+obtenerUsuariosArrendadoresDasAdmin(rol: string) {
+  let url = URL_SERVICIOS + '/usuario/obtenerusuarios/roles-contador/' + rol+'/dashadmin';
+  url += '?token=' + this.token;
+  //console.log(url)
+  return this.http.get(url);
+}
+
 buscarAdminUsuariosArrendatario(termino: string) {
   let url = URL_SERVICIOS + '/admin/busqueda/coleccion/arrendatario/' + termino;
   url += '?token=' + this.token;
@@ -260,6 +267,7 @@ buscarAdminUsuariosArrendatario(termino: string) {
   return this.http.get(url)
     .pipe(map((resp: any) => resp.usuarios));
 }
+
 
 }
 

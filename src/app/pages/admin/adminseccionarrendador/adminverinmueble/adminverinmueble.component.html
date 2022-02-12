@@ -15,7 +15,7 @@
                   <div class="carousel-inner" role="listbox">
                     <div *ngFor="let avatar of inmueble.imagen; let i = index" class="carousel-item"
                       [ngClass]="{'active': i===0}">
-                      <img style="width:310px; height:310px" [src]='avatar' class="img-responsive image">
+                      <img style="width:310px; height:310px" [src]='avatar.url' class="img-responsive image">
                     </div>
                   </div>
 

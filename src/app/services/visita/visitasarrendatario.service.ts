@@ -56,11 +56,11 @@ export class VisitasarrendatarioService {
     return this.http.get(url).pipe(map((resp: any) => resp.visita));
   }
 
-  eliminarVisita(visita: Visita) {
-    let url = URL_SERVICIOS + '/visita/eliminarvisita/' + visita._id;
+  eliminarVisita(id: String) {
+    let url = URL_SERVICIOS + '/visita/eliminarvisita/' + id;
     url += '?token=' + this._usuarioService.token;
 
-    return this.http.put(url, visita)
+    return this.http.delete(url)
       .pipe(map((resp: any) =>
       {
         swal(

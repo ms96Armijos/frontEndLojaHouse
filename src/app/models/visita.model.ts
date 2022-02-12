@@ -1,7 +1,7 @@
 import { Inmueble } from './inmueble.model';
 import { Usuario } from './usuario.model';
-export class Visita {
 
+export class Visita {
   constructor(
     public fecha: Date,
     public descripcion: string,

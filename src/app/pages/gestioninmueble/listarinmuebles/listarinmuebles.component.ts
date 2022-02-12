@@ -1,3 +1,4 @@
+import { SubirfotoinmuebleService } from 'src/app/services/inmueble/subirfotoinmueble.service';
 import { ContratoService } from './../../../services/contrato/contrato.service';
 import { Contrato } from './../../../models/contrato.model';
 import { InmuebleService } from './../../../services/inmueble/inmueble.service';
@@ -6,7 +7,6 @@ import { Inmueble } from './../../../models/inmueble.model';
 import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert';
 import * as moment from 'moment';
-
 
 
 @Component({
@@ -18,8 +18,9 @@ export class ListarinmueblesComponent implements OnInit {
 
 
   contratos: Contrato[] = [];
-
   inmuebles: Inmueble[] = [];
+
+
   imagenTemporal: string;
   desde = 0;
   contador;
@@ -28,18 +29,23 @@ export class ListarinmueblesComponent implements OnInit {
   time = 1000;
 
   fechaHoy;
+  banderaCrearInmuieble = false;
 
 
-  constructor( public _contratoService: ContratoService, public _inmuebleService: InmuebleService, public toastr: ToastrService ) {
+  constructor( public _contratoService: ContratoService,
+    public _inmuebleService: InmuebleService,
+    public toastr: ToastrService,
+    public subirFotosInmuebleService: SubirfotoinmuebleService ) {
+
     let now = moment(); // add this 2 of 4
     this.fechaHoy = now.format();
-    console.log('hello world', now.format()); // add this 3 of 4
+    //console.log('hello world', now.format()); // add this 3 of 4
 
   }
 
   ngOnInit(): void {
     this.cargarInmuebles();
-    this.buscarInmuebles('DISPONIBLE');
+    //this.buscarInmuebles('DISPONIBLE');
     this.cargarContratos();
 
   }
@@ -52,7 +58,9 @@ export class ListarinmueblesComponent implements OnInit {
 
   cargarInmuebles() {
     this._inmuebleService.cargarInmuebles(this.desde)
-      .subscribe(inmuebles => this.inmuebles = inmuebles);
+      .subscribe(inmuebles => {
+        this.inmuebles = inmuebles
+      });
   }
 
   cambiarPaginacion(valor: number) {
@@ -77,7 +85,7 @@ export class ListarinmueblesComponent implements OnInit {
 clearTimeout(this.timer);
 
 this.timer = setTimeout(() => {
-  console.log(termino);
+  //console.log(termino);
     if (termino.length <= 0) {
       this.cargarInmuebles();
       return;
@@ -87,11 +95,12 @@ this.timer = setTimeout(() => {
     }, this.time);
   }
 
-  borrarInmueble(inmueble: Inmueble) {
+
+  borrarInmuebleArrendador( inmueble: Inmueble ){
 
     swal({
-      title: '¿Está seguro de borrar el inmueble?',
-      text: 'Está a punto de borrar a: ' + inmueble.nombre,
+      title: '¿Está seguro de borrar el servicio?',
+      text: 'Está a punto de borrar el servicio: ' + inmueble.nombre,
       icon: 'warning',
       buttons: [
         'Cancelar',
@@ -101,16 +110,14 @@ this.timer = setTimeout(() => {
     })
       .then(borrar => {
         if (borrar) {
-          inmueble.estado = 'ELIMINADO';
-          inmueble.publicado = 'PRIVADO';
-          this._inmuebleService.borrarInmueble(inmueble)
+          this._inmuebleService.borrarInmuebleArrendador(inmueble._id)
             .subscribe(borrado => {
               this.cargarInmuebles();
             });
         }
       });
-
   }
+
 
 
   publicarInmueble(inmueble: Inmueble) {
@@ -137,16 +144,17 @@ this.timer = setTimeout(() => {
         if (inmueble.publicado === 'PUBLICO') {
           inmueble.publicado = 'PRIVADO';
           inmueble.estado = 'DISPONIBLE';
+          this.banderaCrearInmuieble = false;
         } else {
           inmueble.publicado = 'PUBLICO';
           inmueble.estado = 'DISPONIBLE';
+          this.banderaCrearInmuieble = true;
         }
 
         this._inmuebleService.publicarInmueble(inmueble)
           .subscribe(inmuebles =>{
-            if(inmuebles.publicado === 'PUBLICO'){
-              this.enviarFCM(inmuebles.nombre);
-
+            if(inmuebles.publicado === 'PUBLICO' && this.banderaCrearInmuieble){
+              this.enviarFCM(inmuebles._id);
             }
           });
         this.toastr.success('Inmueble ' + estadoObtenido);
@@ -154,8 +162,8 @@ this.timer = setTimeout(() => {
     });
   }
 
-  enviarFCM(inmueble: string){
-    this._inmuebleService.enviarNotificacionFCM(inmueble).subscribe(resp => {});
+  enviarFCM(idInmueble: string){
+    this._inmuebleService.enviarNotificacionFCM(idInmueble).subscribe(resp => {});
   }
 
 
@@ -188,6 +196,8 @@ this.timer = setTimeout(() => {
       this.toastr.warning('Ya está ' + contrato.estado + ' el contrato');
     }
   }
+
+
 
 
 
